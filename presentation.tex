@@ -1,0 +1,157 @@
+%-------------------------------------------------------------------------------
+% Main file of presentation
+%-------------------------------------------------------------------------------
+
+\documentclass[t]{beamer}
+
+%-------------------------------------------------------------------------------
+% pdfLaTeX (not used)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel} %[ngerman]
+\usepackage{lmodern}
+
+%-------------------------------------------------------------------------------
+% XeLaTeX (used)
+%\usepackage{polyglossia}
+%\setmainlanguage{american} % [spelling=new,babelshorthands=true]{german}
+%\usepackage{fontspec}
+%\usepackage{relsize}
+%\usepackage{microtype} % better management of overfulls
+
+%-------------------------------------------------------------------------------
+% beamer presentation theme (local to this project)
+%\usetheme{beamerthemefau-4-3}
+\usepackage{beamertheme/beamerthemefau-4-3}
+
+%-------------------------------------------------------------------------------
+% Quotes
+\usepackage[babel=once,german=quotes]{csquotes}
+
+%-------------------------------------------------------------------------------
+% strike out text with \st{some text}
+\usepackage{soul}
+
+%-------------------------------------------------------------------------------
+% Images, captions
+\usepackage{graphicx}
+%\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\DeclareCaptionFont{mysize}{\fontsize{14}{9.6}\selectfont}
+\captionsetup[sub]{font=mysize,labelfont={bf,sf}}
+\captionsetup{font=mysize,labelfont={bf,sf}}
+
+%-------------------------------------------------------------------------------
+% non-floating float environment, figure H option
+\usepackage{float}
+\usepackage{scrhack}
+
+%-------------------------------------------------------------------------------
+% Include text in graphics
+\usepackage{psfrag}
+
+%-------------------------------------------------------------------------------
+% math, symbols, math font, units
+\usepackage{amsmath, amsbsy, amssymb, amsfonts, xfrac, bm, cancel}
+\usepackage{commath} % provides differential operators
+\usepackage{textcomp} % required by gensymb
+\usepackage{gensymb} % eg. \degree symbol
+\usepackage{mathrsfs} % font
+\usepackage{upgreek} % (non-italic print) greek letters
+
+\usepackage{custom_math} % local to this project
+\usepackage{units} % local to this project
+
+%-------------------------------------------------------------------------------
+% line break in citations
+\usepackage{breakcites}
+
+%-------------------------------------------------------------------------------
+% colored and shaded boxes
+\usepackage{color, framed}
+
+%-------------------------------------------------------------------------------
+% theorem environment
+\usepackage{theorem}
+
+%-------------------------------------------------------------------------------
+% tables with page break or flexible columns/rows
+\usepackage{tabu}
+\usepackage{longtable} % für Tabellen mit Seitenumbruch
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+%-------------------------------------------------------------------------------
+% make labels visible
+%\usepackage{showkeys}
+
+%-------------------------------------------------------------------------------
+% links
+\usepackage{hyperref}
+
+
+%-------------------------------------------------------------------------------
+% custom hyphenation
+% e.g. write Neumann\hyp{}Randbedingung
+\usepackage{hyphenat}
+
+
+%-------------------------------------------------------------------------------
+% setup title page
+\title[]{Elasticity of one-dimensional continua and nanostructures}
+\author{Prof. Ajeet Kumar, Prakhar Gupta, Smriti Singh}
+\date{Erlangen, Summer term 2017}
+\institute{Chair of Applied Mechanics}
+
+
+%-------------------------------------------------------------------------------
+% begin body of document and render title page
+
+\begin{document}
+
+% plain-option deactivates header and footer
+\frame[plain,c]{\titlepage}
+
+
+
+%-------------------------------------------------------------------------------
+% include section introduction
+\include{sections/introduction/introduction}
+
+
+
+%-------------------------------------------------------------------------------
+% section content of the presentation, overview, table of contents
+\section*{Overview}
+
+% render table of contents page
+\frame{
+  % TODO TOC should not be spaced out over page
+  \tableofcontents
+}
+
+
+%-------------------------------------------------------------------------------
+% include section traditional_beams
+\include{sections/traditional_beams/traditional_beams}
+
+
+%-------------------------------------------------------------------------------
+% include section cosserat_rods
+\include{sections/cosserat_rods/cosserat_rods}
+
+
+
+%-------------------------------------------------------------------------------
+% include section ...
+%\include{sections/blueprint/blueprint}
+
+
+
+%-------------------------------------------------------------------------------
+\end{document}

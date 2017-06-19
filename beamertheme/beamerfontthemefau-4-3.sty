@@ -1,0 +1,48 @@
+%-------------------------------------------------------------------------------
+% Font theme file
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+%-------------------------------------------------------------------------------
+% document fonts and font size settings
+
+% Helvetica
+\usepackage{lmodern}
+%\renewcommand*{\familydefault}{\sfdefault} % default is sans-serif
+
+\AtBeginDocument{\fontsize{18}{22}\selectfont}
+
+% regular text
+\setbeamerfont{normal text}{size=\fontsize{18}{22}} % ignored currently, its not implemented yet!
+
+% title
+\setbeamerfont{title}{series=\bfseries,size=\fontsize{36}{42}}
+\setbeamerfont{subtitle}{series=\normalfont,size=\fontsize{36}{42}}
+\setbeamerfont{frametitle}{size=\fontsize{20}{28},series=\bfseries}
+
+% footer
+\setbeamerfont{footline}{size=\fontsize{10}{12}}
+
+
+%-------------------------------------------------------------------------------
+% enumerate, itemize font settings
+
+% Enumerate item
+\setbeamerfont{enumerate item}{size=\fontsize{18}{22}}
+\setbeamerfont{enumerate subitem}{size=\fontsize{18}{22}}
+\setbeamerfont{enumerate subsubitem}{size=\fontsize{18}{22}}
+
+% Itemize item
+\setbeamerfont{itemize item}{size=\fontsize{18}{22}}
+\setbeamerfont{itemize subitem}{size=\fontsize{18}{22}}
+\setbeamerfont{itemize subsubitem}{size=\fontsize{18}{22}}
+
+% Enumerate and itemize body
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{18}{22}}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{18}{22}}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{18}{22}}
+
+
+%-------------------------------------------------------------------------------
+\mode<all>

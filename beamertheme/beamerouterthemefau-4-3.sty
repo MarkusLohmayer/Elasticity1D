@@ -1,0 +1,89 @@
+%-------------------------------------------------------------------------------
+% Outer theme file
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+%-------------------------------------------------------------------------------
+% page setup
+\usepackage{geometry}
+\geometry{paperwidth=254mm,paperheight=190.5mm,left=0mm,right=0mm,top=0mm,bottom=0mm} % Papiergroesse
+\setbeamersize{text margin left=17.4mm,text margin right=10.6mm} % Marginalien fuer Inhalt
+
+%-------------------------------------------------------------------------------
+% deactivate navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+
+%-------------------------------------------------------------------------------
+% render frametitle
+\setbeamertemplate{frametitle}{
+  \insertframetitle%\\[24pt]
+  \vspace{-0.2em}
+}
+
+
+%-------------------------------------------------------------------------------
+% define header
+\setbeamertemplate{headline}{
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(254,29.8)(0,0)
+    % horizontal bar
+    \put(17.4, 5.8){\color{faublue}\rule{226mm}{0.75pt}}
+    % box with section title at the left end
+    \put(17.4, 5.8){
+      \begin{minipage}[b][24mm][c]{155.71mm}
+        \raggedright % align left
+        %\color{black}
+        %\fontsize{13}{17}\selectfont % font size and line spacing
+        %\usebeamertemplate{projectboxsmall}
+        \fontsize{28}{34}\selectfont % font size and line spacing
+        \color{faublue}
+        %\bfseries % bold
+        \insertsection % render section title
+      \end{minipage}
+    }
+    % box with FAU logo at the right end
+    \put(183.71, 5.0){
+      \begin{minipage}[b][24mm][c]{59.69mm}
+        \pgfuseimage{faulogosmall}
+      \end{minipage}
+    }
+  \end{picture}
+}
+
+
+
+%-------------------------------------------------------------------------------
+% define footer
+\setbeamertemplate{footline}{
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(254,12.5)(0,0)
+    % box for some information at the left end
+    \put(17.4,0){
+      \begin{minipage}[b][12.5mm][c]{169.5mm}
+      	\ifx\insertdate\empty\else        
+          \insertdate\quad|\quad
+		\fi
+		\ifx\insertauthor\empty\else
+		  \insertauthor\quad|\quad\
+		\fi
+		\ifx\insertinstitute\empty\else
+		  \insertinstitute %\quad|\quad
+		\fi
+        %\insertshorttitle
+      \end{minipage}
+    }
+    % box for page number at the right end
+    \put(230.9,0){
+      \begin{minipage}[b][12.5mm][c]{12.5mm}
+        \raggedleft % align right
+        \insertframenumber % render page number
+      \end{minipage}
+    }
+  \end{picture}
+}
+
+%-------------------------------------------------------------------------------
+\mode<all>

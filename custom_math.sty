@@ -1,0 +1,152 @@
+%-------------------------------------------------------------------------------
+% Define custom math notation
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% misc
+
+% two dots for e.g. interval 1,..,n
+\newcommand{\twodots}{\mathrel{{.}\,{.}}\nobreak}
+
+
+
+%-------------------------------------------------------------------------------
+% operators
+
+% divergence
+\def\div{\mathrm{div}}
+
+% gradient
+\def\grad{\mathrm{grad}}
+\def\Grad{\mathrm{Grad}}
+
+% diagonal of matrix
+\newcommand{\diag}{\mbox{diag}}
+
+% axial vector
+\def\axial{\mathrm{axial}}
+
+% sign/signum
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+% FFT
+\newcommand{\fft}{\mathop{\mathrm{FFT}}}
+
+% Fourier-transform
+\newcommand{\Fou}{\boldsymbol{\mathcal{F}}}
+%\newcommand{\Fou}{\boldsymbol{\mathfrak{F}}}
+%\newcommand{\Fou}{\pmb{\mathscr{F}}}
+
+% Real and imaginary part of complex number
+\newcommand{\Real}[1]{\Re\left\{{#1}\right\}}
+\newcommand{\Imag}[1]{\Im\left\{{#1}\right\}}
+
+
+
+%-------------------------------------------------------------------------------
+% symbolic representation of vectors, matrices, and tensors
+
+% double underlined symbol (matrix, second order tensor)
+\def\doubleunderline#1{\underline{\underline{#1}}}
+
+
+% define command to set symbol in bold font
+\newcommand{\boldt}[1]{\mbox{\boldmath $#1$}}
+%\newcommand{\boldt}[1]{\mathbf{#1}}
+
+% use this command to define bold type symbols
+% lowercase letters:
+\newcommand{\ab}   {\boldt{a}}
+\newcommand{\bb}   {\boldt{b}}
+\newcommand{\cb}   {\boldt{c}}
+\newcommand{\db}   {\boldt{d}}
+\newcommand{\eb}   {\boldt{e}}
+\newcommand{\fb}   {\boldt{f}}
+\newcommand{\gb}   {\boldt{g}}
+\newcommand{\hb}   {\boldt{h}}
+\newcommand{\ib}   {\boldt{i}}
+\newcommand{\jb}   {\boldt{j}}
+\newcommand{\kb}   {\boldt{k}}
+\newcommand{\lb}   {\boldt{l}}
+\newcommand{\mb}   {\boldt{m}}
+\newcommand{\nb}   {\boldt{n}}
+\newcommand{\ob}   {\boldt{o}}
+\newcommand{\pb}   {\boldt{p}}
+\newcommand{\qb}   {\boldt{q}}
+\newcommand{\rb}   {\boldt{r}}
+%\newcommand{\sb}   {\boldt{s}}
+\newcommand{\tb}   {\boldt{t}}
+\newcommand{\ub}   {\boldt{u}}
+\newcommand{\vb}   {\boldt{v}}
+\newcommand{\wb}   {\boldt{w}}
+\newcommand{\xb}   {\boldt{x}}
+\newcommand{\yb}   {\boldt{y}}
+\newcommand{\zb}   {\boldt{z}}
+% uppercase letters:
+\newcommand{\Ab}   {\boldt{A}}
+\newcommand{\Bb}   {\boldt{B}}
+\newcommand{\Cb}   {\boldt{C}}
+\newcommand{\Db}   {\boldt{D}}
+\newcommand{\Eb}   {\boldt{E}}
+\newcommand{\Fb}   {\boldt{F}}
+\newcommand{\Gb}   {\boldt{G}}
+\newcommand{\Hb}   {\boldt{H}}
+\newcommand{\Ib}   {\boldt{I}}
+\newcommand{\Jb}   {\boldt{J}}
+\newcommand{\Kb}   {\boldt{K}}
+\newcommand{\Lb}   {\boldt{L}}
+\newcommand{\Mb}   {\boldt{M}}
+\newcommand{\Nb}   {\boldt{N}}
+\newcommand{\Ob}   {\boldt{O}}
+\newcommand{\Pb}   {\boldt{P}}
+\newcommand{\Qb}   {\boldt{Q}}
+\newcommand{\Rb}   {\boldt{R}}
+\newcommand{\Sb}   {\boldt{S}}
+\newcommand{\Tb}   {\boldt{T}}
+\newcommand{\Ub}   {\boldt{U}}
+\newcommand{\Vb}   {\boldt{V}}
+\newcommand{\Wb}   {\boldt{W}}
+\newcommand{\Xb}   {\boldt{X}}
+\newcommand{\Yb}   {\boldt{Y}}
+\newcommand{\Zb}   {\boldt{Z}}
+% digits
+\newcommand{\0}   {\boldt{0}}
+
+
+% define command to set symbol in bold font
+\newcommand{\bolds}[1]{\boldsymbol{#1}}
+
+% use this command to define bold type symbols
+% greek letters:
+\newcommand{\alphab}      {\bolds{\alpha}}
+\newcommand{\epsilonb}    {\bolds{\epsilon}}
+\newcommand{\varepsilonb} {\bolds{\varepsilon}}
+\newcommand{\varphib}     {\bolds{\varphi}}
+\newcommand{\etab}        {\bolds{\eta}}
+\newcommand{\gammab}      {\bolds{\gamma}}
+\newcommand{\lambdab}     {\bolds{\lambda}}
+\newcommand{\Lambdab}     {\bolds{\Lambda}}
+\newcommand{\mub}         {\bolds{\mu}}
+\newcommand{\omegab}      {\bolds{\omega}}
+\newcommand{\psib}        {\bolds{\psi}}
+\newcommand{\sigmab}      {\bolds{\sigma}}
+\newcommand{\taub}        {\bolds{\tau}}
+\newcommand{\xib}         {\bolds{\xi}}
+\newcommand{\Xib}         {\bolds{\Xi}}
+\newcommand{\Sigmab}      {\bolds{\Sigma}}
+\newcommand{\Phib}        {\bolds{\Phi}}
+
+
+%-------------------------------------------------------------------------------
+% commands for index notation
+
+%\newcommand{\harm}[1]{^{({#1})}}		%Index für Harmonische 1
+%\newcommand{\harm}[1]{({#1})}			%Index für Harmonische 2
+%\newcommand{\harm}[1]{_{({#1})}}		%Index für Harmonische 3
+%\newcommand{\iharm}[2]{_{{#1},\,({#2})}}	%Index für Namen und Harmonische
+%\newcommand{\tstep}[1]{({#1})}			%Index für Zeitschritt
+%\newcommand{\itstep}[2]{_{{#1}}({#2})}		%Index für Namen und Zeitschritt
+%\newcommand{\iter}[1]{^{\{{#1}\}}}		%Index für Iteration 1
+%\newcommand{\iter}[1]{^{({#1})}}		%Index für Iteration 2
+%\newcommand{\iiter}[2]{_{#1}^{({#2})}}		%Index für Iteration 2
+

@@ -1,0 +1,84 @@
+%-------------------------------------------------------------------------------
+% Introduction
+%-------------------------------------------------------------------------------
+\section*{Introduction}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Extension, torsion and bending of rods/beams}
+  \begin{tabularx}{\linewidth}{XXX}
+    {
+    \begin{alignat*}{1}
+      F &= E \, A \, \epsilon \\
+        %&= E \, A \, \frac{\Delta l}{l}
+    \end{alignat*}
+    } & {
+    \begin{alignat*}{1}
+      M_t = G \, J \, \frac{\Theta}{L} \\
+    \end{alignat*}
+    } & {
+    \begin{alignat*}{1}
+      M = E \, I \, \kappa \\
+    \end{alignat*}
+    }
+  \end{tabularx}  
+  % Linear ...:
+  % M(x) , M(s)
+  % TODO revisit this/these motivational slide/slides
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{3D elasticity (recap of some basics)}
+  
+  \textbf{Deformation map} $\underline{x} = \underline{f}(\underline{X})$
+  \begin{itemize}
+    \item takes a (Langrangian/material) vector/point $\underline{X}$ in the undeformed configuration
+    \item returns a (Eulerian/spatial) vector/point $\underline{x}$ in the deformed configuration
+  \end{itemize}
+  \vspace{1em}
+  
+  \textbf{Deformation gradient} $\doubleunderline{F}(\underline{X}) = \nabla_{\underline{X}} \,\underline{f}(\underline{X})$
+  \begin{itemize}
+    \item takes a (Langrangian/material) vector/point $\underline{X}$ in the undeformed configuration \newline
+      $\rightarrow$ $\underline{X}$ is material point where the gradient is evaluated
+    \item returns a second order (two-point) tensor $\doubleunderline{F}$ that depends on $\underline{X}$ (in the general case)
+    \item $\doubleunderline{F}$ contains (first order accurate) information about how line elements in the material configuration are transformed into deformed (stretched and rotated) line elements in the spatial configuration by $\underline{f}(.)$ \newline
+      $\rightarrow$ $\dif \underline{x} = \doubleunderline{F}(\underline{X}) \cdot \dif \underline{X}= \nabla_{\underline{X}} \,\underline{f}(\underline{X}) \cdot \dif \underline{X}$
+  \end{itemize}
+  \vspace{1em}
+  
+  \textbf{Equations of equilibrium}
+  \begin{itemize}
+    \item Material description: $\nabla_{\underline{X}} \cdot \doubleunderline{P} + \underline{B} = \rho_0 \cdot \underline{A}$
+    \item Spatial description: $\nabla_{\underline{x}} \cdot \doubleunderline{\sigma} + \underline{b} = \rho \cdot \underline{a}$
+  \end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{1D elasticity}
+  
+  We talk about \textbf{slender bodies} ($\frac{\mathrm{Length}}{\mathrm{Diameter}} > 10$)
+  \vspace{1em}
+  
+  Only \textbf{one material coordinate} $s$ along the axis of the beam
+  \begin{itemize}
+    \item $s$ uniquely identifies a particular cross section along the beam axis
+    \item model equations will be a system of ODEs in $s$ (instead of PDE)
+    \item equations are obtained by averaging a PDE in 3 dimensions over the cross section
+  \end{itemize}
+  \vspace{1em}
+  
+  Kinematic quantities in the model
+  \begin{itemize}
+    \item \textbf{position of centerline} $\underline{r}(s)$
+    \item \textbf{orientation/rotation of cross section} $\doubleunderline{R}(s)$
+    \item more accuracy $\rightarrow$ more unknowns
+  \end{itemize}
+  
+\end{frame}

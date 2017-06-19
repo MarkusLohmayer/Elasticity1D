@@ -1,0 +1,119 @@
+%-------------------------------------------------------------------------------
+% Inner theme file
+%-------------------------------------------------------------------------------
+
+\mode<presentation>
+
+
+%-------------------------------------------------------------------------------
+% define title page
+\setbeamertemplate{title page}{
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(254,190.5)(17.4,0)
+    % background image
+    \put(0,55.4){
+      \pgfuseimage{fauschloss}
+    }
+    % horizontal rule
+    %\put(0,55.4){\color{faublue}\rule{\paperwidth}{4mm}}
+    % presentation title
+    \put(17.4,110.7){
+      \begin{minipage}[b][45mm][t]{226mm}
+        \usebeamerfont{title}{\raggedright\inserttitle\par}
+      \end{minipage}
+    }
+    % author, date, ..
+    \put(17.4,66){
+      \begin{minipage}[b][30mm][b]{160mm}
+        \fontsize{18}{22}\selectfont % font size and line spacing
+        \ifx\insertauthor\empty\else
+          \insertauthor
+	    \fi
+	    \ifx\insertdate\empty\else
+          \newline\insertdate
+        \fi
+        \ifx\insertinstitute\empty\else
+          \newline\insertinstitute
+	    \fi
+      \end{minipage}
+    }
+    % box below at the left end
+    \put(17.4,0){
+      \begin{minipage}[b][37.5mm][c]{125.45mm}
+        \raggedright % Ausrichtung am rechten Rand
+        \color{black}
+        \fontsize{16}{20}\selectfont % font size and line spacing
+        \usebeamertemplate{projectbox}
+      \end{minipage}
+    }
+    % box below at the right end with FAU logo
+    \put(153.45,0){
+      \begin{minipage}[b][37.5mm][c]{89.95mm}
+        \raggedleft % align left
+        \pgfuseimage{faulogo}
+      \end{minipage}
+    }
+  \end{picture}
+}
+
+
+%-------------------------------------------------------------------------------
+% define section page
+% \AtBeginSection{%
+%   \frame[plain,c]{%
+%     \setlength{\unitlength}{1mm}
+%     \begin{picture}(254,190.5)(17.4,0) % Ursprung (0,0) minus linke Marginalie
+%       % Hintergrundbild Schloss abgeschnitten
+%       \put(0,135.1){%
+%         \pgfuseimage{fauschlosscropped}
+%       }
+%       % Trennbalken
+%       \put(0,135.1){\color{faublue}\rule{\paperwidth}{4mm}}
+%       % Titel der Section
+%       \put(17.4,75.3){%
+%         \begin{minipage}[b][25mm][t]{226mm}
+%           \fontsize{28}{34}\selectfont
+%           \color{faublue}
+%           \bfseries % fett
+%           \insertsection
+%         \end{minipage}
+%       }
+%       % Projekt-/Lehrstuhl-Box
+%       \put(17.4,0){%
+%         \color{black}
+%         \begin{minipage}[b][37.5mm][c]{125.45mm}
+%           %\raggedleft
+%           \raggedright
+%           \color{black}
+%           \fontsize{16}{20}\selectfont
+%           \usebeamertemplate{projectbox}
+%         \end{minipage}
+%       }
+%   	   % Logo-Box mit FAU-Logo
+%        \put(153.45,0){%
+%          \begin{minipage}[b][37.5mm][c]{89.95mm}
+%            \raggedleft
+%            \pgfuseimage{faulogo}
+%          \end{minipage}
+%      }
+%     \end{picture}
+%   }% end frame
+% }
+
+
+%-------------------------------------------------------------------------------
+% itemize, enumerate settings
+
+% Enumerate item
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+\setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+
+% Itemize item
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+
+
+%-------------------------------------------------------------------------------
+\mode<all>
