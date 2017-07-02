@@ -41,7 +41,11 @@
         \fontsize{28}{34}\selectfont % font size and line spacing
         \color{faublue}
         %\bfseries % bold
-        \insertsection % render section title
+        \ifx\insertsubsection\empty % if \insertsubsection renders \empty
+          \insertsection % render section title
+        \else
+          \insertsubsection % render subsection title
+	    \fi
       \end{minipage}
     }
     % box with FAU logo at the right end

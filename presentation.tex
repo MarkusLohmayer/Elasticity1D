@@ -6,15 +6,15 @@
 
 %-------------------------------------------------------------------------------
 % pdfLaTeX (not used)
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[american]{babel} %[ngerman]
-\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[american]{babel} %[ngerman]
+
 
 %-------------------------------------------------------------------------------
 % XeLaTeX (used)
-%\usepackage{polyglossia}
-%\setmainlanguage{american} % [spelling=new,babelshorthands=true]{german}
+\usepackage{polyglossia} % replaces babel
+%\setmainlanguage[spelling=new,babelshorthands=true]{german}
 %\usepackage{fontspec}
 %\usepackage{relsize}
 %\usepackage{microtype} % better management of overfulls
@@ -26,7 +26,7 @@
 
 %-------------------------------------------------------------------------------
 % Quotes
-\usepackage[babel=once,german=quotes]{csquotes}
+%\usepackage[babel=once,german=quotes]{csquotes}
 
 %-------------------------------------------------------------------------------
 % strike out text with \st{some text}
@@ -39,9 +39,9 @@
 \usepackage{wrapfig}
 \usepackage{caption}
 \usepackage{subcaption}
-\DeclareCaptionFont{mysize}{\fontsize{14}{9.6}\selectfont}
-\captionsetup[sub]{font=mysize,labelfont={bf,sf}}
-\captionsetup{font=mysize,labelfont={bf,sf}}
+%\DeclareCaptionFont{mysize}{\fontsize{14}{9.6}\selectfont}
+%\captionsetup[sub]{font=mysize,labelfont={bf,sf}}
+%\captionsetup{font=mysize,labelfont={bf,sf}}
 
 %-------------------------------------------------------------------------------
 % non-floating float environment, figure H option
@@ -54,12 +54,19 @@
 
 %-------------------------------------------------------------------------------
 % math, symbols, math font, units
-\usepackage{amsmath, amsbsy, amssymb, amsfonts, xfrac, bm, cancel}
+\usepackage{amsmath}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+\usepackage{cancel}
 \usepackage{commath} % provides differential operators
 \usepackage{textcomp} % required by gensymb
 \usepackage{gensymb} % eg. \degree symbol
-\usepackage{mathrsfs} % font
-\usepackage{upgreek} % (non-italic print) greek letters
+\usepackage{mathtools} % eg. \underbrace
+
+\usepackage[math-style=ISO]{unicode-math} % font (XeLaTeX)
+%\usepackage{upgreek} % (non-italic print) greek letters
 
 \usepackage{custom_math} % local to this project
 \usepackage{units} % local to this project
@@ -94,6 +101,23 @@
 % links
 \usepackage{hyperref}
 
+%-------------------------------------------------------------------------------
+% enumerate, itemize spacing
+\usepackage{enumitem}
+\setlist{  
+  listparindent=\parindent,
+  parsep=3pt, % space above each item
+  topsep=2pt, % space above (all items together)
+}
+\setlist[itemize,1]{label=$\circ$}
+
+% fix compatibility with beamer
+\setitemize{label=\protect\usebeamerfont{itemize item}
+                  \protect\usebeamercolor[fg]{itemize item}}
+\setenumerate[1]{label=\protect\usebeamerfont{enumerate item}
+                       \protect\usebeamercolor[fg]{enumerate item}
+                       \insertenumlabel.}
+
 
 %-------------------------------------------------------------------------------
 % custom hyphenation
@@ -127,7 +151,7 @@
 
 %-------------------------------------------------------------------------------
 % section content of the presentation, overview, table of contents
-\section*{Overview}
+\section*{Outline of this course}
 
 % render table of contents page
 \frame{
