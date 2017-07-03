@@ -66,14 +66,13 @@
   
   \textbf{consequences}
   \begin{displaymath}
-    \exists \: \doubleunderline{R}(s) \in SO3 \: \forall s : \biggl( R: \left( \underline{e}_1, \underline{e}_2, \underline{e}_3 \right) \mapsto \left( \underline{d}_1, \underline{d}_2, \underline{d}_3 \right) \biggr)
+    \exists \: \doubleunderline{R}(s) \in SO(3) \: \forall s : \biggl( R: \left( \underline{e}_1, \underline{e}_2, \underline{e}_3 \right) \mapsto \left( \underline{d}_1, \underline{d}_2, \underline{d}_3 \right) \biggr)
   \end{displaymath}
-  % TODO SO3 (twice)
   \begin{itemize}
     \item $\left( \underline{e}_1, \underline{e}_2, \underline{e}_3 \right)$ is called the global basis
     \item $\left( \underline{d}_1, \underline{d}_2, \underline{d}_3 \right)(s)$ is called the local basis or director basis at $s$
     \item $\underline{d}_i(s) = \doubleunderline{R}(s) \cdot \underline{e}_i$ \quad 
-      ($\doubleunderline{R}$ : rotation matrix ; $SO3$ : special orthogonal matrix group)
+      ($\doubleunderline{R}$ : rotation matrix ; $SO(3)$ : special orthogonal matrix group)
   \end{itemize}
   \vspace{1em}
   
@@ -111,26 +110,12 @@
   
   \textbf{what are our kinematic unknowns?}
   \begin{itemize}
-    \item if $\underline{u}(X_1,X_2)$ then we would again deal with a 3D elasticity problem
-    \item $\underline{u}$ is not an independent quantity / extra unknown
-    \item $\underline{u}$ depends on local measures $\rightarrow$ 1D theory (we will come back to this ...)
+    \item if $\underline{u} = \underline{u}(X_1,X_2,s)$ then we would be dealing with a 3D elasticity problem
+    \item here we have $\underline{u}(X_1,X_2,\text{local strains})$, not a function of $s$ \newline (we will come back to this ...)
     \item $\underline{r}(s)$ and $\doubleunderline{R}(s)$ are the only kinematic unknowns!
   \end{itemize}
-  % TODO what can I do better here?
-  % $\underline{u}(X_1,X_2,\text{local strains})$
-  % local strains: local gradients of $\underline{r}$ and $\doubleunderline{R}$
 \end{frame}
 
-
-
-%-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{...}
-  
-  % TODO order of slides (not kinematics)
-  3D elasticity , plug in the constrained deformation map , integrate over cross section , obtain a system of ODEs in the unknowns $\underline{r}(s)$ and $\doubleunderline{R}(s)$
-  
-\end{frame}
 
 %-------------------------------------------------------------------------------
 \begin{frame}
@@ -197,7 +182,8 @@
   \end{displaymath}
   a skew-symmetric matrix obtained from the definition
   \begin{displaymath}
-    \doubleunderline{a} = \doubleunderline{a} \cdot \doubleunderline{I} = \underline{a} \times \doubleunderline{I} :=
+    \doubleunderline{a} = \doubleunderline{a} \cdot \doubleunderline{I} =
+%     \underline{a} \times \doubleunderline{I} :=
     \begin{bmatrix}
       \underline{a} \times \underline{e}_1 & \underline{a} \times \underline{e}_2 & \underline{a} \times \underline{e}_3
     \end{bmatrix}
@@ -249,7 +235,7 @@
   
   Quaternions are a number system that extends the complex numbers. A quaternion consists of one real part and three independent imaginary parts. A unit quaternion is a quaternion of norm one and therefore has three independent components. \newline
   There exists an isomorphism between unit quaternions and rotation matrices:
-  % TODO check if formulas are valid? more info on this stuff useful?
+
   \begin{displaymath}
     \text{given }
     \underline{q} = \begin{bmatrix}
@@ -282,8 +268,9 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Balance of forces (part 1)}
-
-  %\vspace{-0.5em}
+  % TODO be explicit about deformed configuration
+  % we are integrating the undeformed configuration! (keep lines straight)
+  % comment about N=+-e_3 instead of two lines ..
   \begin{figure}
     \centering
     \includegraphics[width=22cm, keepaspectratio=true]{sections/cosserat_rods/images/Forces}
@@ -389,7 +376,7 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Balance of moments (part 2)}
-  
+  % TODO use color to show which terms are equal
   \begin{displaymath}
     \begin{alignedat}{1}
       = &\int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \biggl( \iint_{\Omega_0} \underline{B}(s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(s) \dif l \biggr) \Biggr) \dif s + \\
@@ -404,7 +391,7 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Balance of moments (part 3)}
-  
+    % TODO use color to show which terms are equal
   \textbf{moment due to internal forces} % TODO tractions (also before with forces)
   \begin{displaymath}
     \begin{alignedat}{1}
@@ -440,16 +427,22 @@
     \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) = \underline{0}
   \end{displaymath}
 
-  %\begin{displaymath}
-  %  \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) =
-  %  \rho_0 \bar{ \bigl( \dot{\doubleunderline{I} \cdot \underline{\dot{\omega}}} \bigr) } =
-  % TODO change of angular momentum = 0 
-  %  \underline{0}
-  %\end{displaymath}
+%  \begin{displaymath}
+%    \underline{m}^{\prime}(s) +
+%    \underline{r}^{\prime}(s) \times \underline{n}(s) +
+%    \underline{\hat{m}}(s) =
+%    \rho_0 \cdot
+%    \bar{
+%      \bigl( \dot{\doubleunderline{I} \cdot \underline{\omega}} \bigr)
+%    } =
+%    \underline{0}
+%  \end{displaymath}
+    % TODO dynamics, widebar
 \end{frame}
 
 
 %-------------------------------------------------------------------------------
+
 \begin{frame}
   \frametitle{Review of balance equations (statics)}
   
@@ -464,14 +457,19 @@
   \end{displaymath}
   
   \vspace{1em}
-  we have \textbf{6 unknowns}, $\underline{r}(s)$ and $\doubleunderline{R}(s)$ with 3 unknowns each, \newline
-  but our \textbf{6 equations} are still in terms of the stress measures
+  we have \textbf{6 kinematic unknowns}, $\underline{r}(s)$ and $\doubleunderline{R}(s)$ with 3 unknowns each
+  
+  \vspace{0.3em}
+  and we have \textbf{6 kinetic unknowns}
   \begin{displaymath}
     \begin{alignedat}{1}
       &\underline{n}(s) = \iint_{\Omega_0(s)} \doubleunderline{P}(X_1, X_2, s) \cdot \underline{e}_3 \dif X_1 \dif X_2 \\
       &\underline{m}(s) = \iint_{\Omega_0(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2
     \end{alignedat}
   \end{displaymath}
+  
+  \vspace{0.3em}
+  to close the system we need a relationship between the kinematic and the kinetic quatities
 \end{frame}
 
 
@@ -481,7 +479,6 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Motivation of constitutive law}
-  % TODO good title?
 
   let's recall the \textbf{constrained deformation map} (without warping)
   \begin{displaymath}
@@ -498,14 +495,14 @@
   \end{displaymath}
   
   \vspace{1em}
-  we then must find an expression of the form
+  we then obtain an expression of the form
   \begin{displaymath}
     \doubleunderline{P}(X_1,X_2,s) = \mathop{\mathrm{function}}\bigl( \doubleunderline{F}(X_1,X_2,s) \bigr) \, ,
   \end{displaymath}
   
   \vspace{0.4em}
   %which leads us to the constitutive law ...
-  this expression we call the constitutive law of the material
+  from the 3-dimensional constitutive law of the material
 \end{frame}
 
 
@@ -549,9 +546,7 @@
       &\neq E \, A \, (\lambda - 1)
     \end{alignedat}
   \end{displaymath}
-  %TODO NLKM connection
   because the deformation map violates the traction-free boundary condition \newline
-  %TODO traction free bc
   $\rightarrow$ the cross section must be able to shrink when the bar is stretched!
 \end{frame}
 
@@ -560,8 +555,12 @@
 \begin{frame}
   \frametitle{Constitutive equation for a hyperelastic rod}
   
+  note: hyperelasticity refers to a reversible deformation process; \newline
+  therefore it can be described by a potential function
+  
+  \vspace{0.7em}
   in order to derive constitutive laws from theory, \newline
-  we will use potential functions of internal energy ... 
+  we will use functions that are potentials of internal energy ... 
   
   \vspace{1.5em}
   \textbf{strain energy per unit of undeformed length}
@@ -578,11 +577,11 @@
   \vspace{0.1em}
   \begin{itemize}
     \item $\underline{f}(s)$ canceled because of principle of frame indifference
-    \item $\nabla \doubleunderline{F}(s)$ canceled because we will not consider higher order derivatives of the deformation map
+    \item $\nabla \doubleunderline{F}(s)$ canceled because we will not consider higher order derivatives of the deformation map in classical elasticity (compared to higher gradient elasticity theory)
+    % discontinuities at interfaces in the material 
   \end{itemize}
 \end{frame}
 
-% TODO order, different arguments of \phi, W
 
 %-------------------------------------------------------------------------------
 \begin{frame}
@@ -599,7 +598,7 @@
   to that end we set up a simple \textbf{thought experiment}
   \begin{itemize}
     \item perform two rigid body motions: one rotation followed by one translation
-    \item equate the internal mechanical energy potentials: $\eval[1]{\phi}_{(1)} = \eval[1]{\phi}_{(2)} = \eval[1]{\phi}_{(3)}$
+    \item equate the internal mechanical energy potentials: $\eval[1]{\phi}_{\alpha} = \eval[1]{\phi}_{\beta} = \eval[1]{\phi}_{\gamma}$
   \end{itemize}
   
   \vspace{-1.4em}
@@ -613,29 +612,30 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Principle of material frame-indifference (part 2)}
+  % TODO split slide
   \vspace{-0.6em}
   \begin{enumerate}
-    \item initial configuration
+    \item initial configuration $\alpha$
       \begin{itemize}
-        \item centerline given by $\underline{r}^{(1)}(s)$
-        \item cross section orientation given by $\doubleunderline{R}^{(1)}(s)$
-        \item energy potential given by $\eval[1]{\phi}_{(1)}(s) = \phi \bigl( \underline{r}^{(1)}(s) , \, \doubleunderline{R}^{(1)}(s) , \, \underline{r}^{(1) \prime}(s) , \, \doubleunderline{R}^{(1) \prime}(s) \bigr)$
+        \item centerline given by $\underline{r}^{\alpha}(s)$
+        \item cross section orientation given by $\doubleunderline{R}^{\alpha}(s)$
+        \item energy potential given by $\eval[1]{\phi}_{\beta}(s) = \phi \bigl( \underline{r}^{\alpha}{\alpha}(s) , \, \doubleunderline{R}^{\alpha}(s) , \, \underline{r}^{\alpha \prime}(s) , \, \doubleunderline{R}^{\alpha \prime}(s) \bigr)$
       \end{itemize}
       
-    \item configuration after rigid body rotation by $\doubleunderline{Q}$ about $\underline{X}_0$ 
-      (arbitrary $\doubleunderline{Q} \in SO3$ , $\underline{X}_0 \in \mathbb{R}^3$)
+    \item configuration $\beta$ after rigid body rotation by $\doubleunderline{Q}$ about $\underline{X}_0$ 
+      (arbitrary $\doubleunderline{Q} \in SO(3)$ , $\underline{X}_0 \in \mathbb{R}^3$)
       \begin{itemize}
-        \item $\underline{r}^{(2)}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) \quad \Rightarrow \quad \underline{r}^{(2) \prime}(s) = \doubleunderline{Q} \, \underline{r}^{(1) \prime}(s)$ \newline
-          \null \quad \quad \quad (pull rotation's fix-point into the origin, rotate, and push back)
-        \item $\doubleunderline{R}^{(2)}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) \quad \Rightarrow \quad \doubleunderline{R}^{(2) \prime}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s)$
-        \item $\eval[1]{\phi}_{(2)}(s) = \phi \bigl( \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) , \, \doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) , \, \doubleunderline{Q} \, \underline{r}^{(1) \prime}(s) , \, \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s) \bigr)$
+        \item $\underline{r}^{\beta}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) \quad \Rightarrow \quad \underline{r}^{\beta \prime}(s) = \doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s)$ \newline
+          \null \quad (shift coordinate system s.t. rotation's fix-point $\hat{=}$ origin; rotate; undo shift)
+        \item $\doubleunderline{R}^{\beta}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) \quad \Rightarrow \quad \doubleunderline{R}^{\beta \prime}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s)$
+        \item $\eval[1]{\phi}_{\beta}(s) = \phi \bigl( \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) , \, \doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s) , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s) \bigr)$
       \end{itemize}
       
-    \item configuration after rigid body translation by $\underline{t}$ (arbitrary $\underline{t} \in \mathbb{R}^3$)
+    \item configuration $\gamma$ after rigid body translation by $\underline{t}$ (arbitrary $\underline{t} \in \mathbb{R}^3$)
       \begin{itemize}
-        \item $\underline{r}^{(3)}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) + \underline{t} \quad \Rightarrow \quad \underline{r}^{(3) \prime}(s) = \underline{r}^{(2) \prime}(s) = \doubleunderline{Q} \,\underline{r}^{(1) \prime}(s)$
-        \item $\doubleunderline{R}^{(3)}(s) = \doubleunderline{I} \, \doubleunderline{R}^{(2)}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) \quad \Rightarrow \quad \doubleunderline{R}^{(3) \prime}(s) = \doubleunderline{R}^{(2) \prime}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s)$
-        \item $\eval[1]{\phi}_{(3)}(s) = \phi \bigl( \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) + \underline{t} , \, \doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) , \, \doubleunderline{Q} \,\underline{r}^{(1) \prime}(s) , \, \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s) \bigr)$
+        \item $\underline{r}^{\gamma}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) + \underline{t} \quad \Rightarrow \quad \underline{r}^{\gamma \prime}(s) = \underline{r}^{\beta \prime}(s) = \doubleunderline{Q} \,\underline{r}^{\alpha \prime}(s)$
+        \item $\doubleunderline{R}^{\gamma}(s) = \doubleunderline{I} \, \doubleunderline{R}^{\beta}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) \quad \Rightarrow \quad \doubleunderline{R}^{\gamma \prime}(s) = \doubleunderline{R}^{\beta \prime}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s)$
+        \item $\eval[1]{\phi}_{\gamma}(s) = \phi \bigl( \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) + \underline{t} , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) , \, \doubleunderline{Q} \,\underline{r}^{\alpha \prime}(s) , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s) \bigr)$
       \end{itemize}
   \end{enumerate}
 \end{frame}
@@ -646,20 +646,20 @@
 \begin{frame}
   \frametitle{Principle of material frame-indifference (part 3)}
   
-  comparing $\eval[1]{\phi}_{(2)}(s) \overset{!}{=} \eval[1]{\phi}_{(3)}(s)$ gives
+  comparing $\eval[1]{\phi}_{\beta}(s) \overset{!}{=} \eval[1]{\phi}_{\gamma}(s)$ gives
   \begin{displaymath}
     \begin{alignedat}{4}
       \phi \bigl(
-        &\underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) , \,
-        &\doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) , \,
-        &\doubleunderline{Q} \, \underline{r}^{(1) \prime}(s) , \,
-        &\doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s)
+        &\underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) , \,
+        &\doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) , \,
+        &\doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s) , \,
+        &\doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s)
       \bigr) = \\
       \phi \bigl(
-        &\underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{(1)}(s) - \underline{X}_0 \right) + \underline{t} , \,
-        &\doubleunderline{Q} \, \doubleunderline{R}^{(1)}(s) , \,
-        &\doubleunderline{Q} \, \underline{r}^{(1) \prime}(s) , \,
-        &\doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime}(s)
+        &\underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) + \underline{t} , \,
+        &\doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) , \,
+        &\doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s) , \,
+        &\doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s)
       \bigr) \Rightarrow
     \end{alignedat}
   \end{displaymath}
@@ -691,22 +691,23 @@
 \begin{frame}
   \frametitle{Invariant strain measures (part 1)}
   
+  
   we can verify that $\doubleunderline{R}^{\mathrm{T}} \, \underline{r}^{\prime}$ and $\doubleunderline{R}^{\mathrm{T}} \, \doubleunderline{R}^{\prime}$ are truly invariant strain measures
   
   \vspace{1em}
   we get
   \begin{displaymath}
-    \doubleunderline{R}^{(3) \mathrm{T}} \, \underline{r}^{(3) \prime} =
-    \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{(1)} \bigr)^{\mathrm{T}} \, \bigl( \doubleunderline{Q} \, \underline{r}^{(1) \prime} \bigr) =
-    \bigl( \doubleunderline{R}^{(1) \mathrm{T}} \, \doubleunderline{Q}^{\mathrm{T}} \bigr) \, \bigl( \doubleunderline{Q} \, \underline{r}^{(1) \prime} \bigr) =
-    \doubleunderline{R}^{(1)} \, \underline{r}^{(1) \prime}
+    \doubleunderline{R}^{\gamma \mathrm{T}} \, \underline{r}^{\gamma \prime} =
+    \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{\alpha} \bigr)^{\mathrm{T}} \, \bigl( \doubleunderline{Q} \, \underline{r}^{\alpha \prime} \bigr) =
+    \bigl( \doubleunderline{R}^{\alpha \mathrm{T}} \, \doubleunderline{Q}^{\mathrm{T}} \bigr) \, \bigl( \doubleunderline{Q} \, \underline{r}^{\alpha \prime} \bigr) =
+    \doubleunderline{R}^{\alpha \mathrm{T}} \, \underline{r}^{\alpha \prime}
   \end{displaymath}
   and
   \begin{displaymath}
-    \doubleunderline{R}^{(3) \mathrm{T}} \, \doubleunderline{R}^{(3) \prime} =
-    \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{(1)} \bigr)^{\mathrm{T}} \, \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime} \bigr) =
-    \bigl( \doubleunderline{R}^{(1) \mathrm{T}} \, \doubleunderline{Q}^{\mathrm{T}} \bigr) \, \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{(1) \prime} \bigr) =
-    \doubleunderline{R}^{(1)} \, \doubleunderline{R}^{(1) \prime}
+    \doubleunderline{R}^{\gamma \mathrm{T}} \, \doubleunderline{R}^{\gamma \prime} =
+    \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{\alpha} \bigr)^{\mathrm{T}} \, \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime} \bigr) =
+    \bigl( \doubleunderline{R}^{\alpha \mathrm{T}} \, \doubleunderline{Q}^{\mathrm{T}} \bigr) \, \bigl( \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime} \bigr) =
+    \doubleunderline{R}^{\alpha \mathrm{T}} \, \doubleunderline{R}^{\alpha \prime}
   \end{displaymath}
 \end{frame}
 
@@ -714,7 +715,6 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Invariant strain measures (part 2)}
-  
   we define $\underline{v}$ as the shorthand for the first invariant
   \begin{displaymath}
     \underline{v} =
@@ -740,6 +740,7 @@
     \item $v_2 = \underline{r}^{\prime} \, \underline{d}_2$ : shear along $\underline{d}_2$
     \item $v_3 = \underline{r}^{\prime} \, \underline{d}_3$ : rate of axial shift $\hat{=}$ axial stretch 
   \end{itemize}
+  % TODO make a figure
 \end{frame}
 
 
@@ -794,10 +795,10 @@
   \vspace{-1em}
   \begin{multicols}{2}
     \noindent
-    \vspace{0.1em}
+    
     \begin{figure}
       \centering
-      \includegraphics[width=8cm, keepaspectratio=true]{sections/cosserat_rods/images/PureTwistingExample}
+      \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/PureTwistingExample}
     \end{figure}
 
     \begin{itemize}
@@ -878,7 +879,7 @@
     \noindent
     \begin{figure}
       \centering
-      \includegraphics[width=7cm, keepaspectratio=true]{sections/cosserat_rods/images/PureBendingExample}
+      \includegraphics[width=8cm, keepaspectratio=true]{sections/cosserat_rods/images/PureBendingExample}
     \end{figure}
     
     \begin{itemize}
@@ -943,7 +944,6 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Recap of what we have so far}
-  % TODO add some prose?
   \textbf{balance equations}
   \begin{displaymath}
     \underline{n}^{\prime} + \underline{\hat{n}} = \underline{0}
@@ -951,6 +951,7 @@
     \underline{m}^{\prime} + \underline{r}^{\prime} \times \underline{n} + \underline{\hat{m}} = \underline{0}
   \end{displaymath}
   
+  \vspace{2em}
   \textbf{deformation energy per unit of undeformed length}
   \begin{displaymath}
     \psi \bigl( \doubleunderline{R}^{\mathrm{T}} \, \underline{r}^{\prime} , \, \doubleunderline{R}^{\mathrm{T}} \, \doubleunderline{R}^{\prime} \bigr) =
@@ -990,13 +991,13 @@
   
   \textbf{perturbed versions of $\underline{r}$ and $\doubleunderline{R}$}
   \begin{displaymath}
-    \underline{r}_{\epsilon}(s) = \underline{r}(s) + \epsilon \cdot \underline{\delta r}(s)
+    \underline{r}_{\epsilon}(s) = \underline{r}(s) + \epsilon \cdot \delta \underline{r}(s)
   \end{displaymath}
   \vspace{-0.5em}
   \begin{displaymath}
-    \doubleunderline{R}_{\epsilon}(s) = \underbrace{\xcancel{\doubleunderline{R}(s) + \epsilon \cdot \doubleunderline{\delta R}(s)}}_{\notin SO3} = \underbrace{\exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta}(s) \bigr)}_{\in SO3} \, \doubleunderline{R}(s)
+    \doubleunderline{R}_{\epsilon}(s) = \underbrace{\xcancel{\doubleunderline{R}(s) + \epsilon \cdot \delta \doubleunderline{R}(s)}}_{\notin SO(3)} = \underbrace{\exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr)}_{\in SO(3)} \, \doubleunderline{R}(s)
     \quad \text{ with } \quad
-    \underline{\delta \Theta} := \axial \bigl( \doubleunderline{\delta \Theta} \bigr)
+    \delta \underline{\Theta} := \axial \bigl( \delta \doubleunderline{\Theta} \bigr)
   \end{displaymath}
   
   \vspace{0.6em}
@@ -1012,13 +1013,13 @@
   \begin{displaymath}
     \delta \Pi = \pd{\Pi}{\epsilon} \sVert[3]_{\epsilon=0} =
     \int_0^L \biggl(
-    \pd{\psi}{\underline{v}}(s) \cdot \underbrace{ \pd{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[2]_{\epsilon=0} }_{\underline{\delta v}(s)} +
-    \pd{\psi}{\underline{k}}(s) \cdot \underbrace{ \pd{\underline{k}_{\epsilon}}{\epsilon}(s)\sVert[2]_{\epsilon=0} }_{\underline{\delta k}(s)}
+    \pd{\psi}{\underline{v}}(s) \cdot \underbrace{ \pd{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[2]_{\epsilon=0} }_{\delta \underline{v}(s)} +
+    \pd{\psi}{\underline{k}}(s) \cdot \underbrace{ \pd{\underline{k}_{\epsilon}}{\epsilon}(s)\sVert[2]_{\epsilon=0} }_{\delta \underline{k}(s)}
     \biggr) \dif s
     - P \, \underline{e}_1 \cdot \pd{\underline{r}_{\epsilon}}{\epsilon}(L) \sVert[3]_{\epsilon=0}
   \end{displaymath}
   
-  in the sequel we will work on the terms $\underline{\delta v}(s)$ and $\underline{\delta k}(s)$
+  in the sequel we will work on the terms $\delta \underline{v}(s)$ and $\delta \underline{k}(s)$
 \end{frame}
 
 
@@ -1030,33 +1031,33 @@
   \begin{displaymath}
     \underline{v}_{\epsilon}(s) =
     \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \underline{r}_{\epsilon}^{\prime}(s) =
-    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta}(s) \bigr) \biggr)^{\mathrm{T}} \cdot \bigl( \underline{r}^{\prime}(s) + \epsilon \cdot \underline{\delta r}^{\prime}(s) \bigr)
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \cdot \bigl( \underline{r}^{\prime}(s) + \epsilon \cdot \delta \underline{r}^{\prime}(s) \bigr)
   \end{displaymath}
   
   \vspace{0.5em}
   \textbf{first variation of $\underline{v}$}
   \begin{displaymath}
-    \underline{\delta v}(s) = 
+    \delta \underline{v}(s) = 
     \pd{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0}
+    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0}
      \cdot \underline{r}^{\prime}(s) +
-     \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\delta r}^{\prime}(s)
+     \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \underline{r}^{\prime}(s)
   \end{displaymath}
   
   \vspace{0.5em}
   \begin{displaymath}
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
-    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \doubleunderline{\delta \Theta} + \frac{\epsilon^2}{2} \cdot \doubleunderline{\delta \Theta}^2 + \dots \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
-    \bigl( \doubleunderline{\delta \Theta} \bigr)^{\mathrm{T}} = -\doubleunderline{\delta \Theta} 
+    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
+    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
+    \bigl( \delta \doubleunderline{\Theta} \bigr)^{\mathrm{T}} = -\delta \doubleunderline{\Theta} 
   \end{displaymath}
   
   \vspace{0.5em}
   \begin{displaymath}
     \Rightarrow
-    \underline{\delta v}(s) =
+    \delta \underline{v}(s) =
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot
-    \bigl( - \doubleunderline{\delta \Theta}(s) \cdot \underline{r}^{\prime}(s) + \underline{\delta r}^{\prime}(s) \bigr)
+    \bigl( - \delta \doubleunderline{\Theta}(s) \cdot \underline{r}^{\prime}(s) + \delta \underline{r}^{\prime}(s) \bigr)
   \end{displaymath}
 \end{frame}
 
@@ -1077,23 +1078,23 @@
   \vspace{0.5em}
   \textbf{first variation of $\underline{k}$}
   \begin{displaymath}
-    \underline{\delta k}(s) =
+    \delta \underline{k}(s) =
     \pd{\underline{k}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
     \pd{}{\epsilon} \biggl( \axial \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \biggr) \sVert[3]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
     = \axial \biggl( \pd{}{\epsilon} \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \sVert[2]_{\epsilon=0} \biggr) \overset{(1)}{=}
-    \axial \bigl( \doubleunderline{R}^{\mathrm{T}}(s) \cdot \doubleunderline{\delta \Theta}^{\prime}(s) \cdot \doubleunderline{R} \bigr) \overset{(2)}{=}
-    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\delta \Theta}^{\prime}(s)      
+    \axial \bigl( \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \doubleunderline{\Theta}^{\prime}(s) \cdot \doubleunderline{R} \bigr) \overset{(2)}{=}
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \underline{\Theta}^{\prime}(s)      
   \end{displaymath}
   
   \vspace{0.5em}
   regarding equality $(2)$ we have ...
   \begin{displaymath}
-    \bigl( \doubleunderline{R}^{\mathrm{T}} \cdot \doubleunderline{\delta \Theta}^{\prime} \cdot \doubleunderline{R} \bigr) \cdot \underline{a} =
-    \doubleunderline{R}^{\mathrm{T}} \cdot \doubleunderline{\delta \Theta}^{\prime} \cdot \bigl( \doubleunderline{R} \cdot \underline{a} \bigr) =
-    \doubleunderline{R}^{\mathrm{T}} \cdot \biggl( \underline{\delta \Theta}^{\prime} \times \bigl( \doubleunderline{R} \cdot \underline{a} \bigr) \biggr) =
-    \doubleunderline{R}^{\mathrm{T}} \cdot \underline{\delta \Theta}^{\prime} \times \underline{a}
+    \bigl( \doubleunderline{R}^{\mathrm{T}} \cdot \delta \doubleunderline{\Theta}^{\prime} \cdot \doubleunderline{R} \bigr) \cdot \underline{a} =
+    \doubleunderline{R}^{\mathrm{T}} \cdot \delta \doubleunderline{\Theta}^{\prime} \cdot \bigl( \doubleunderline{R} \cdot \underline{a} \bigr) =
+    \doubleunderline{R}^{\mathrm{T}} \cdot \biggl( \delta \underline{\Theta}^{\prime} \times \bigl( \doubleunderline{R} \cdot \underline{a} \bigr) \biggr) =
+    \bigl( \doubleunderline{R}^{\mathrm{T}} \cdot \delta \underline{\Theta}^{\prime} \bigr) \times \underline{a}
   \end{displaymath}
 \end{frame}
 
@@ -1108,35 +1109,35 @@
   \end{displaymath}
   \begin{displaymath}
     = \pd{}{\epsilon} \Biggl[
-      \doubleunderline{R}^{\mathrm{T}} \cdot \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta} \bigr) \biggr)^{\mathrm{T}}
+      \doubleunderline{R}^{\mathrm{T}} \cdot \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta} \bigr) \biggr)^{\mathrm{T}}
       \cdot \Biggl(
-        \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta} \bigr) \biggr)^{\prime} \cdot \doubleunderline{R}
-        + \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta} \bigr) \cdot \doubleunderline{R}^{\prime}
+        \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta} \bigr) \biggr)^{\prime} \cdot \doubleunderline{R}
+        + \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta} \bigr) \cdot \doubleunderline{R}^{\prime}
       \Biggr)
     \Biggr] \sVert[4]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
     = \Bigl[
-      \cancel{-\doubleunderline{R}^{\mathrm{T}} \cdot \doubleunderline{\delta \Theta} \cdot \doubleunderline{R}^{\prime}} +
+      \cancel{-\doubleunderline{R}^{\mathrm{T}} \cdot \delta \doubleunderline{\Theta} \cdot \doubleunderline{R}^{\prime}} +
         \doubleunderline{R}^{\mathrm{T}} \cdot
         \biggl(
-          \doubleunderline{\delta \Theta}^{\prime} \cdot \doubleunderline{R} +
-          \cancel{ \doubleunderline{\delta \Theta} \cdot \doubleunderline{R}^{\prime} } 
+          \delta \doubleunderline{\Theta}^{\prime} \cdot \doubleunderline{R} +
+          \cancel{ \delta \doubleunderline{\Theta} \cdot \doubleunderline{R}^{\prime} } 
         \biggr)
       \Bigr] =
       \doubleunderline{R}^{\mathrm{T}} \cdot
-      \doubleunderline{\delta \Theta}^{\prime} \cdot \doubleunderline{R}
+      \delta \doubleunderline{\Theta}^{\prime} \cdot \doubleunderline{R}
   \end{displaymath}
   
   \vspace{0.5em}
   ... where we used ...
   \begin{displaymath}
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \doubleunderline{\delta \Theta}(s) \bigr) \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
-    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \doubleunderline{\delta \Theta} + \frac{\epsilon^2}{2} \cdot \doubleunderline{\delta \Theta}^2 + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
-    = \pd{}{\epsilon} \biggl( \epsilon \cdot \doubleunderline{\delta \Theta^{\prime}} + \frac{\epsilon^2}{2} \cdot \doubleunderline{\delta \Theta^{\prime}}^2 + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
-    \doubleunderline{\delta \Theta^{\prime}} 
+    = \pd{}{\epsilon} \biggl( \epsilon \cdot \delta \doubleunderline{\Theta}^{\prime} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^{\prime 2} + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    \delta \doubleunderline{\Theta}^{\prime} 
   \end{displaymath}
 \end{frame}
 
@@ -1152,44 +1153,44 @@
     \pd{\psi}{\underline{v}}(s) \cdot
     \biggl(
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot
-    \bigl( - \doubleunderline{\delta \Theta}(s) \cdot \underline{r}^{\prime}(s) + \underline{\delta r}^{\prime}(s) \bigr)
+    \bigl( - \delta \doubleunderline{\Theta}(s) \cdot \underline{r}^{\prime}(s) + \delta \underline{r}^{\prime}(s) \bigr)
     \biggr) +
   \end{displaymath}
   \begin{displaymath}
     + \pd{\psi}{\underline{k}}(s) \cdot 
     \biggl(
-    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\delta \Theta}^{\prime}(s)
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \underline{\Theta}^{\prime}(s)
     \biggr)
     \Biggr) \dif s
-    - P \, \underline{e}_1 \cdot \underline{\delta r}(L) =
+    - P \, \underline{e}_1 \cdot \delta \underline{r}(L) =
   \end{displaymath}
   \begin{displaymath}
     = \int_0^L \Biggl(
     \biggl( \doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(s) \biggr) \cdot
     \biggl(
-      \underline{\delta r}^{\prime}(s) +
-      \underline{r}^{\prime}(s) \times \underline{\delta \Theta}(s)
+      \delta \underline{r}^{\prime}(s) +
+      \underline{r}^{\prime}(s) \times \delta \underline{\Theta}(s)
     \biggr) +
   \end{displaymath}
   \begin{displaymath}
     + \biggl( \doubleunderline{R} \cdot \pd{\psi}{\underline{k}}(s) \biggr) \cdot
-    \underline{\delta \Theta}^{\prime}(s)
+    \delta \underline{\Theta}^{\prime}(s)
     \Biggr) \dif s
-    - P \, \underline{e}_1 \cdot \underline{\delta r}(L) \overset{P.I.}{=}
+    - P \, \underline{e}_1 \cdot \delta \underline{r}(L) = (\text{integrate by parts})
   \end{displaymath}
   \begin{displaymath}
-    = \biggl[ \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \cdot \underline{\delta r}(s) \biggr]_0^L -
+    = \biggl[ \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \cdot \delta \underline{r}(s) \biggr]_0^L -
     \int_0^L \Bigl(
-      \bigl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \bigr)^{\prime} \cdot \underline{\delta r}(s)
-    \Bigr) \dif s -P \, \underline{e}_1 \cdot \underline{\delta r}(L) \, +
+      \bigl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \bigr)^{\prime} \cdot \delta \underline{r}(s)
+    \Bigr) \dif s -P \, \underline{e}_1 \cdot \delta \underline{r}(L) \, +
   \end{displaymath}
   \begin{displaymath}
-    + \biggl[ \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) \cdot \underline{\delta \Theta}(s) \biggr]_0^L -
+    + \biggl[ \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) \cdot \delta \underline{\Theta}(s) \biggr]_0^L -
     \int_0^L \biggl(
       \Bigl(
         \bigl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) \bigr)^{\prime} +
         \underline{r}^{\prime}(s) \times \bigl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s)  \bigr)
-      \Bigr) \cdot \underline{\delta \Theta}(s)
+      \Bigr) \cdot \delta \underline{\Theta}(s)
     \biggr) \dif s
   \end{displaymath}
 \end{frame}
@@ -1202,7 +1203,7 @@
   to finally obtain the conditions for a minimum of the potential energy we set $\delta \Pi = 0$
   
   \vspace{0.5em}
-  the integrals must each be $0$ regardless of the variations $\underline{\delta r}$ and $\underline{\delta \Theta}$ \newline
+  the integrals must each be $0$ regardless of the variations $\delta \underline{r}$ and $\delta \underline{\Theta}$ \newline
   this gives us the conditions
   \begin{displaymath}
     \bigl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \bigr)^{\prime} = \underline{0}
@@ -1215,17 +1216,17 @@
   which must be satisfied for $s \in [0,L]$ in a point-wise manner
   
   \vspace{0.5em}
-  at the boundary $s=0$ the cross section is fixed $\Rightarrow$ $\underline{\delta r}(0) \overset{!}{=} \underline{0}$ and $\underline{\delta \Theta}(0) \overset{!}{=} \underline{0}$ \newline
+  at the boundary $s=0$ the cross section is fixed $\Rightarrow$ $\delta \underline{r}(0) \overset{!}{=} \underline{0}$ and $\delta \underline{\Theta}(0) \overset{!}{=} \underline{0}$ \newline
   at the boundary $s=L$ we get the condition
   \begin{displaymath}
     \biggl(
       \doubleunderline{R}(L) \cdot \pd{\psi}{\underline{v}}(L) 
       -P \, \underline{e}_1
-    \biggr) \cdot \underline{\delta r}(L) +
-    \doubleunderline{R}(L) \cdot \pd{\psi}{\underline{k}}(L) \cdot \underline{\delta \Theta}(L) =
+    \biggr) \cdot \delta \underline{r}(L) +
+    \doubleunderline{R}(L) \cdot \pd{\psi}{\underline{k}}(L) \cdot \delta \underline{\Theta}(L) =
     \underline{0}
   \end{displaymath}
-  because $\underline{\delta r}(L)$ and $\underline{\delta \Theta}(L)$ are independent we get
+  because $\delta \underline{r}(L)$ and $\delta \underline{\Theta}(L)$ are independent we get
   \begin{displaymath}
     \doubleunderline{R}(L) \cdot \pd{\psi}{\underline{v}}(L) 
       = P \, \underline{e}_1
@@ -1256,6 +1257,7 @@
   \begin{displaymath}
     \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \cancel{\underline{\hat{m}}(s)} = \underline{0}
   \end{displaymath}
+  note: there are no distributed loads in the example
     
   \vspace{0.5em}
   we identify the relations
@@ -1265,4 +1267,241 @@
   \begin{displaymath}
     \underline{m}(s) = \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s)
   \end{displaymath}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Relationship between potential energy and kinetic quantities}
+ 
+  \begin{displaymath}
+    \underline{n}(s) = \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) =
+    n_i \, \underline{e}_i = N_i \, \underline{d}_i
+  \end{displaymath}
+  \begin{displaymath}
+    \underline{m}(s) = \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) =
+    m_i \, \underline{e}_i = M_i \, \underline{d}_i
+  \end{displaymath}
+  
+  with $\underline{d}_i(s) = \doubleunderline{R}(s) \cdot \underline{e}_i$ it follows that
+  \begin{displaymath}
+    N_i(s) = \pd{\psi}{v_i}(s)
+  \end{displaymath}
+  \begin{displaymath}
+    M_i(s) = \pd{\psi}{k_i}(s)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \begin{itemize}
+    \item $N_1$, $N_2$ are the shear forces along $\underline{d}_1$, $\underline{d}_2$
+    \item $N_3$ is the axial force
+    \item $M_1$, $M_2$ are the bending moments about the $\underline{d}_1$-, $\underline{d}_2$-axis
+    \item $M_3$ is the twisting moment
+  \end{itemize}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Energy potential for isotropic circular beams}
+
+  % TODO A,C interchanged
+  \begin{displaymath}
+    \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
+    \frac{1}{2} \mathscr{A} \, v_1^2 +
+    \frac{1}{2} \mathscr{A} \, v_2^2 +
+    \frac{1}{2} \mathscr{D} \, (v_3-1)^2 +
+    \frac{1}{2} \mathscr{C} \, k_1^2 +
+    \frac{1}{2} \mathscr{C} \, k_2^2 +
+    \frac{1}{2} \mathscr{B} \, k_3^2
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \begin{itemize}
+    \item shearing stiffness \newline
+      $N_1(s) = \pd{\psi}{v_1}(s) = \mathscr{A} \, v_1(s) \overset{!}{=} k \, G \, A \, v_1(s)
+      \: \Rightarrow \:
+      \mathscr{A} = k \, G \, A$
+      
+    \item stretching stiffness \newline
+      $N_3(s) = \pd{\psi}{v_3}(s) = \mathscr{D} \, (v_3(s) -1) \overset{!}{=} E \, A \, ( v_3(s) -1)
+      \: \Rightarrow \:
+      \mathscr{D} = E \, A$
+      
+    \item bending stiffness \newline
+      $M_1(s) = \pd{\psi}{k_1}(s) = \mathscr{C} \, k_1(s) \overset{!}{=} E \, I \, k_1(s)
+      \: \Rightarrow \:
+      \mathscr{C} = E \, I$
+      
+    \item twisting stiffness \newline
+      $M_3(s) = \pd{\psi}{k_3}(s) = \mathscr{B} \, k_3(s) \overset{!}{=} G \, J \, k_3(s)
+      \: \Rightarrow \:
+      \mathscr{B} = G \, J$
+  \end{itemize}
+  
+  \vspace{1em}
+  similarly in 3D-elasticity we have
+  \begin{displaymath}
+    \doubleunderline{P} = \pd{W(\doubleunderline{F})}{\doubleunderline{F}}
+  \end{displaymath}
+\end{frame}
+
+
+%===============================================================================
+\subsection{Combined model}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Model equations}
+  
+  \textbf{force balance} with constitutive law
+  \begin{displaymath}
+    \biggl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \biggr)^{\prime} + \underline{\hat{n}}(s) = 
+    \doubleunderline{R}^{\prime}(s) \cdot \pd{\psi}{\underline{v}}(s) +
+    \doubleunderline{R}(s) \cdot \biggl( \pd{\psi}{\underline{v}}(s) \biggr)^{\prime} +
+    \underline{\hat{n}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  \vspace{1em}
+  \textbf{moment balance} with constitutive law
+  \begin{displaymath}
+    \biggl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) \biggr)^{\prime} +
+    \underline{r}^{\prime}(s) \times \biggl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \biggr) +
+    \underline{\hat{m}}(s) =
+  \end{displaymath}
+  \begin{displaymath}
+    = 
+    \doubleunderline{R}^{\prime}(s) \cdot \pd{\psi}{\underline{k}}(s) +
+    \doubleunderline{R}(s) \cdot \biggl( \pd{\psi}{\underline{k}}(s) \biggr)^{\prime} +
+    \underline{r}^{\prime}(s) \times \biggl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \biggr) +
+    \underline{\hat{m}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  \vspace{1em}
+  we now want to write the equations in terms of $\underline{v}$ and $\underline{k}$ ...
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Force balance}
+  multiplying with $\doubleunderline{R}^{\mathrm{T}}$ on the left we get ...
+  \begin{displaymath}
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot
+    \doubleunderline{R}^{\prime}(s) \cdot \pd{\psi}{\underline{v}}(s) +
+    \biggl( \pd{\psi}{\underline{v}}(s) \biggr)^{\prime} +
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{n}}(s) =
+  \end{displaymath}
+  \begin{displaymath}
+    = \underline{k}(s) \times \pd{\psi}{\underline{v}}(s) +
+    \pd[2]{\psi}{\underline{v}}(s) \cdot \underline{v}^{\prime}(s) +
+    \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}(s) \cdot \underline{k}^{\prime}(s) +
+    \underline{\tilde{n}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  with
+  \begin{displaymath}
+    \underline{\tilde{n}}(s) :=
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{n}}(s)
+  \end{displaymath}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Moment balance}
+  again multiplying with $\doubleunderline{R}^{\mathrm{T}}$ on the left we get ...
+  \begin{displaymath}
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot
+    \doubleunderline{R}^{\prime}(s) \cdot \pd{\psi}{\underline{k}}(s) +
+    \biggl( \pd{\psi}{\underline{k}}(s) \biggr)^{\prime} +
+  \end{displaymath}
+  \begin{displaymath}
+    + \doubleunderline{R}^{\mathrm{T}}(s) \cdot \Biggl(
+    \underline{r}^{\prime}(s) \times \biggl( \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \biggr) \Biggr) +
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot
+    \underline{\hat{m}}(s) =
+  \end{displaymath}
+  \begin{displaymath}
+    = \underline{k}(s) \times \pd{\psi}{\underline{k}}(s) +
+    \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}(s) \cdot \underline{v}^{\prime}(s) +
+    \pd[2]{\psi}{\underline{k}}(s) \cdot \underline{k}^{\prime}(s) +
+  \end{displaymath}
+  \begin{displaymath}
+    + \underline{v}(s) \times \pd{\psi}{\underline{v}}(s) +
+    \underline{\tilde{m}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  with
+  \begin{displaymath}
+    \underline{\tilde{m}}(s) :=
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{m}}(s)
+  \end{displaymath}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Model equations}
+  
+  \textbf{force balance}
+  \begin{displaymath}
+    \underline{k}(s) \times \pd{\psi}{\underline{v}}(s) +
+    \pd[2]{\psi}{\underline{v}}(s) \cdot \underline{v}^{\prime}(s) +
+    \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}(s) \cdot \underline{k}^{\prime}(s) +
+    \underline{\tilde{n}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  and \textbf{moment balance}
+  \begin{displaymath}
+    \underline{k}(s) \times \pd{\psi}{\underline{k}}(s) +
+    \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}(s) \cdot \underline{v}^{\prime}(s) +
+    \pd[2]{\psi}{\underline{k}}(s) \cdot \underline{k}^{\prime}(s) +
+  \end{displaymath}
+  \begin{displaymath}
+    + \underline{v}(s) \times \pd{\psi}{\underline{v}}(s) +
+    \underline{\tilde{m}}(s) =
+    \underline{0}
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  expressed in terms of the \textbf{strains} (in the director basis)
+  \begin{displaymath}
+    \underline{v}(s) =
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{r}^{\prime}(s)
+    \quad \text{ ; } \quad
+    \underline{k}(s) =
+    \axial \bigl(
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \doubleunderline{R}^{\prime}(s)
+    \bigr)
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  given the \textbf{distributed external loads}
+  \begin{displaymath}
+    \underline{\tilde{n}}(s) =
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{n}}(s)
+    \quad \text{ ; } \quad
+    \underline{\tilde{m}}(s) =
+    \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{m}}(s)
+  \end{displaymath}
+  
+  \vspace{0.2em}
+  $\rightarrow$ a system of $6$ equations ; $2^{\text{nd}}$ order in $\underline{v}$, $\underline{k}$
+  $\: \rightarrow$ requires $12$ boundary conditions
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Example with boundary conditions}
+
+%  \vspace{-0.3em}
+  \begin{figure}
+    \centering
+    \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/MinimumPotentialEnergyMethodExample}
+  \end{figure}
 \end{frame}
