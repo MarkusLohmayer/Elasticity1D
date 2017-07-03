@@ -111,8 +111,8 @@
   \textbf{what are our kinematic unknowns?}
   \begin{itemize}
     \item if $\underline{u} = \underline{u}(X_1,X_2,s)$ then we would be dealing with a 3D elasticity problem
-    \item here we have $\underline{u}(X_1,X_2,\text{local strains})$, not a function of $s$ \newline (we will come back to this ...)
-    \item $\underline{r}(s)$ and $\doubleunderline{R}(s)$ are the only kinematic unknowns!
+    \item here we have $\underline{u}(X_1,X_2,\text{local strains})$, not a function of $s$ \newline (we will come back to this later)
+    \item $\underline{r}(s)$ and $\doubleunderline{R}(s)$ are the only kinematic unknowns! (6 scalar quantities)
   \end{itemize}
 \end{frame}
 
@@ -281,11 +281,11 @@
   \begin{displaymath}
     \begin{alignedat}{1}
       &\iiint_{\text{undeformed volume}} \underline{B} \dif V + \iint_{\text{lateral surface}} \underline{t}^{ext} \dif A = \\
-      = &\int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \underline{B}(s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(s) \dif l \Biggr) \dif s =: \\
+      = &\int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \underline{B}(X_1,X_2,s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(l,s) \dif l \Biggr) \dif s =: \\
       =: & \int_{s_1}^{s_2} \underline{\hat{n}}(s) \dif s
     \end{alignedat}
   \end{displaymath}
-  
+  % TODO (X_1,X_2,s) bzw. (l,s)
   \vspace{0.5em}
   $\rightarrow$ distributed external load $\underline{\hat{n}}(s)$ (force per unit of undeformed length)
 \end{frame}
@@ -427,17 +427,15 @@
     \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) = \underline{0}
   \end{displaymath}
 
-%  \begin{displaymath}
-%    \underline{m}^{\prime}(s) +
-%    \underline{r}^{\prime}(s) \times \underline{n}(s) +
-%    \underline{\hat{m}}(s) =
-%    \rho_0 \cdot
-%    \bar{
-%      \bigl( \dot{\doubleunderline{I} \cdot \underline{\omega}} \bigr)
-%    } =
-%    \underline{0}
-%  \end{displaymath}
-    % TODO dynamics, widebar
+  \vspace{0.7em}
+  \textbf{local balance of angular momentum} (dynamics)
+  \begin{displaymath}
+    \underline{m}^{\prime}(s) +
+    \underline{r}^{\prime}(s) \times \underline{n}(s) +
+    \underline{\hat{m}}(s) =
+    \rho_0 \cdot
+    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+  \end{displaymath}
 \end{frame}
 
 
@@ -457,7 +455,7 @@
   \end{displaymath}
   
   \vspace{1em}
-  we have \textbf{6 kinematic unknowns}, $\underline{r}(s)$ and $\doubleunderline{R}(s)$ with 3 unknowns each
+  we have \textbf{6 kinematic unknowns}, $\underline{r}(s)$ and $\doubleunderline{R}(s)$ with 3 unknowns each,
   
   \vspace{0.3em}
   and we have \textbf{6 kinetic unknowns}
@@ -469,7 +467,10 @@
   \end{displaymath}
   
   \vspace{0.3em}
-  to close the system we need a relationship between the kinematic and the kinetic quatities
+  to close the system, we need a relationship between the kinematic and the kinetic quantities
+  
+  \vspace{0.2em}
+  $\rightarrow$ this relationship is called \textit{constitutive law of the material}
 \end{frame}
 
 
