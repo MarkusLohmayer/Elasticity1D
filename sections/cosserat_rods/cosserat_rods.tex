@@ -269,8 +269,10 @@
 \begin{frame}
   \frametitle{Balance of forces (part 1)}
   % TODO be explicit about deformed configuration
-  % we are integrating the undeformed configuration! (keep lines straight)
-  % comment about N=+-e_3 instead of two lines ..
+  % we are integrating the \cancel{undeformed} reference configuration! (keep lines straight)
+    % TODO replace all undeformed with reference ; pullback, nominal
+  % comment about N=+-e_3
+  % leave out first line of formula (and add prose?)
   \begin{figure}
     \centering
     \includegraphics[width=22cm, keepaspectratio=true]{sections/cosserat_rods/images/Forces}
@@ -577,7 +579,7 @@
 
   \vspace{0.1em}
   \begin{itemize}
-    \item $\underline{f}(s)$ canceled because of principle of frame indifference
+    \item $\underline{f}(s)$ canceled because of principle of frame-indifference
     \item $\nabla \doubleunderline{F}(s)$ canceled because we will not consider higher order derivatives of the deformation map in classical elasticity (compared to higher gradient elasticity theory)
     % discontinuities at interfaces in the material 
   \end{itemize}
@@ -623,8 +625,7 @@
         \item energy potential given by $\eval[1]{\phi}_{\beta}(s) = \phi \bigl( \underline{r}^{\alpha}{\alpha}(s) , \, \doubleunderline{R}^{\alpha}(s) , \, \underline{r}^{\alpha \prime}(s) , \, \doubleunderline{R}^{\alpha \prime}(s) \bigr)$
       \end{itemize}
       
-    \item configuration $\beta$ after rigid body rotation by $\doubleunderline{Q}$ about $\underline{X}_0$ 
-      (arbitrary $\doubleunderline{Q} \in SO(3)$ , $\underline{X}_0 \in \mathbb{R}^3$)
+    \item configuration $\beta$ after rigid body rotation by some $\doubleunderline{Q} \in SO(3)$ about some $\underline{X}_0 \in \mathbb{R}^3$
       \begin{itemize}
         \item $\underline{r}^{\beta}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) \quad \Rightarrow \quad \underline{r}^{\beta \prime}(s) = \doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s)$ \newline
           \null \quad (shift coordinate system s.t. rotation's fix-point $\hat{=}$ origin; rotate; undo shift)
@@ -632,7 +633,7 @@
         \item $\eval[1]{\phi}_{\beta}(s) = \phi \bigl( \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) , \, \doubleunderline{Q} \, \underline{r}^{\alpha \prime}(s) , \, \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s) \bigr)$
       \end{itemize}
       
-    \item configuration $\gamma$ after rigid body translation by $\underline{t}$ (arbitrary $\underline{t} \in \mathbb{R}^3$)
+    \item configuration $\gamma$ after rigid body translation by some $\underline{t} \in \mathbb{R}^3$
       \begin{itemize}
         \item $\underline{r}^{\gamma}(s) = \underline{X}_0 + \doubleunderline{Q} \left( \underline{r}^{\alpha}(s) - \underline{X}_0 \right) + \underline{t} \quad \Rightarrow \quad \underline{r}^{\gamma \prime}(s) = \underline{r}^{\beta \prime}(s) = \doubleunderline{Q} \,\underline{r}^{\alpha \prime}(s)$
         \item $\doubleunderline{R}^{\gamma}(s) = \doubleunderline{I} \, \doubleunderline{R}^{\beta}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha}(s) \quad \Rightarrow \quad \doubleunderline{R}^{\gamma \prime}(s) = \doubleunderline{R}^{\beta \prime}(s) = \doubleunderline{Q} \, \doubleunderline{R}^{\alpha \prime}(s)$
@@ -693,7 +694,7 @@
   \frametitle{Invariant strain measures (part 1)}
   
   
-  we can verify that $\doubleunderline{R}^{\mathrm{T}} \, \underline{r}^{\prime}$ and $\doubleunderline{R}^{\mathrm{T}} \, \doubleunderline{R}^{\prime}$ are truly invariant strain measures
+  we can verify that $\doubleunderline{R}^{\mathrm{T}} \, \underline{r}^{\prime}$ and $\doubleunderline{R}^{\mathrm{T}} \, \doubleunderline{R}^{\prime}$ are truly invariant strain measures:
   
   \vspace{1em}
   we get
@@ -944,20 +945,38 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
+  % TODO recap slide
   \frametitle{Recap of what we have so far}
-  \textbf{balance equations}
+  \textbf{balance equations} (in terms of nominal stresses in the reference configuration)
   \begin{displaymath}
     \underline{n}^{\prime} + \underline{\hat{n}} = \underline{0}
     \quad \text{ and } \quad
     \underline{m}^{\prime} + \underline{r}^{\prime} \times \underline{n} + \underline{\hat{m}} = \underline{0}
   \end{displaymath}
   
-  \vspace{2em}
-  \textbf{deformation energy per unit of undeformed length}
+  \vspace{1.2em}
+  \textbf{kinematic quantities $\underline{v}$, $\underline{k}$} \newline
+  $\rightarrow$ local strain measures
+  \begin{itemize}
+    \item $v_1$, $v_2$, $v_3$ : shear along $d_1$, shear along $d_2$, and stretch along $d_3$, respectively
+    \item $k_1$, $k_2$, $k_3$ : curvature about $d_1$-, curvature about $d_2$-, and twist about  $d_3$-axis, % \newline \null \quad \quad \quad \quad \quad respectively
+  \end{itemize}
+  
+  \vspace{1.2em}
+  \textbf{deformation energy per unit of undeformed length} \newline
   \begin{displaymath}
     \psi \bigl( \doubleunderline{R}^{\mathrm{T}} \, \underline{r}^{\prime} , \, \doubleunderline{R}^{\mathrm{T}} \, \doubleunderline{R}^{\prime} \bigr) =
     \psi \bigl( \underline{v} , \, \doubleunderline{K} \bigr) =
-    \psi \bigl( \underline{v} , \, \underline{k} \bigr)  \end{displaymath}
+    \psi \bigl( \underline{v} , \, \underline{k} \bigr)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  % TODO Preview?
+  $\rightarrow$ derivative of $\psi$ with respect to strains $\underline{v}$, $\underline{k}$ will render stress measures (resolved in the local director basis)
+    
+    
+
+  
 \end{frame}
 
 
@@ -1027,7 +1046,8 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Minimum potential energy method (part 3)}
-  
+  % TODO use of \Delta vs \delta
+  % also: \pd{}{\epsilon} vs \od{}{\epsilon}
   \textbf{perturbed version of $\underline{v}$}
   \begin{displaymath}
     \underline{v}_{\epsilon}(s) =
@@ -1293,10 +1313,10 @@
   
   \vspace{0.5em}
   \begin{itemize}
-    \item $N_1$, $N_2$ are the shear forces along $\underline{d}_1$, $\underline{d}_2$
-    \item $N_3$ is the axial force
-    \item $M_1$, $M_2$ are the bending moments about the $\underline{d}_1$-, $\underline{d}_2$-axis
-    \item $M_3$ is the twisting moment
+    \item $N_1$, $N_2$ are the shear forces in direction $\underline{d}_1$, $\underline{d}_2$, respectively
+    \item $N_3$ is the axial force (in direction $d_3$)
+    \item $M_1$, $M_2$ are the bending moments about the $\underline{d}_1$-, $\underline{d}_2$-axis, respectively
+    \item $M_3$ is the twisting moment about the $d_3$-axis
   \end{itemize}
 \end{frame}
 
@@ -1339,7 +1359,7 @@
   \end{itemize}
   
   \vspace{1em}
-  similarly in 3D-elasticity we have
+  similarly in 3D-elasticity we have as a constitutive law
   \begin{displaymath}
     \doubleunderline{P} = \pd{W(\doubleunderline{F})}{\doubleunderline{F}}
   \end{displaymath}
@@ -1482,7 +1502,7 @@
   \end{displaymath}
   
   \vspace{0.3em}
-  given the \textbf{distributed external loads}
+  given the \textbf{distributed external loads} (resolved in the director basis)
   \begin{displaymath}
     \underline{\tilde{n}}(s) =
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{\hat{n}}(s)
@@ -1492,17 +1512,539 @@
   \end{displaymath}
   
   \vspace{0.2em}
-  $\rightarrow$ a system of $6$ equations ; $2^{\text{nd}}$ order in $\underline{v}$, $\underline{k}$
-  $\: \rightarrow$ requires $12$ boundary conditions
+  $\rightarrow$ system of $6$ equations ;
+  $1^{\text{st}}$ order in $\underline{v}$, $\underline{k}$
+  but $2^{\text{nd}}$ order in $\underline{r}$, $\doubleunderline{R}$ \newline
+  $\: \rightarrow$ $12$ boundary conditions required
 \end{frame}
 
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Example with boundary conditions}
 
-%  \vspace{-0.3em}
   \begin{figure}
     \centering
     \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/MinimumPotentialEnergyMethodExample}
   \end{figure}
+  
+  \vspace{1em}
+  we have 12 boundary conditions:
+  
+  \vspace{0.5em}
+  \begin{tabularx}{\linewidth}{XX}
+    {
+      boundary conditions at $s=0$:
+      \begin{itemize}
+        \item $\underline{r}(0) = \underline{0}$
+        \item $\doubleunderline{R}(0) = \doubleunderline{I} =
+          \exp{\doubleunderline{\Theta}} \iff \underline{\Theta}=\underline{0}$
+      \end{itemize}
+    } & {
+      boundary conditions at $s=L$:
+      \begin{itemize}
+        \item $\doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) = P \cdot \underline{e}_1$
+        \item $\pd{\psi}{\underline{k}}(L) = \underline{0} \iff M_i = 0 \: (i \in {1,2,3})$
+      \end{itemize}
+    }
+  \end{tabularx}
+  
+  note that the boundary conditions are not stated in our unknown variables $\underline{v}$, $\underline{k}$
 \end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Model as a system of first order equations (part 1)}
+  
+  boundary conditions prescribe not only strains $\left( \underline{v},\underline{k} \right)$,  but also displacements $\left( \underline{r},\doubleunderline{R} \right)$ \newline
+  but our model equations depend alone on $\left( \underline{v},\underline{k} \right)$ \newline
+  therefore we not yet have a closed system that can be solved \newline
+  (by numerically integrating the system of 6 ODEs)
+  % TODO BVP: solving the system:
+    % 1D problem, no time dependence, only $s$ as independent variable
+      % dynamics, inertia term, time derivative, PDE?, FEM  
+    % BC on both ends?
+    % demands on the solver, Runge-Kutta-scheme
+  
+  \vspace{0.7em}
+  to \textit{close the system}, we will rewrite the model as 12 first order equations, \newline
+  by including 6 extra equations relating strain quantities to displacement quantities:
+  \begin{displaymath}
+    \underline{v} = \doubleunderline{R}^{\mathrm{T}} \cdot \underline{r}^{\prime}
+    \Rightarrow
+    \underline{r}^{\prime} = \doubleunderline{R} \cdot \underline{v}
+  \end{displaymath}
+  \begin{displaymath}
+    \doubleunderline{K} = \doubleunderline{R}^{\mathrm{T}} \cdot \doubleunderline{R}^{\prime}
+    \Rightarrow
+    \doubleunderline{R}^{\prime} = \doubleunderline{R} \cdot \doubleunderline{K}
+  \end{displaymath}
+  
+  \vspace{0.7em}
+  we already noticed, that using unit quaternions to encode $SO(3)$ matrices has some great advantages for computation. therefore we chose to replace the matrix differential equation in $\doubleunderline{R}$ by a matrix differential equation in terms of unit quaternions $\underline{q} \in \mathbb{R}^4$
+  \begin{displaymath}
+    \underline{q}^{\prime} = \doubleunderline{E}(\underline{q}) \cdot \underline{k} =
+    \frac{1}{2} \cdot \begin{bmatrix}
+      -q_1 & -q_2 & -q_3 \\
+      +q_0 & -q_3 & +q_2 \\
+      +q_3 & +q_0 & -q_1 \\
+      -q_2 & +q_1 & +q_0
+    \end{bmatrix} \cdot \underline{k}
+  \end{displaymath}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Model as a system of first order equations (part 2)}
+
+  we have the same 6 equations as before here expressed in matrix form
+  
+  \begin{displaymath}
+    \underbrace{
+    \begin{bmatrix}
+      \pd[2]{\psi}{\underline{v}} &
+      \md{\psi}{2}{\underline{v}}{}{\underline{k}}{} \\
+      \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} &
+      \pd[2]{\psi}{\underline{k}}
+    \end{bmatrix}
+    }_{=: \doubleunderline{C}}
+    \cdot
+    \begin{bmatrix}
+      \underline{v}^{\prime} \\
+      \underline{k}^{\prime}
+    \end{bmatrix} =
+    \begin{bmatrix}
+      -\underline{k} \times \pd{\psi}{\underline{v}} \\
+      -\underline{k} \times \pd{\psi}{\underline{k}}
+      -\underline{v} \times \pd{\psi}{\underline{v}}
+    \end{bmatrix} -
+    \begin{bmatrix}
+      \doubleunderline{R}^{\mathrm{T}} \, \underline{\hat{n}} \\
+      \doubleunderline{R}^{\mathrm{T}} \, \underline{\hat{m}}
+    \end{bmatrix}
+  \end{displaymath}
+  
+  $\doubleunderline{C}$ is the (positive definite) elasticity tensor matrix
+  
+  \vspace{1em}
+  we close the system by adding the seven extra first order equations \newline
+  (relating (derivatives of) displacements to strains)
+  \begin{displaymath}
+    \underline{r}^{\prime} = \doubleunderline{R} \cdot \underline{v}
+  \end{displaymath}
+  \begin{displaymath}
+    \underline{q}^{\prime} = \doubleunderline{E} \cdot \underline{k}
+  \end{displaymath}
+  
+  \vspace{1em}
+  $\rightarrow$ this gives us a system of 13 coupled nonlinear ODEs
+  
+  % TODO write about constraint (7th / 13th equation)
+  \begin{displaymath}
+    \underline{q} \cdot \underline{q} \overset{!}{=} 1
+    \quad \Rightarrow \quad
+    \underline{q} \cdot \underline{q}^{\prime} \overset{!}{=} 0
+  \end{displaymath}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Example with boundary conditions (revisited)}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=9cm, keepaspectratio=true]{sections/cosserat_rods/images/MinimumPotentialEnergyMethodExample}
+  \end{figure}
+  
+  \vspace{0.7em}
+  we have 13 boundary conditions:
+  
+  \vspace{0.5em}
+  \begin{tabularx}{\linewidth}{XX}
+    {
+      boundary conditions at $s=0$:
+      \begin{itemize}
+        \item $\underline{r}(0) = \underline{0}$
+        \item $\underline{q}(0) =
+          \begin{bmatrix}
+            1 & 0 & 0 & 0
+          \end{bmatrix}^{\mathrm{T}}$ because
+          \begin{itemize}
+            \item $\: \: \, q_0 = \cos\bigl( \frac{\Theta}{2} \bigr) = 1$ and
+            \item $\begin{bmatrix}
+            q_1 \\ q_2 \\ q_3
+          \end{bmatrix} = \sin \bigl( \frac{\Theta}{2} \bigr) \cdot \underline{a} =
+          \begin{bmatrix}
+            0 \\ 0 \\ 0
+          \end{bmatrix}$
+        \end{itemize}
+      \end{itemize}
+    } & {
+      boundary conditions at $s=L$:
+      \begin{itemize}
+        \item $\doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) = P \cdot \underline{e}_1$
+        \item $\pd{\psi}{\underline{k}}(L) = \underline{0} \iff$
+          \begin{itemize}
+            \item $M_i(L) = 0 \: (i \in {1,2,3})$
+          \end{itemize}
+      \end{itemize}
+    }
+  \end{tabularx}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Another example with boundary conditions: follower load problem}
+  % TODO follower load
+  \vspace{0.5em}
+  \begin{tabularx}{\linewidth}{XX}
+    {
+      boundary conditions at $s=0$:
+      \begin{itemize}
+        \item $\underline{r}(0) = \underline{0}$
+        \item $\underline{q}(0) =
+          \begin{bmatrix}
+            1 & 0 & 0 & 0
+          \end{bmatrix}^{\mathrm{T}}$ because
+          \begin{itemize}
+            \item $\: \: \, q_0 = \cos\bigl( \frac{\Theta}{2} \bigr) = 1$ and
+            \item $\begin{bmatrix}
+            q_1 \\ q_2 \\ q_3
+          \end{bmatrix} = \sin \bigl( \frac{\Theta}{2} \bigr) \cdot \underline{a} =
+          \begin{bmatrix}
+            0 \\ 0 \\ 0
+          \end{bmatrix}$
+        \end{itemize}
+      \end{itemize}
+    } & {
+      boundary conditions at $s=L$:
+      \begin{itemize}
+        \item $\doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) = P \cdot \underline{d}_1 = \doubleunderline{R} \cdot P \cdot \underline{e}_1 \: \Rightarrow$
+          \begin{itemize}
+            \item $\pd{\psi}{v_1}(L) = P$
+            \item $\pd{\psi}{v_2}(L) = 0$
+            \item $\pd{\psi}{v_3}(L) = 0$
+          \end{itemize}
+        \item $\pd{\psi}{\underline{k}}(L) = \underline{0} \iff$
+          \begin{itemize}
+            \item $M_i(L) = 0 \: (i \in {1,2,3})$
+          \end{itemize}
+      \end{itemize}
+    }
+  \end{tabularx}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Yet another example with boundary conditions}
+  \vspace{-0.5em}
+  \begin{multicols}{2}
+    \noindent
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/YetAnotherExampleWithBC}
+    \end{figure}
+  
+    boundary conditions at $s=0$:
+    \begin{itemize}
+      \item $\underline{r}(0) = \underline{0}$
+      \item $\underline{q}(0) =
+        \begin{bmatrix}
+          1 & 0 & 0 & 0
+        \end{bmatrix}^{\mathrm{T}}$ because
+        \begin{itemize}
+          \item $\: \: \, q_0 = \cos\bigl( \frac{\Theta}{2} \bigr) = 1$ and
+          \item $\begin{bmatrix}
+          q_1 \\ q_2 \\ q_3
+        \end{bmatrix} = \sin \bigl( \frac{\Theta}{2} \bigr) \cdot \underline{a} =
+        \begin{bmatrix}
+          0 \\ 0 \\ 0
+        \end{bmatrix}$
+      \end{itemize}
+    \end{itemize}
+    \vspace{2em}
+
+    boundary conditions at $s=L$:
+    \begin{itemize}
+      \item $n_1(L) = P$
+        \begin{itemize}
+          \item $\doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) = P \cdot \underline{e}_1 \: \Rightarrow$
+          \item $\bigl( \doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) \bigr) \cdot \underline{e}_1 = P \: \wedge \: \underline{e}_1 = \underline{d}_1(L) \Rightarrow$
+          \item $\pd{\psi}{v_1}(L) = P$
+        \end{itemize}
+      \item $r_2(L) = 0$
+      \item $r_3(L) = L$
+      \item $\pd{\psi}{k_1}(L) = m$
+      \item $\begin{bmatrix}
+              q_1 \\ q_2 \\ q_3
+            \end{bmatrix} =
+            \sin \bigl( \frac{\Theta}{2} \bigr) \cdot
+            \begin{bmatrix}
+              1 \\ 0 \\ 0
+            \end{bmatrix}
+            \: \Rightarrow \: q_2 =0 , \, q_3 = 0$
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+
+%===============================================================================
+\subsection{Constitutive laws (part 2)}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in 3D elasticity}
+
+  \begin{displaymath}
+    W \bigl( \doubleunderline{F} \bigr) \overset{\star}{=}
+    W \bigl( \doubleunderline{U} \bigr) \overset{\star \star}{=}
+    W \bigl( I_1, \, I_2, \, I_3 \bigr)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \begin{itemize}
+    \item $\star$ : principle of frame-indifference
+    \item $\doubleunderline{U}$ : ... %TODO U
+    \item $\star \star$ : isotropy: material law is the same for all directions in the material %TODO better way to say this?
+    \item $I_1$, $I_2$, $I_3$ : strain-invariants
+    \item in case of an orthotropic material law, there would simply result a few more invariants ; \newline
+      othotropy here means that the material behavior in $s$ direction differs from the behavior in $X_1$, $X_2$ directions
+  \end{itemize}
+  
+  \vspace{1em}
+  \textbf{how to obtain the specific form of the energy potential function}? \newline
+  remember for example the already postulated function
+  % TODO A,C interchanged ; groupby A,C
+  \vspace{0.53em}
+  \begin{displaymath}
+    \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
+    \frac{1}{2} \mathscr{A} \, v_1^2 +
+    \frac{1}{2} \mathscr{A} \, v_2^2 +
+    \frac{1}{2} \mathscr{D} \, (v_3-1)^2 +
+    \frac{1}{2} \mathscr{C} \, k_1^2 +
+    \frac{1}{2} \mathscr{C} \, k_2^2 +
+    \frac{1}{2} \mathscr{B} \, k_3^2
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  $\rightarrow$ how to identify the strain invariants? \newline
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in elastic rods (part 1)}
+  
+  to get a better understanding of the concept of material symmetry, \newline
+  we set up \textbf{another thought experiment}
+  \vspace{0.5em}
+  \begin{figure}
+    \centering
+    \includegraphics[width=18cm, keepaspectratio=true]{sections/cosserat_rods/images/MaterialSymmetryExperiment}
+  \end{figure}
+  \begin{itemize}
+    \item we start with the reference configuration $\alpha$
+    \item we rotate $\alpha$ by $\doubleunderline{Q}$ to get $\beta$ (a rotated reference configuration)
+    \item $\underline{f}(.)$ maps $\alpha \mapsto \gamma$ and $\beta \mapsto \delta$
+  \end{itemize}
+  
+  if $\doubleunderline{Q}$ is in the symmetry group $\mathscr{G}$ then then we have $\eval[1]{\psi}_{\gamma} = \eval[1]{\psi}_{\delta}$
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in elastic rods (part 2)}
+
+  \begin{enumerate}
+    \item configuration $\gamma$ (image of reference configuration $\alpha$)
+      \begin{itemize}
+        \item $\underline{r}^{\gamma}(s)$
+        \item $\doubleunderline{R}^{\gamma}(s)$
+      \end{itemize}
+    \item configuration $\delta$ (image of rotated reference configuration $\beta$)
+      \begin{itemize}
+        \item $\underline{r}^{\delta}(s) =
+                \underline{r}^{\gamma}(s)$
+        \item $\doubleunderline{R}^{\delta}(s) =
+                \doubleunderline{R}^{\gamma}(s) \cdot \doubleunderline{Q}$
+        \item $\underline{v}^{\delta}(s) =
+                \doubleunderline{R}^{\gamma \mathrm{T}}(s) \cdot \underline{r}^{\gamma \prime}(s) =
+                \doubleunderline{Q}^{\mathrm{T}} \cdot \doubleunderline{R}^{\gamma \mathrm{T}}(s) \cdot \underline{r}^{\gamma \prime}(s) =
+                \doubleunderline{Q}^{\mathrm{T}} \cdot \underline{v}^{\gamma}(s)$
+        \item $\underline{k}^{\delta} =
+                \axial \bigl( \doubleunderline{R}^{\delta \mathrm{T}} \cdot \doubleunderline{R}^{\delta \prime} \bigr) =
+                \axial \bigl( \doubleunderline{Q}^{\mathrm{T}} \cdot \doubleunderline{R}^{\gamma \mathrm{T}} \cdot \doubleunderline{R}^{\gamma \prime} \cdot \doubleunderline{Q} \bigr) =
+                \doubleunderline{Q}^{\mathrm{T}} \cdot \axial \bigl( \doubleunderline{R}^{\gamma \mathrm{T}} \cdot \doubleunderline{R}^{\gamma \prime} \bigr) =
+                \doubleunderline{Q}^{\mathrm{T}} \cdot \underline{k}^{\gamma}$
+      \end{itemize}
+  \end{enumerate}
+  
+  \begin{displaymath}
+    \Rightarrow
+    \psi \bigl( \doubleunderline{Q}^{\mathrm{T}} \cdot \underline{v}^{\gamma}, \, \doubleunderline{Q}^{\mathrm{T}} \cdot \underline{k}^{\gamma} \bigr) \overset{!}{=}
+    \psi \bigl( \underline{v}^{\gamma}, \, \underline{k}^{\gamma} \bigr)
+    \: \forall \doubleunderline{Q} \in \mathscr{G}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \begin{itemize}
+    \item the symmetry group $\mathscr{G}$ depends on geometry and on the material of the beam
+    \item $\mathscr{G} \equiv SO(2)$ (all rotations about $\underline{e}_3$-axis), if beam has circular cross section and isotropic material ; also the case for circular ropes with continuous helicity
+  \end{itemize}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in elastic rods (part 3)}
+  \vspace{-0.4em}
+  with $\mathscr{G} \equiv SO(2)$ we had ...
+  \begin{displaymath}
+    \doubleunderline{Q} =
+    \begin{bmatrix}
+      +\cos(\Theta) & -\sin(\Theta) & 0 \\
+      +\sin(\Theta) & +\cos(\Theta) & 0 \\
+      0 & 0 & 1
+    \end{bmatrix}
+    \quad \forall \: \Theta \in [0,2\,\pi]
+  \end{displaymath}
+  \begin{displaymath}
+    \underline{v}^{\delta} =
+    \doubleunderline{Q}^{\mathrm{T}} \cdot \underline{v}^{\gamma} =
+    \begin{bmatrix}
+      \begin{bmatrix}
+        +\cos(\Theta) & +\sin(\Theta) \\
+        -\sin(\Theta) & +\cos(\Theta)
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        v_1^{\gamma} \\ v_2^{\gamma}
+      \end{bmatrix} \\
+      v_3^{\gamma}
+    \end{bmatrix}
+    \: ; \quad
+    \underline{v}^{\delta} = \dots \text{(replace }v\text{ by }k\text{)}
+  \end{displaymath}
+  we introduce some abbreviations ...
+  \begin{displaymath}
+    \underline{v}^{\delta} =
+    \begin{bmatrix}
+      \doubleunderline{\hat{Q}}^{\mathrm{T}} \cdot \underline{\hat{v}}^{\gamma} \\
+      v_3^{\gamma}
+    \end{bmatrix}   
+    \text{ with }
+    \underline{\hat{v}}^{\gamma} =
+    \begin{bmatrix}
+      v_1^{\gamma} \\ v_2^{\gamma}
+    \end{bmatrix}
+    \text{ and }
+    \doubleunderline{\hat{Q}} =
+    \begin{bmatrix}
+      +\cos(\Theta) & -\sin(\Theta) \\
+      +\sin(\Theta) & +\cos(\Theta)
+    \end{bmatrix}
+  \end{displaymath}
+  
+  \vspace{0.4em}
+  we observe the following \textbf{invariants} under all such transformations $\doubleunderline{Q} \in \mathscr{G}$
+  \begin{itemize}
+    \item angle between and magnitude of $\underline{\hat{v}}$, $\underline{\hat{k}}$
+      $\quad \rightarrow \quad$
+      $\enVert[1]{\underline{\hat{v}}}$ , $\enVert[1]{\underline{\hat{k}}}$ , $\underline{\hat{v}} \cdot \underline{\hat{k}}$ , $\left( \underline{\hat{v}} \times \underline{\hat{k}} \right) \cdot \underline{e}_3$
+    \item $v_3$, $k_3$
+  \end{itemize}
+  
+  \vspace{-1em}
+  \begin{displaymath}
+    \Rightarrow
+    \psi = \psi \bigl(
+      \underbrace{v_1^2 + v_2^2}_{I_1} , \, \underbrace{k_1^2 + k_2^2}_{I_2} , \, \underbrace{v_1 \cdot k_1 + v_2 \cdot k_2}_{I_3} , \, \underbrace{v_1 \cdot k_2 - v_2 \cdot k_1}_{I_4} , \, \underbrace{v_3}_{I_5} , \, \underbrace{k_3}_{I_6}
+    \bigr)
+  \end{displaymath}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in elastic rods (part 4)}
+  \vspace{-1em}
+  \begin{displaymath}
+    \psi = \psi \bigl(
+      \underbrace{v_1^2 + v_2^2}_{I_1} , \, \underbrace{k_1^2 + k_2^2}_{I_2} , \, \underbrace{v_1 \cdot k_1 + v_2 \cdot k_2}_{I_3} , \, \underbrace{v_1 \cdot k_2 - v_2 \cdot k_1}_{I_4} , \, \underbrace{v_3}_{I_5} , \, \underbrace{k_3}_{I_6}
+    \bigr)
+  \end{displaymath}
+
+  \vspace{0.5em}
+  as \textbf{another experiment} consider now a reflection of the beam about the $\underline{e}_1$-$\underline{e}_2$-plane
+  
+  \vspace{0.3em}
+  $\rightarrow$ such a transformation is not in the symmetry group for a pre-twisted rod
+  
+  \vspace{0.3em}
+  $\rightarrow$ $I_4$, $I_5$, $I_6$ will change their sign
+  
+  \vspace{0.5em}
+  we do a Taylor-expansion of $\psi$ about $\bigl( \underline{v}_0 , \, \underline{k}_0 \bigr) = \bigl( \begin{bmatrix}
+    0 & 0 & 1
+  \end{bmatrix}^{\mathrm{T}} , \, \begin{bmatrix}
+    0 & 0 & 0
+  \end{bmatrix}^{\mathrm{T}} \bigr)$
+  \begin{displaymath}
+    \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
+    \cancel{ \psi \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) } +
+    \cancel{ \pd{\psi}{\underline{v}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) \cdot \bigl( \underline{v} - \underline{v}_0 \bigr) } +
+    \cancel{ \pd{\psi}{\underline{k}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) } +
+  \end{displaymath}
+  \begin{displaymath}
+    + \frac{1}{2} \Biggl(
+      \Bigl( \pd[2]{\psi}{\underline{v}} \cdot \bigl( \underline{v} - \underline{v}_0 \bigr) \Bigr) \cdot \bigl( \underline{v} - \underline{v}_0 \bigr) + 
+      \Bigl( \pd[2]{\psi}{\underline{k}} \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) \Bigr) \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) +
+  \end{displaymath}
+  \begin{displaymath}
+      + 2 \cdot \Bigl( \md{\psi}{2}{\underline{v}}{}{\underline{k}}{} \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) \Bigr) \cdot \bigl( \underline{v} - \underline{v}_0 \bigr)
+    \Biggr) + \text{higher order terms}
+  \end{displaymath}
+  
+  \begin{itemize}
+    \item first term has been canceled because it is a constant (irrelevant for potential)
+    \item second and third term have been canceled because they depend on the sign % TODO correct? ; 2 \cdot in Taylor in mixed term
+  \end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Material symmetry in elastic rods (part 5)}
+
+  from the Taylor expansion of $\psi$ consider for example the term
+  \begin{displaymath}
+    \pd[2]{\psi}{\underline{v}} =
+    \pd{}{\underline{v}} \biggl( \pd{\psi}{\underline{v}} \biggr) =
+    \pd{}{\underline{v}} \biggl( \pd{\psi}{I_1} \cdot \pd{I_1}{\underline{v}} + \dots + \pd{\psi}{I_6} \cdot \pd{I_6}{\underline{v}} \biggr) = \dots
+  \end{displaymath}
+  
+  $\pd{\psi}{I_j}$ are unknowns ($\mathscr{A}, \mathscr{B}, \dots$) that must be obtained from kinematics and 3D elasticity, \newline %TODO more precisely
+  whereas $\pd{I_j}{\underline{v}}$ can be computed easily ($j = 1,\dots,6$)
+  
+  \vspace{1em}
+  doing the computations and collecting unknown the coefficients ($\mathscr{A}, \mathscr{B}, \dots$) we obtain
+  \begin{displaymath}
+    \psi =
+    \frac{1}{2} \Bigl(
+      \mathscr{A} \cdot \bigl( k_1^2 + k_2^2 \bigr) +
+      \mathscr{B} \cdot k_3^2 +
+      \mathscr{C} \cdot \bigl( v_1^2 + v_2^2 \bigr) +
+      \mathscr{D} \cdot \bigl( k_3 - 1 \bigr)^2 +
+  \end{displaymath}
+  \begin{displaymath}
+    + 2 \cdot \mathscr{E} \cdot \bigl( v_3 - 1 \bigr) \cdot k_3 +
+      2 \cdot \mathscr{F} \cdot \bigl( v_1 \cdot k_1 + v_2 \cdot k_2 \bigr)
+    \Bigr)
+  \end{displaymath}
+  %TODO A,C interchanged ; groupby A,C
+  
+\end{frame}
+  
