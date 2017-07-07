@@ -102,7 +102,7 @@
   \vspace{0.3em}
   \textbf{geometric meaning of $\underline{u}$}
   \begin{itemize}
-    \item $u_1$, $u_2$ : in-plane shrinking % TODO shrinking vs relative displacement
+    \item $u_1$, $u_2$ : in-plane shrinking
     \item $u_3$ : out-of-plane warping $\rightarrow$ cross section not planar anymore
     \item then $\underline{d}_1$, $\underline{d}_1$ represent the average orientation of the warped cross section
   \end{itemize}
@@ -268,26 +268,25 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Balance of forces (part 1)}
-  % TODO be explicit about deformed configuration
-  % we are integrating the \cancel{undeformed} reference configuration! (keep lines straight)
-    % TODO replace all undeformed with reference ; pullback, nominal
   % comment about N=+-e_3
-  % leave out first line of formula (and add prose?)
+  \vspace{-1em}
   \begin{figure}
     \centering
     \includegraphics[width=22cm, keepaspectratio=true]{sections/cosserat_rods/images/Forces}
   \end{figure}
 
+  to obtain the forces and moments we integrate the pullback of the tractions / tensions acting in the deformed configuration, hence using the reference configuration as the domain of integration ... 
+  % TODO good?
+  \vspace{1em}
   \textbf{external forces}: body force $\underline{B}$ and external traction $\underline{t}^{ext}$
-  
   \begin{displaymath}
     \begin{alignedat}{1}
-      &\iiint_{\text{undeformed volume}} \underline{B} \dif V + \iint_{\text{lateral surface}} \underline{t}^{ext} \dif A = \\
-      = &\int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \underline{B}(X_1,X_2,s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(l,s) \dif l \Biggr) \dif s =: \\
+      %&\iiint_{\text{undeformed volume}} \underline{B} \dif V + \iint_{\text{lateral surface}} \underline{t}^{ext} \dif A = \\
+      %=
+      &\int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \underline{B}(X_1,X_2,s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(l,s) \dif l \Biggr) \dif s =: \\
       =: & \int_{s_1}^{s_2} \underline{\hat{n}}(s) \dif s
     \end{alignedat}
   \end{displaymath}
-  % TODO (X_1,X_2,s) bzw. (l,s)
   \vspace{0.5em}
   $\rightarrow$ distributed external load $\underline{\hat{n}}(s)$ (force per unit of undeformed length)
 \end{frame}
@@ -362,29 +361,29 @@
   
   \textbf{moment due to external loads}
   \begin{displaymath}
-    \begin{alignedat}{2}
-      &\iiint_{\text{undeformed volume}} \underline{x} \times \underline{B} \dif V + &\\
-       + &\iint_{\text{lateral surface}} \underline{x} \times \underline{t}^{ext} \dif A = &\\
-      = &\int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \iint_{\Omega_{0}(s)} \underline{B}(s) \dif A \Biggr) \dif s +
-        &\int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{B} \dif A \Biggr) \dif s + \\
-        + &\int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(s) \dif l \Biggr) \dif s +
-        &\int_{s_1}^{s_2} \Biggl( \oint_{\partial \Omega_{0}(s)} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{t}^{ext} \dif l \Biggr) \dif s =
+    \begin{alignedat}{1}
+      &\iiint_{\text{reference volume}} \underline{x} \times \underline{B} \dif V +
+      \iint_{\text{lateral surface of reference volume}} \underline{x} \times \underline{t}^{ext} \dif A = \\ 
+      = &{\color{faublue} \int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \iint_{\Omega_{0}(s)} \underline{B}(X_1,X_2,s) \dif A \Biggr) \dif s } + \\
+      + &{\color{og_dark_green} \int_{s_1}^{s_2} \Biggl( \iint_{\Omega_{0}(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \underline{B}(X_1,X_2,s) \dif A \Biggr) \dif s } + \\
+      + &{\color{faublue} \int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(l,s) \dif l \Biggr) \dif s } + \\
+      + &{\color{og_dark_green} \int_{s_1}^{s_2} \Biggl( \oint_{\partial \Omega_{0}(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \underline{t}^{ext}(l,s) \dif l \Biggr) \dif s } =
     \end{alignedat}
   \end{displaymath}
 \end{frame}
 
 
 
-%-------------------------------------------------------------------------------
+%-----------------------------0108897834-------------------------------------------------
 \begin{frame}
   \frametitle{Balance of moments (part 2)}
-  % TODO use color to show which terms are equal
   \begin{displaymath}
     \begin{alignedat}{1}
-      = &\int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \biggl( \iint_{\Omega_0} \underline{B}(s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(s) \dif l \biggr) \Biggr) \dif s + \\
-        + &\int_{s_1}^{s_2} \biggl( \iint_{\Omega_{0}(s)} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{B}(s) \dif A + \oint_{\partial \Omega_0} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{t}^{ext}(s) \dif l \biggr) \dif s = \\
-      =: &\int_{s_1}^{s_2} \underline{r}(s) \times \underline{\hat{n}}(s) \dif s +
-        \int_{s_1}^{s_2} \underline{\hat{m}}(s) \dif s
+      = &{\color{faublue} \int_{s_1}^{s_2} \Biggl( \underline{r}(s) \times \biggl( \iint_{\Omega_0} \underline{B}(X_1,X_2,s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(s) \dif l \biggr) \Biggr) \dif s} + \\
+        + &{\color{og_dark_green} \int_{s_1}^{s_2} \biggl( \iint_{\Omega_{0}(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \underline{B}(X_1,X_2,s) \dif A + } \\
+        &{\color{og_dark_green} \quad \: \, + \oint_{\partial \Omega_0} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \underline{t}^{ext}(l,s) \dif l \biggr) \dif s } = \\
+      =: &{\color{faublue} \int_{s_1}^{s_2} \underline{r}(s) \times \underline{\hat{n}}(s) \dif s} +
+        {\color{og_dark_green} \int_{s_1}^{s_2} \underline{\hat{m}}(s) \dif s}
     \end{alignedat}
   \end{displaymath}
 \end{frame}
@@ -393,15 +392,15 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Balance of moments (part 3)}
-    % TODO use color to show which terms are equal
-  \textbf{moment due to internal forces} % TODO tractions (also before with forces)
+  \textbf{moment due to internal forces}
   \begin{displaymath}
     \begin{alignedat}{1}
       &\iint_{\Omega_0(s)} \underline{x}(X_1,X_2,s) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif A = \\
-      =&\iint_{\Omega_0(s)} \underline{r}(s) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2 + \\
-      + &\iint_{\Omega_0(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2 = \\
-      = \, &\underline{r}(s) \times \iint_{\Omega_0(s)} \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \dif X_1 \dif X_2 + \dots = \\
-      =: \, &\underline{r}(s) \times \underline{n}(s) + \underline{m}(s)
+      =&{\color{faublue} \iint_{\Omega_0(s)} \underline{r}(s) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2} + \\
+      + &{\color{og_dark_green} \iint_{\Omega_0(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2} = \\
+      = \, &{\color{faublue} \underline{r}(s) \times \iint_{\Omega_0(s)} \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \dif X_1 \dif X_2} + {\color{og_dark_green} \dots} = \\
+      =: \, &{\color{faublue} \underline{r}(s) \times \underline{n}(s)} +
+        {\color{og_dark_green} \underline{m}(s)}
     \end{alignedat}
   \end{displaymath}
 \end{frame}
@@ -489,11 +488,11 @@
   \end{displaymath}
   
   we compute the \textbf{deformation gradient} and obtain
-  % TODO computation of F in more detail?
+  % TODO ?computation of F in more detail?
   \begin{displaymath}
     \begin{alignedat}{1}
-      \doubleunderline{F}(X_1,X_2,s) &= \underline{r}^{\prime}(s) \otimes \underline{e}_3 + \doubleunderline{R}(s) \: \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + \doubleunderline{R}^{\prime}(s) \: X_{\alpha} \underline{e}_{\alpha} \otimes \underline{e}_3 = \\
-      &= \doubleunderline{R}(s) \biggl( \doubleunderline{R}^{\mathrm{T}}(s) \, \underline{r}^{\prime}(s) \otimes \underline{e}_3 + \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + \doubleunderline{R}^{\mathrm{T}}(s) \, \doubleunderline{R}^{\prime}(s) \, X_{\alpha} \underline{e}_{\alpha} \otimes \underline{e}_3 \biggr)
+      \doubleunderline{F}(X_1,X_2,s) &= \underline{r}^{\prime}(s) \otimes \underline{e}_3 + \doubleunderline{R}(s) \cdot \bigl( \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} \bigr) + \doubleunderline{R}^{\prime}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} \bigr) \otimes \underline{e}_3 = \\
+      &= \doubleunderline{R}(s) \cdot \biggl( \doubleunderline{R}^{\mathrm{T}}(s) \cdot \underline{r}^{\prime}(s) \otimes \underline{e}_3 + \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + \doubleunderline{R}^{\mathrm{T}}(s) \cdot \doubleunderline{R}^{\prime}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} \bigr) \otimes \underline{e}_3 \biggr)
     \end{alignedat}
   \end{displaymath}
   
@@ -504,7 +503,6 @@
   \end{displaymath}
   
   \vspace{0.4em}
-  %which leads us to the constitutive law ...
   from the 3-dimensional constitutive law of the material
 \end{frame}
 
@@ -557,13 +555,12 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Constitutive equation for a hyperelastic rod}
-  
-  note: hyperelasticity refers to a reversible deformation process; \newline
-  therefore it can be described by a potential function
-  
-  \vspace{0.7em}
-  in order to derive constitutive laws from theory, \newline
-  we will use functions that are potentials of internal energy ... 
+
+  \begin{itemize}
+    \item a hyperelastic material is a model for reversible elasticity $\rightarrow$ stress-strain relationship derives from a potential function, i.e. the strain energy density of the material
+    \item in general a hyperelastic material has a nonlinear stress-strain relationship
+    \item well known hyperelastic material models are the Neo-Hookean and Mooney-Rivlin solids
+  \end{itemize}
   
   \vspace{1.5em}
   \textbf{strain energy per unit of undeformed length}
@@ -581,7 +578,7 @@
   \begin{itemize}
     \item $\underline{f}(s)$ canceled because of principle of frame-indifference
     \item $\nabla \doubleunderline{F}(s)$ canceled because we will not consider higher order derivatives of the deformation map in classical elasticity (compared to higher gradient elasticity theory)
-    % discontinuities at interfaces in the material 
+    % higher gradient elasticity: when there exist discontinuities at interfaces in the material 
   \end{itemize}
 \end{frame}
 
@@ -615,7 +612,6 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Principle of material frame-indifference (part 2)}
-  % TODO split slide
   \vspace{-0.6em}
   \begin{enumerate}
     \item initial configuration $\alpha$
@@ -742,7 +738,7 @@
     \item $v_2 = \underline{r}^{\prime} \, \underline{d}_2$ : shear along $\underline{d}_2$
     \item $v_3 = \underline{r}^{\prime} \, \underline{d}_3$ : rate of axial shift $\hat{=}$ axial stretch 
   \end{itemize}
-  % TODO make a figure
+  % TODO ?make a figure
 \end{frame}
 
 
@@ -945,7 +941,6 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  % TODO recap slide
   \frametitle{Recap of what we have so far}
   \textbf{balance equations} (in terms of nominal stresses in the reference configuration)
   \begin{displaymath}
@@ -971,12 +966,7 @@
   \end{displaymath}
   
   \vspace{0.5em}
-  % TODO Preview?
-  $\rightarrow$ derivative of $\psi$ with respect to strains $\underline{v}$, $\underline{k}$ will render stress measures (resolved in the local director basis)
-    
-    
-
-  
+  $\rightarrow$ the derivatives of $\psi$ with respect to the strains $\underline{v}$, $\underline{k}$ are the stress measures resolved in the local director basis
 \end{frame}
 
 
@@ -1001,7 +991,7 @@
   thereby lowering the load's potential and also the potential of the closed system
   
   \vspace{0.3em}
-  $\rightarrow$ we now want to identify the conditions for a minimum of $\Pi$
+  $\rightarrow$ we now want to identify the \textbf{conditions for a minimum of $\Pi$}
 \end{frame}
 
 
@@ -1031,12 +1021,12 @@
   \vspace{0.6em}
   \textbf{first variation of total energy}
   \begin{displaymath}
-    \delta \Pi = \pd{\Pi}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \delta \Pi = \od{\Pi}{\epsilon} \sVert[3]_{\epsilon=0} =
     \int_0^L \biggl(
-    \pd{\psi}{\underline{v}}(s) \cdot \underbrace{ \pd{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[2]_{\epsilon=0} }_{\delta \underline{v}(s)} +
-    \pd{\psi}{\underline{k}}(s) \cdot \underbrace{ \pd{\underline{k}_{\epsilon}}{\epsilon}(s)\sVert[2]_{\epsilon=0} }_{\delta \underline{k}(s)}
+    \pd{\psi}{\underline{v}}(s) \cdot \underbrace{ \od{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[2]_{\epsilon=0} }_{\delta \underline{v}(s)} +
+    \pd{\psi}{\underline{k}}(s) \cdot \underbrace{ \od{\underline{k}_{\epsilon}}{\epsilon}(s)\sVert[2]_{\epsilon=0} }_{\delta \underline{k}(s)}
     \biggr) \dif s
-    - P \, \underline{e}_1 \cdot \pd{\underline{r}_{\epsilon}}{\epsilon}(L) \sVert[3]_{\epsilon=0}
+    - P \, \underline{e}_1 \cdot \od{\underline{r}_{\epsilon}}{\epsilon}(L) \sVert[3]_{\epsilon=0}
   \end{displaymath}
   
   in the sequel we will work on the terms $\delta \underline{v}(s)$ and $\delta \underline{k}(s)$
@@ -1046,8 +1036,6 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Minimum potential energy method (part 3)}
-  % TODO use of \Delta vs \delta
-  % also: \pd{}{\epsilon} vs \od{}{\epsilon}
   \textbf{perturbed version of $\underline{v}$}
   \begin{displaymath}
     \underline{v}_{\epsilon}(s) =
@@ -1059,17 +1047,17 @@
   \textbf{first variation of $\underline{v}$}
   \begin{displaymath}
     \delta \underline{v}(s) = 
-    \pd{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
+    \od{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0}
+    \od{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0}
      \cdot \underline{r}^{\prime}(s) +
      \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \underline{r}^{\prime}(s)
   \end{displaymath}
   
   \vspace{0.5em}
   \begin{displaymath}
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
-    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
     \bigl( \delta \doubleunderline{\Theta} \bigr)^{\mathrm{T}} = -\delta \doubleunderline{\Theta} 
   \end{displaymath}
   
@@ -1100,11 +1088,11 @@
   \textbf{first variation of $\underline{k}$}
   \begin{displaymath}
     \delta \underline{k}(s) =
-    \pd{\underline{k}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
-    \pd{}{\epsilon} \biggl( \axial \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \biggr) \sVert[3]_{\epsilon=0} =
+    \od{\underline{k}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \axial \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \biggr) \sVert[3]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
-    = \axial \biggl( \pd{}{\epsilon} \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \sVert[2]_{\epsilon=0} \biggr) \overset{(1)}{=}
+    = \axial \biggl( \od{}{\epsilon} \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \sVert[2]_{\epsilon=0} \biggr) \overset{(1)}{=}
     \axial \bigl( \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \doubleunderline{\Theta}^{\prime}(s) \cdot \doubleunderline{R} \bigr) \overset{(2)}{=}
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot \delta \underline{\Theta}^{\prime}(s)      
   \end{displaymath}
@@ -1126,10 +1114,10 @@
   
   and regarding equality $(1)$ we have ...
   \begin{displaymath}
-    \pd{}{\epsilon} \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \sVert[2]_{\epsilon=0} =
+    \od{}{\epsilon} \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \sVert[2]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
-    = \pd{}{\epsilon} \Biggl[
+    = \od{}{\epsilon} \Biggl[
       \doubleunderline{R}^{\mathrm{T}} \cdot \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta} \bigr) \biggr)^{\mathrm{T}}
       \cdot \Biggl(
         \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta} \bigr) \biggr)^{\prime} \cdot \doubleunderline{R}
@@ -1153,11 +1141,11 @@
   \vspace{0.5em}
   ... where we used ...
   \begin{displaymath}
-    \pd{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
-    \pd{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \delta \doubleunderline{\Theta}(s) \bigr) \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \doubleunderline{I} + \epsilon \cdot \delta \doubleunderline{\Theta} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^2 + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
   \end{displaymath}
   \begin{displaymath}
-    = \pd{}{\epsilon} \biggl( \epsilon \cdot \delta \doubleunderline{\Theta}^{\prime} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^{\prime 2} + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
+    = \od{}{\epsilon} \biggl( \epsilon \cdot \delta \doubleunderline{\Theta}^{\prime} + \frac{\epsilon^2}{2} \cdot \delta \doubleunderline{\Theta}^{\prime 2} + \dots \biggr)^{\prime} \sVert[3]_{\epsilon=0} =
     \delta \doubleunderline{\Theta}^{\prime} 
   \end{displaymath}
 \end{frame}
@@ -1303,7 +1291,7 @@
     m_i \, \underline{e}_i = M_i \, \underline{d}_i
   \end{displaymath}
   
-  with $\underline{d}_i(s) = \doubleunderline{R}(s) \cdot \underline{e}_i$ it follows that
+  with $\underline{d}_i(s) = \doubleunderline{R}(s) \cdot \underline{e}_i$ ; it follows that
   \begin{displaymath}
     N_i(s) = \pd{\psi}{v_i}(s)
   \end{displaymath}
@@ -1324,23 +1312,22 @@
 \begin{frame}
   \frametitle{Energy potential for isotropic circular beams}
 
-  % TODO A,C interchanged
   \begin{displaymath}
     \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
-    \frac{1}{2} \mathscr{A} \, v_1^2 +
-    \frac{1}{2} \mathscr{A} \, v_2^2 +
+    \frac{1}{2} \mathscr{C} \, v_1^2 +
+    \frac{1}{2} \mathscr{C} \, v_2^2 +
     \frac{1}{2} \mathscr{D} \, (v_3-1)^2 +
-    \frac{1}{2} \mathscr{C} \, k_1^2 +
-    \frac{1}{2} \mathscr{C} \, k_2^2 +
+    \frac{1}{2} \mathscr{A} \, k_1^2 +
+    \frac{1}{2} \mathscr{A} \, k_2^2 +
     \frac{1}{2} \mathscr{B} \, k_3^2
   \end{displaymath}
   
   \vspace{0.5em}
   \begin{itemize}
     \item shearing stiffness \newline
-      $N_1(s) = \pd{\psi}{v_1}(s) = \mathscr{A} \, v_1(s) \overset{!}{=} k \, G \, A \, v_1(s)
+      $N_1(s) = \pd{\psi}{v_1}(s) = \mathscr{C} \, v_1(s) \overset{!}{=} k \, G \, A \, v_1(s)
       \: \Rightarrow \:
-      \mathscr{A} = k \, G \, A$
+      \mathscr{C} = k \, G \, A$
       
     \item stretching stiffness \newline
       $N_3(s) = \pd{\psi}{v_3}(s) = \mathscr{D} \, (v_3(s) -1) \overset{!}{=} E \, A \, ( v_3(s) -1)
@@ -1348,9 +1335,9 @@
       \mathscr{D} = E \, A$
       
     \item bending stiffness \newline
-      $M_1(s) = \pd{\psi}{k_1}(s) = \mathscr{C} \, k_1(s) \overset{!}{=} E \, I \, k_1(s)
+      $M_1(s) = \pd{\psi}{k_1}(s) = \mathscr{A} \, k_1(s) \overset{!}{=} E \, I \, k_1(s)
       \: \Rightarrow \:
-      \mathscr{C} = E \, I$
+      \mathscr{A} = E \, I$
       
     \item twisting stiffness \newline
       $M_3(s) = \pd{\psi}{k_3}(s) = \mathscr{B} \, k_3(s) \overset{!}{=} G \, J \, k_3(s)
@@ -1556,15 +1543,7 @@
 \begin{frame}
   \frametitle{Model as a system of first order equations (part 1)}
   
-  boundary conditions prescribe not only strains $\left( \underline{v},\underline{k} \right)$,  but also displacements $\left( \underline{r},\doubleunderline{R} \right)$ \newline
-  but our model equations depend alone on $\left( \underline{v},\underline{k} \right)$ \newline
-  therefore we not yet have a closed system that can be solved \newline
-  (by numerically integrating the system of 6 ODEs)
-  % TODO BVP: solving the system:
-    % 1D problem, no time dependence, only $s$ as independent variable
-      % dynamics, inertia term, time derivative, PDE?, FEM  
-    % BC on both ends?
-    % demands on the solver, Runge-Kutta-scheme
+  although boundary conditions for forces and moments can be written in terms of strains the displacement and rotation boundary conditions cannot ; therefore the system is not closed
   
   \vspace{0.7em}
   to \textit{close the system}, we will rewrite the model as 12 first order equations, \newline
@@ -1628,23 +1607,52 @@
   
   \vspace{1em}
   we close the system by adding the seven extra first order equations \newline
-  (relating (derivatives of) displacements to strains)
+  (relating derivatives of displacements to strains)
   \begin{displaymath}
     \underline{r}^{\prime} = \doubleunderline{R} \cdot \underline{v}
   \end{displaymath}
   \begin{displaymath}
-    \underline{q}^{\prime} = \doubleunderline{E} \cdot \underline{k}
+    \underline{q}^{\prime} = \doubleunderline{E}(\underline{q}) \cdot \underline{k}
   \end{displaymath}
   
   \vspace{1em}
   $\rightarrow$ this gives us a system of 13 coupled nonlinear ODEs
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Extra constraint for unit quaternions}
   
-  % TODO write about constraint (7th / 13th equation)
+  using unit quaternions to encode rotations leads to a system of 13 equations \newline
+  instead of just 12 ; this extra equation is contained within
   \begin{displaymath}
-    \underline{q} \cdot \underline{q} \overset{!}{=} 1
-    \quad \Rightarrow \quad
-    \underline{q} \cdot \underline{q}^{\prime} \overset{!}{=} 0
+    \underline{q}^{\prime} = \doubleunderline{E}(\underline{q}) \cdot \underline{k} \quad (\star)
   \end{displaymath}
+  
+  since rotations are encoded by \textit{unit} quaternions the constraint $\norm[1]{\underline{q}}_{2} \overset{!}{=} 1$ must be satisfied
+  
+  from the constraint we obtain a necessary condition: $\underline{q} \cdot \underline{q} \overset{!}{=} 1 \: \Rightarrow \: \underline{q} \cdot \underline{q}^{\prime} \overset{!}{=} 0$, which is automatically satisfied by $(\star)$: dotting $(\star)$ with $\underline{q}$ gives ...
+  \begin{displaymath}
+    \underline{q}^{\prime} \cdot \underline{q} =
+    \bigl( \doubleunderline{E}(\underline{q}) \cdot \underline{k} \bigr) \cdot \underline{q} =
+    \underline{k} \cdot \bigl( \doubleunderline{E}^{\mathrm{T}} \cdot \underline{q} \bigr) =
+    \underline{k} \cdot \Biggl(
+    \begin{bmatrix}
+      -q_1 & +q_0 & +q_3 & -q_2\\
+      -q_2 & -q_3 & +q_0 & +q_1\\
+      -q_3 & +q_2 & -q_1 & +q_0
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      q_0 \\ q_1 \\ q_2 \\ q_3
+    \end{bmatrix}
+    \Biggr) =
+    \underline{k} \cdot
+    \begin{bmatrix}
+      0 \\ 0 \\ 0
+    \end{bmatrix} = 0
+  \end{displaymath}
+  the already satisfied necessary condition together with one boundary condition, $\norm[1]{\underline{q}}_{2} \sVert[2]_{s=0} = 1$ or $\: \norm[1]{\underline{q}}_{2} \sVert[2]_{s=L} = 1$, is sufficient to satisfy the constraint for all $s$
 \end{frame}
 
 
@@ -1697,29 +1705,34 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Another example with boundary conditions: follower load problem}
-  % TODO follower load
-  \vspace{0.5em}
-  \begin{tabularx}{\linewidth}{XX}
-    {
-      boundary conditions at $s=0$:
-      \begin{itemize}
-        \item $\underline{r}(0) = \underline{0}$
-        \item $\underline{q}(0) =
-          \begin{bmatrix}
-            1 & 0 & 0 & 0
-          \end{bmatrix}^{\mathrm{T}}$ because
-          \begin{itemize}
-            \item $\: \: \, q_0 = \cos\bigl( \frac{\Theta}{2} \bigr) = 1$ and
-            \item $\begin{bmatrix}
-            q_1 \\ q_2 \\ q_3
-          \end{bmatrix} = \sin \bigl( \frac{\Theta}{2} \bigr) \cdot \underline{a} =
-          \begin{bmatrix}
-            0 \\ 0 \\ 0
-          \end{bmatrix}$
-        \end{itemize}
+  \vspace{-1em}
+  \begin{multicols}{2}
+    \noindent  
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/FollowerLoadExample}
+    \end{figure}
+    
+    boundary conditions at $s=0$:
+    \begin{itemize}
+      \item $\underline{r}(0) = \underline{0}$
+      \item $\underline{q}(0) =
+        \begin{bmatrix}
+          1 & 0 & 0 & 0
+        \end{bmatrix}^{\mathrm{T}}$ because
+        \begin{itemize}
+          \item $\: \: \, q_0 = \cos\bigl( \frac{\Theta}{2} \bigr) = 1$ and
+          \item $\begin{bmatrix}
+          q_1 \\ q_2 \\ q_3
+        \end{bmatrix} = \sin \bigl( \frac{\Theta}{2} \bigr) \cdot \underline{a} =
+        \begin{bmatrix}
+          0 \\ 0 \\ 0
+        \end{bmatrix}$
       \end{itemize}
-    } & {
-      boundary conditions at $s=L$:
+    \end{itemize}
+    
+    \vspace{1em}
+    boundary conditions at $s=L$:
       \begin{itemize}
         \item $\doubleunderline{R} \cdot \pd{\psi}{\underline{v}}(L) = P \cdot \underline{d}_1 = \doubleunderline{R} \cdot P \cdot \underline{e}_1 \: \Rightarrow$
           \begin{itemize}
@@ -1732,8 +1745,7 @@
             \item $M_i(L) = 0 \: (i \in {1,2,3})$
           \end{itemize}
       \end{itemize}
-    }
-  \end{tabularx}
+  \end{multicols}
 \end{frame}
 
 
@@ -1800,15 +1812,15 @@
 
   \begin{displaymath}
     W \bigl( \doubleunderline{F} \bigr) \overset{\star}{=}
-    W \bigl( \doubleunderline{U} \bigr) \overset{\star \star}{=}
+    W \bigl( \doubleunderline{U} \bigr) \overset{\diamond}{=}
     W \bigl( I_1, \, I_2, \, I_3 \bigr)
   \end{displaymath}
   
   \vspace{0.5em}
   \begin{itemize}
     \item $\star$ : principle of frame-indifference
-    \item $\doubleunderline{U}$ : ... %TODO U
-    \item $\star \star$ : isotropy: material law is the same for all directions in the material %TODO better way to say this?
+    \item $\doubleunderline{U}$ : from polar decomposition $\doubleunderline{F} = \doubleunderline{\tilde{R}} \cdot \doubleunderline{U}$
+    \item $\diamond$ : isotropy: material law is the same for all directions in the material
     \item $I_1$, $I_2$, $I_3$ : strain-invariants
     \item in case of an orthotropic material law, there would simply result a few more invariants ; \newline
       othotropy here means that the material behavior in $s$ direction differs from the behavior in $X_1$, $X_2$ directions
@@ -1817,15 +1829,14 @@
   \vspace{1em}
   \textbf{how to obtain the specific form of the energy potential function}? \newline
   remember for example the already postulated function
-  % TODO A,C interchanged ; groupby A,C
   \vspace{0.53em}
   \begin{displaymath}
     \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
-    \frac{1}{2} \mathscr{A} \, v_1^2 +
-    \frac{1}{2} \mathscr{A} \, v_2^2 +
+    \frac{1}{2} \mathscr{C} \, v_1^2 +
+    \frac{1}{2} \mathscr{C} \, v_2^2 +
     \frac{1}{2} \mathscr{D} \, (v_3-1)^2 +
-    \frac{1}{2} \mathscr{C} \, k_1^2 +
-    \frac{1}{2} \mathscr{C} \, k_2^2 +
+    \frac{1}{2} \mathscr{A} \, k_1^2 +
+    \frac{1}{2} \mathscr{A} \, k_2^2 +
     \frac{1}{2} \mathscr{B} \, k_3^2
   \end{displaymath}
   
@@ -1970,23 +1981,8 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Material symmetry in elastic rods (part 4)}
-  \vspace{-1em}
-  \begin{displaymath}
-    \psi = \psi \bigl(
-      \underbrace{v_1^2 + v_2^2}_{I_1} , \, \underbrace{k_1^2 + k_2^2}_{I_2} , \, \underbrace{v_1 \cdot k_1 + v_2 \cdot k_2}_{I_3} , \, \underbrace{v_1 \cdot k_2 - v_2 \cdot k_1}_{I_4} , \, \underbrace{v_3}_{I_5} , \, \underbrace{k_3}_{I_6}
-    \bigr)
-  \end{displaymath}
 
-  \vspace{0.5em}
-  as \textbf{another experiment} consider now a reflection of the beam about the $\underline{e}_1$-$\underline{e}_2$-plane
-  
-  \vspace{0.3em}
-  $\rightarrow$ such a transformation is not in the symmetry group for a pre-twisted rod
-  
-  \vspace{0.3em}
-  $\rightarrow$ $I_4$, $I_5$, $I_6$ will change their sign
-  
-  \vspace{0.5em}
+  to derive the concrete form of the energy potential function, \newline
   we do a Taylor-expansion of $\psi$ about $\bigl( \underline{v}_0 , \, \underline{k}_0 \bigr) = \bigl( \begin{bmatrix}
     0 & 0 & 1
   \end{bmatrix}^{\mathrm{T}} , \, \begin{bmatrix}
@@ -1994,9 +1990,9 @@
   \end{bmatrix}^{\mathrm{T}} \bigr)$
   \begin{displaymath}
     \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
-    \cancel{ \psi \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) } +
-    \cancel{ \pd{\psi}{\underline{v}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) \cdot \bigl( \underline{v} - \underline{v}_0 \bigr) } +
-    \cancel{ \pd{\psi}{\underline{k}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) } +
+    \cancelto{0}{ \psi \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) } +
+    \cancelto{0}{ \pd{\psi}{\underline{v}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) } \cdot \bigl( \underline{v} - \underline{v}_0 \bigr)  +
+    \cancelto{0}{ \pd{\psi}{\underline{k}} \bigl( \underline{v}_0, \, \underline{k}_0 \bigr) } \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) +
   \end{displaymath}
   \begin{displaymath}
     + \frac{1}{2} \Biggl(
@@ -2005,13 +2001,20 @@
   \end{displaymath}
   \begin{displaymath}
       + 2 \cdot \Bigl( \md{\psi}{2}{\underline{v}}{}{\underline{k}}{} \cdot \bigl( \underline{k} - \underline{k}_0 \bigr) \Bigr) \cdot \bigl( \underline{v} - \underline{v}_0 \bigr)
-    \Biggr) + \text{higher order terms}
+    \Biggr) + \text{HOT}
   \end{displaymath}
   
-  \begin{itemize}
-    \item first term has been canceled because it is a constant (irrelevant for potential)
-    \item second and third term have been canceled because they depend on the sign % TODO correct? ; 2 \cdot in Taylor in mixed term
-  \end{itemize}
+  \vspace{0.5em}
+  from the Taylor expansion consider for example the term
+  \begin{displaymath}
+    \pd[2]{\psi}{\underline{v}} =
+    \pd{}{\underline{v}} \biggl( \pd{\psi}{\underline{v}} \biggr) =
+    \pd{}{\underline{v}} \biggl( \pd{\psi}{I_1} \cdot \pd{I_1}{\underline{v}} + \dots + \pd{\psi}{I_6} \cdot \pd{I_6}{\underline{v}} \biggr) = \dots
+  \end{displaymath}
+  
+  $\pd{\psi}{I_j}$ are unknowns that must be obtained from experiments / 3D elasticity,
+  whereas $\pd{I_j}{\underline{v}}$ can easily be computed from kinematics ($j = 1,\dots,6$)
+
 \end{frame}
 
 
@@ -2019,32 +2022,323 @@
 \begin{frame}
   \frametitle{Material symmetry in elastic rods (part 5)}
 
-  from the Taylor expansion of $\psi$ consider for example the term
-  \begin{displaymath}
-    \pd[2]{\psi}{\underline{v}} =
-    \pd{}{\underline{v}} \biggl( \pd{\psi}{\underline{v}} \biggr) =
-    \pd{}{\underline{v}} \biggl( \pd{\psi}{I_1} \cdot \pd{I_1}{\underline{v}} + \dots + \pd{\psi}{I_6} \cdot \pd{I_6}{\underline{v}} \biggr) = \dots
-  \end{displaymath}
-  
-  $\pd{\psi}{I_j}$ are unknowns ($\mathscr{A}, \mathscr{B}, \dots$) that must be obtained from kinematics and 3D elasticity, \newline %TODO more precisely
-  whereas $\pd{I_j}{\underline{v}}$ can be computed easily ($j = 1,\dots,6$)
-  
-  \vspace{1em}
-  doing the computations and collecting unknown the coefficients ($\mathscr{A}, \mathscr{B}, \dots$) we obtain
+  doing the computations and grouping terms in a way to get a polynomial in the strains we obtain
   \begin{displaymath}
     \psi =
     \frac{1}{2} \Bigl(
       \mathscr{A} \cdot \bigl( k_1^2 + k_2^2 \bigr) +
       \mathscr{B} \cdot k_3^2 +
       \mathscr{C} \cdot \bigl( v_1^2 + v_2^2 \bigr) +
-      \mathscr{D} \cdot \bigl( k_3 - 1 \bigr)^2 +
+      \mathscr{D} \cdot \bigl( k_3 - 1 \bigr)^2 \Bigr) +
   \end{displaymath}
   \begin{displaymath}
-    + 2 \cdot \mathscr{E} \cdot \bigl( v_3 - 1 \bigr) \cdot k_3 +
-      2 \cdot \mathscr{F} \cdot \bigl( v_1 \cdot k_1 + v_2 \cdot k_2 \bigr)
-    \Bigr)
+    + \cdot \mathscr{E} \cdot \bigl( v_3 - 1 \bigr) \cdot k_3 +
+      \cdot \mathscr{F} \cdot \bigl( v_1 \cdot k_1 + v_2 \cdot k_2 \bigr)
+    + \text{HOT}
   \end{displaymath}
-  %TODO A,C interchanged ; groupby A,C
+  
+  \vspace{1em}
+  as \textbf{another experiment} consider now a reflection of the beam about the $\underline{e}_1$-$\underline{e}_2$-plane
+  
+  \vspace{0.3em}
+  \begin{itemize}
+    \item reflections are in the group $O(2)$
+    \item reflections are not in the symmetry group $\mathscr{G} \equiv SO(2)$ of a pre-twisted rod
+    %\item $I_4 = v_1 \cdot k_2 - v_2 \cdot k_1$, $I_5 = v_3$, $I_6 = k_3$ will change their sign \newline $\rightarrow$ not invariant under transformation by $\doubleunderline{Q} \in O(2)$ (not perfectly correct!) refer to paper:
+    % Material symmetry and chirality in nonlinear elastic rods BY Healey 2002 , MMS
+   \item $O(2)$ is the symmetry group for rods without helicity of fibers in the undeformed configuration ; for such rods $\mathscr{E} = \mathscr{F} = 0$ 
+  \end{itemize}
+ 
+\end{frame}
+
+
+%===============================================================================
+\subsection{Relaxation of cross section}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Recap: kinematics}
+
+  \begin{itemize}
+    \item $s$ identifies a certain cross section of the rod
+    \item $\underline{r}(s)$ describes the position of the cross section centroid for the cross section at $s$
+      \begin{itemize}
+        \item $\rightarrow$ describes the centerline of the rod
+      \end{itemize}
+    \item $\doubleunderline{R}(s)$ describes the (average) orientation of the cross section at $s$
+      \begin{itemize}
+        \item $\rightarrow$ $\underline{d}_i(s) = \doubleunderline{R}(s) \cdot \underline{e}_i$ is the local director basis
+      \end{itemize}
+  \end{itemize}
+  
+  \vspace{0.6em}
+  \textbf{deformation map} with warping of the cross section
+  \begin{displaymath}
+    \underline{f}(\underline{X}) = \underline{f}(X_1,X_2,X_3=s) = \underline{r}(s) + \doubleunderline{R}(s) \cdot (X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}) \quad \text{with } \alpha \in \{1,2\}
+  \end{displaymath}
+  note that so far we did not use any deformation map in the derivations!
+  
+  \vspace{0.6em}
+  local \textbf{strain measures}
+  \vspace{-1em}
+  \begin{multicols}{2}
+    \noindent  
+    \begin{itemize}
+      \item $\underline{v} = \doubleunderline{R}^{\mathrm{T}} \cdot \underline{r}^{\prime} =
+            \begin{bmatrix}
+              v_1 & v_2 & v_3
+            \end{bmatrix}^{\mathrm{T}}$
+          \begin{itemize}
+            \item $v_1$ : shear along $\underline{d}_1$
+            \item $v_2$ : shear along $\underline{d}_2$
+            \item $v_3$ : axial stretch (along $\underline{d}_3$)
+          \end{itemize}
+      \item $\underline{k} = \axial \bigl( \doubleunderline{R}^{\mathrm{T}} \cdot \doubleunderline{R}^{\prime} \bigr) =
+            \begin{bmatrix}
+              k_1 & k_2 & k_3
+            \end{bmatrix}^{\mathrm{T}}$
+          \begin{itemize}
+            \item $k_1$ : curvature about $\underline{d}_1$-axis
+            \item $k_2$ : curvature about $\underline{d}_2$-axis
+            \item $k_3$ : twist about $\underline{d}_3$-axis
+          \end{itemize}
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Recap: balance laws}
+
+  \textbf{balance of linear momentum}
+  \begin{displaymath}
+    \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) =
+    \rho_0 \, A \, \underline{\ddot{r}}(s)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \textbf{balance of angular momentum}
+  \begin{displaymath}
+    \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) =
+    \rho_0 \cdot
+    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  equations are in terms of \textbf{nominal stresses} % TODO nominal
+  \begin{displaymath}
+    \begin{alignedat}{1}
+      \underline{n}(s) &= \iint_{\Omega_0(s)} \doubleunderline{P}(X_1, X_2, s) \cdot \underline{e}_3 \dif X_1 \dif X_2 \\
+       %\null &= \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \\
+      \underline{m}(s) &= \iint_{\Omega_0(s)} \bigl( \underline{x}(X_1,X_2,s) - \underline{r}(s) \bigr) \times \bigl( \doubleunderline{P}(X_1,X_2,s) \cdot \underline{e}_3 \bigr) \dif X_1 \dif X_2 %\\
+      %\null &= \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s)
+    \end{alignedat}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  with \textbf{external loads}
+  \begin{displaymath}
+    \begin{alignedat}{1}
+      \underline{\hat{n}}(s) &= \iint_{\Omega_{0}(s)} \underline{B}(X_1,X_2,s) \dif A + \oint_{\partial \Omega_{0}(s)} \underline{t}^{ext}(l,s) \dif l \\
+      \underline{\hat{m}}(s) &= \iint_{\Omega_{0}(s)} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{B}(s) \dif A + \oint_{\partial \Omega_0} \bigl( \underline{x}(.,.,s) - \underline{r}(s) \bigr) \times \underline{t}^{ext}(s) \dif l \biggr)
+    \end{alignedat}
+  \end{displaymath}
   
 \end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Recap: constitutive laws}
   
+  \textbf{strain energy per unit of undeformed length}
+  \begin{displaymath}
+    \phi \bigl( \underline{r}(s),\doubleunderline{R}(s),\underline{r}^{\prime}(s),\doubleunderline{R}^{\prime}(s) \bigr) \overset{\star}{=}
+    \psi \bigl(
+      \doubleunderline{R}^{\mathrm{T}}(s) \, \underline{r}^{\prime}(s) , \,
+      \doubleunderline{R}^{\mathrm{T}}(s) \, \doubleunderline{R}^{\prime}(s)
+    \bigr) =
+    \psi \bigl(
+      \underline{v}(s) , \underline{k}(s)
+    \bigr)
+  \end{displaymath}
+  $\star$ : principle of frame-indifference
+  
+  \vspace{0.8em}
+  \textbf{relationship between potential energy and kinetic quantities}
+  \begin{displaymath}
+    \underline{n}(s) = \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) %=
+    %n_i \, \underline{e}_i = N_i \, \underline{d}_i
+  %\end{displaymath}
+  \quad ; \quad
+  %\begin{displaymath}
+    \underline{m}(s) = \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{k}}(s) %=
+    %m_i \, \underline{e}_i = M_i \, \underline{d}_i
+  \end{displaymath}
+  
+  \vspace{0.8em}
+  \textbf{material symmetry in elastic rods}
+  \begin{displaymath}
+    \psi \bigl(
+      \underline{v}(s) , \underline{k}(s)
+    \bigr) \overset{\mathscr{G} \equiv SO(2)}{=}
+    \psi \bigl(
+      v_1^2 + v_2^2 , \, k_1^2 + k_2^2 , \, v_1 \cdot k_1 + v_2 \cdot k_2 , \, v_1 \cdot k_2 - v_2 \cdot k_1 , \, v_3 , k_3
+    \bigr)
+  \end{displaymath}
+  \begin{displaymath}
+    \approx \frac{1}{2} \Bigl(
+      \mathscr{A} \bigl( k_1^2 + k_2^2 \bigr) +
+      \mathscr{B} \cdot k_3^2 +
+      \mathscr{C} \cdot \bigl( v_1^2 + v_2^2 \bigr) +
+      \mathscr{D} \cdot \bigl( k_3 - 1 \bigr)^2 \Bigr) +
+  \end{displaymath}
+  \begin{displaymath}
+    + \cdot \mathscr{E} \cdot \bigl( v_3 - 1 \bigr) \cdot k_3 +
+      \cdot \mathscr{F} \cdot \bigl( v_1 \cdot k_1 + v_2 \cdot k_2 \bigr)
+  \end{displaymath}
+  
+  if fibers of the rod are not pre-twisted we have $\mathscr{G} \equiv O(2) \: \Rightarrow \: \mathscr{E} = \mathscr{F} = 0$
+\end{frame}
+% TODO material nonlinearity? , HOT
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Motivation for relaxation / warping of the cross section}
+  
+  the model that we have so far is too stiff because every cross section is assumed to be rigid!
+
+  \vspace{0.5em}
+  we therefore already introduced a modified deformation map,
+  that allows for warping / relaxation of the cross section:
+  \begin{displaymath}
+    \underline{x}(s) =
+    \underline{r}(s) + \doubleunderline{R}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u} \bigr)
+  \end{displaymath}
+  
+  
+  it has already been stated that we do not want to have $\underline{u}$ as a function of $s$, \newline
+  because that would imply solving the expensive 3D problem
+  
+  \vspace{0.8em}
+  \textbf{strategy for 1D theory}
+  \begin{itemize}
+    \item we consider a beam with $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ = $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ constant along its length
+    \item in the sequel we call this rod the $\star$-problem
+    \item then we compute $\underline{u}^{\star}(X_1,X_2)$
+      \begin{itemize}
+        \item $\rightarrow$ because of uniformity in $s$ this is a 2D elasticity problem
+      \end{itemize}
+    \item in the context of a finite element discretization of a rod, one such 2D problem is solved for every element to approximate the average warping $\underline{u}^{\star}(X_1,X_2)$ of the cross sections within a certain element
+  \end{itemize}
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Local strain energy of a cross section}
+  \vspace{-0.5em}  
+  \begin{displaymath}
+    \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
+    \lim_{s_2 \to s_1} \frac{1}{s_2 - s_1} \int_{s_1}^{s_2}  \Biggl( \int_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 \Biggr) \dif s =
+    \int_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
+  \end{displaymath}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/LocalEnergy}
+  \end{figure}
+  
+  \vspace{0.5em}
+  in order to compute the strain energy $\psi$, considering relaxation of the cross section,
+  we require a material model $W(.)$ from 3D elasticity, such as the Neo-Hooke or Mooney-Rivlin model and we require a 3D deformation map $\underline{f}(\underline{X})$ and its gradient $\doubleunderline{F}$  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Uniformly strained rod}
+  \vspace{-0.4em}
+  \begin{itemize}
+    \item we have a rod with the same $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ for every $s$
+    \item all its cross sections warp / relax in exactlyt the same
+      \begin{itemize}
+        \item $\rightarrow$ we must consider just one cross section, i.e. we have a 2D problem
+      \end{itemize}
+    \item this cross section is completely relaxed: $\underline{x}^{\star} = \underline{r}^{\star}(s) + \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)$
+    %\item if $\bigl( \underline{v}, \, \underline{k} \bigr)$ would change slowly in $s$, then $\underline{u} \approx \underline{u}^{\star}$ locally ($\rightarrow$ our little trick! ;-)
+    \item consider some rod ; consider some cross section $s^{\star}$ ; $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr) := \bigl( \underline{v}(s^{\star}), \, \underline{k}(s^{\star}) \bigr)$ \newline
+      if $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ change slowly with $s$ around $s^{\star}$, then $\underline{u}^{\star}(X_1,X_2)$ from the 2D problem as a function of $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ is a good local approximation for $\underline{u}(X_1,X_2,s=s^{\star})$ from 3D theory
+  \end{itemize}
+  % TODO good? what can be done better?
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Deformation gradient of the modified map}
+
+  from the deformation map $\underline{x}^{\star} = \underline{r}^{\star}(s) + \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)$, \newline
+  we compute the deformation gradient
+  \vspace{0.3em}
+  \begin{displaymath}
+    \doubleunderline{F}^{\star}(X_1,X_2,s) =
+  \end{displaymath}
+  \begin{displaymath}
+    = \underline{r}^{\star \prime}(s) \otimes \underline{e}_3 +
+      \doubleunderline{R}^{\star}(s) \cdot \bigl( \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} +
+      \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} \bigr) +
+      \doubleunderline{R}^{\star \prime}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 =
+  \end{displaymath}
+    %&\doubleunderline{R}^{\star}(s) \cdot \biggl(
+    %    \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \underline{r}^{\star \prime}(s) \otimes \underline{e}_3 + 
+    %    \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + 
+    %    \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} +
+    %    \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \doubleunderline{R}^{\star \prime}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 \biggr) = \\
+  \begin{displaymath}
+    = \doubleunderline{R}^{\star}(s) \cdot \biggl( {\color{faublue}
+        \underline{v}^{\star}(s) \otimes \underline{e}_3 +
+        \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + 
+        \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} +
+        \doubleunderline{K}^{\star}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
+      \biggr) =
+  \end{displaymath}
+  \begin{displaymath}
+    = \doubleunderline{R}^{\star}(s) \cdot \biggl( {\color{faublue}
+        \underline{v}^{\star}(s) \otimes \underline{e}_3 + 
+        \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + 
+        \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} +
+        \underline{k}^{\star}(s) \times \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
+      \biggr) =
+  \end{displaymath}
+  \begin{displaymath}
+    =: \doubleunderline{R}^{\star}(s) \cdot {\color{faublue} \doubleunderline{\tilde{F}}^{\star} (X_1,X_2,s) }
+  \end{displaymath}
+  % TODO remove star from u
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Computing $\underline{u}^{\star}$}
+
+  \textbf{strain energy of the uniformly strained rod}
+  \begin{displaymath}
+    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{F}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
+    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
+  \end{displaymath}
+  \begin{displaymath}
+    = \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \, \cdot L
+  \end{displaymath}
+
+  \textbf{minimization of energy}
+  \begin{displaymath}
+    \underline{u}^{\star} =
+    \argmin_{\underline{u}} \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
+    \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0
+  \end{displaymath}
+\end{frame}
+
