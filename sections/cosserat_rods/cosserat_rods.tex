@@ -1543,7 +1543,7 @@
 \begin{frame}
   \frametitle{Model as a system of first order equations (part 1)}
   
-  although boundary conditions for forces and moments can be written in terms of strains the displacement and rotation boundary conditions cannot ; therefore the system is not closed
+  boundary conditions for forces and moments can be written in terms of strains ; this is not possible with the boundary conditions for displacements and rotations ; therefore the system is not closed
   
   \vspace{0.7em}
   to \textit{close the system}, we will rewrite the model as 12 first order equations, \newline
@@ -1632,7 +1632,7 @@
   
   since rotations are encoded by \textit{unit} quaternions the constraint $\norm[1]{\underline{q}}_{2} \overset{!}{=} 1$ must be satisfied
   
-  from the constraint we obtain a necessary condition: $\underline{q} \cdot \underline{q} \overset{!}{=} 1 \: \Rightarrow \: \underline{q} \cdot \underline{q}^{\prime} \overset{!}{=} 0$, which is automatically satisfied by $(\star)$: dotting $(\star)$ with $\underline{q}$ gives ...
+  from the constraint we obtain a necessary condition: $\underline{q} \cdot \underline{q} \overset{!}{=} 1 \: \Rightarrow \: \underline{q} \cdot \underline{q}^{\prime} \overset{!}{=} 0$, which is automatically satisfied by $(\star)$: \quad dotting $(\star)$ with $\underline{q}$ gives ...
   \begin{displaymath}
     \underline{q}^{\prime} \cdot \underline{q} =
     \bigl( \doubleunderline{E}(\underline{q}) \cdot \underline{k} \bigr) \cdot \underline{q} =
@@ -1652,7 +1652,7 @@
       0 \\ 0 \\ 0
     \end{bmatrix} = 0
   \end{displaymath}
-  the already satisfied necessary condition together with one boundary condition, $\norm[1]{\underline{q}}_{2} \sVert[2]_{s=0} = 1$ or $\: \norm[1]{\underline{q}}_{2} \sVert[2]_{s=L} = 1$, is sufficient to satisfy the constraint for all $s$
+  adding one ($13^{\text{th}}$) boundary condition for $\underline{q}$ (either $\norm[1]{\underline{q}}_{2} \sVert[2]_{s=0} = 1$ or $\: \norm[1]{\underline{q}}_{2} \sVert[2]_{s=L} = 1$) is (in combination with the automatically satisfied necessary condition) sufficient to satisfy the constraint for all $s$
 \end{frame}
 
 
@@ -1662,7 +1662,7 @@
 
   \begin{figure}
     \centering
-    \includegraphics[width=9cm, keepaspectratio=true]{sections/cosserat_rods/images/MinimumPotentialEnergyMethodExample}
+    \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/MinimumPotentialEnergyMethodExample}
   \end{figure}
   
   \vspace{0.7em}
@@ -2213,7 +2213,7 @@
   we therefore already introduced a modified deformation map,
   that allows for warping / relaxation of the cross section:
   \begin{displaymath}
-    \underline{x}(s) =
+    \underline{f}(X_1,X_2,s) = 
     \underline{r}(s) + \doubleunderline{R}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u} \bigr)
   \end{displaymath}
   
@@ -2224,37 +2224,15 @@
   \vspace{0.8em}
   \textbf{strategy for 1D theory}
   \begin{itemize}
-    \item we consider a beam with $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ = $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ constant along its length
-    \item in the sequel we call this rod the $\star$-problem
+    \item we consider the rod in a configuration where $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr) = \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ constant $\forall \, s$
+    \item in the sequel we call this configuration the $\star$-problem
     \item then we compute $\underline{u}^{\star}(X_1,X_2)$
       \begin{itemize}
         \item $\rightarrow$ because of uniformity in $s$ this is a 2D elasticity problem
       \end{itemize}
-    \item in the context of a finite element discretization of a rod, one such 2D problem is solved for every element to approximate the average warping $\underline{u}^{\star}(X_1,X_2)$ of the cross sections within a certain element
+    \item in the context of a finite element discretization, one such 2D problem is solved for every element to approximate the average warping $\underline{u}^{\star}(X_1,X_2)$ of the cross sections within that element ; $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ are the average strains within the element
+    %TODO correct?
   \end{itemize}
-  
-  
-\end{frame}
-
-
-%-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Local strain energy of a cross section}
-  \vspace{-0.5em}  
-  \begin{displaymath}
-    \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
-    \lim_{s_2 \to s_1} \frac{1}{s_2 - s_1} \int_{s_1}^{s_2}  \Biggl( \int_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 \Biggr) \dif s =
-    \int_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
-  \end{displaymath}
-
-  \begin{figure}
-    \centering
-    \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/LocalEnergy}
-  \end{figure}
-  
-  \vspace{0.5em}
-  in order to compute the strain energy $\psi$, considering relaxation of the cross section,
-  we require a material model $W(.)$ from 3D elasticity, such as the Neo-Hooke or Mooney-Rivlin model and we require a 3D deformation map $\underline{f}(\underline{X})$ and its gradient $\doubleunderline{F}$  
 \end{frame}
 
 
@@ -2264,14 +2242,21 @@
   \vspace{-0.4em}
   \begin{itemize}
     \item we have a rod with the same $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ for every $s$
-    \item all its cross sections warp / relax in exactlyt the same
+    \item all its cross sections warp / relax in exactly the same way
       \begin{itemize}
         \item $\rightarrow$ we must consider just one cross section, i.e. we have a 2D problem
       \end{itemize}
-    \item this cross section is completely relaxed: $\underline{x}^{\star} = \underline{r}^{\star}(s) + \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)$
-    %\item if $\bigl( \underline{v}, \, \underline{k} \bigr)$ would change slowly in $s$, then $\underline{u} \approx \underline{u}^{\star}$ locally ($\rightarrow$ our little trick! ;-)
-    \item consider some rod ; consider some cross section $s^{\star}$ ; $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr) := \bigl( \underline{v}(s^{\star}), \, \underline{k}(s^{\star}) \bigr)$ \newline
-      if $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ change slowly with $s$ around $s^{\star}$, then $\underline{u}^{\star}(X_1,X_2)$ from the 2D problem as a function of $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ is a good local approximation for $\underline{u}(X_1,X_2,s=s^{\star})$ from 3D theory
+    \item this cross section is completely relaxed
+    \item the deformation map of this relaxed configuration is $\underline{f}^{\star}(X_1,X_2,s) = \underline{r}^{\star}(s) + \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)$
+  \end{itemize}
+  
+  \vspace{0.7em}
+  \textbf{accuracy of the approximation}
+  \begin{itemize}
+    \item consider an arbitrary rod in a deformed configuration and one particular cross section $s^{\star}$
+    \item set $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr) := \bigl( \underline{v}(s^{\star}), \, \underline{k}(s^{\star}) \bigr)$
+    \item consider the same rod but in the configuration with $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr) = \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr) \, \forall \, s$, \newline i.e. the particular $\star$-problem at $s=s^{\star}$
+    \item if in the arbitrarily deformed configuration $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ change slowly with $s$ in some neighborhood of $s^{\star}$, then $\underline{u}^{\star}(X_1,X_2)$, obtained from the $\star$-problem, is a good \textit{local} approximation for $\underline{u}(X_1,X_2,s=s^{\star})$, obtained from 3D theory
   \end{itemize}
   % TODO good? what can be done better?
 \end{frame}
@@ -2279,10 +2264,48 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Deformation gradient of the modified map}
+  \frametitle{Strain energy of a cross section}
 
-  from the deformation map $\underline{x}^{\star} = \underline{r}^{\star}(s) + \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)$, \newline
-  we compute the deformation gradient
+  the warping of the cross section in the $\star$-problem will be determined by a minimization of strain energy
+  \begin{displaymath} %TODO I put in u as a parameter ; add u to figure... ; add stars to v,k , u,F?
+    \psi \bigl( \underline{v} , \, \underline{k} \, ; \, \underline{u} \bigr) =
+    \lim_{s_2 \to s_1} \frac{1}{s_2 - s_1} \int_{s_1}^{s_2}  \Biggl( \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 \Biggr) \dif s =
+    \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
+  \end{displaymath}
+
+  \vspace{0.3em}
+  \begin{figure}
+    \centering
+    \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/LocalEnergy}
+  \end{figure}
+  
+  \vspace{0.5em}
+  in order to compute the strain energy $\psi$, considering relaxation of the cross section,
+  we require a material model $W(.)$ from 3D elasticity, such as the Neo-Hooke or Mooney-Rivlin solid
+  
+%  \vspace{0.5em}
+%  \textbf{strain energy of the uniformly strained rod}
+%  \begin{displaymath}
+%    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{F}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
+%    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
+%  \end{displaymath}
+%  \begin{displaymath}
+%    = \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \, \cdot L
+%  \end{displaymath}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Deformation gradient of the star-problem}
+
+  starting with the deformation map of the $\star$-problem
+  \begin{displaymath}
+    \underline{f}^{\star}(X_1,X_2,s) =
+    \underline{r}^{\star}(s) + 
+    \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)
+  \end{displaymath}
+  we compute its deformation gradient
   \vspace{0.3em}
   \begin{displaymath}
     \doubleunderline{F}^{\star}(X_1,X_2,s) =
@@ -2317,28 +2340,183 @@
   \begin{displaymath}
     =: \doubleunderline{R}^{\star}(s) \cdot {\color{faublue} \doubleunderline{\tilde{F}}^{\star} (X_1,X_2,s) }
   \end{displaymath}
-  % TODO remove star from u
 \end{frame}
 
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Computing $\underline{u}^{\star}$}
+  \frametitle{Warping of the cross section in the star-problem}
+  without loss of generality ...
+  \begin{itemize}
+    \item we consider the cross section at $s=0$
+    \item we prescribe the boundary condition $\doubleunderline{R}^{\star}_0 = \doubleunderline{R}^{\star}(s=0) = \doubleunderline{I}$ \: (rigid body rotation)
+    \item we prescribe the boundary condition $\underline{r}^{\star}_0 = \underline{r}^{\star}(s=0) = \underline{0}$ \: (rigid body translation)
+  \end{itemize}
 
-  \textbf{strain energy of the uniformly strained rod}
-  \begin{displaymath}
-    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{F}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
-    \int_0^L \Biggl( \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \Biggr) \dif s =
-  \end{displaymath}
-  \begin{displaymath}
-    = \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0 \, \cdot L
-  \end{displaymath}
-
+  \vspace{1em}
   \textbf{minimization of energy}
   \begin{displaymath}
-    \underline{u}^{\star} =
-    \argmin_{\underline{u}} \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
-    \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s) \bigr)  \dif \Omega_0
+    \underline{u}^{\star}(X_1,X_2) =
+    \argmin_{\underline{u}} \psi \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \, ; \, \underline{u} \bigr) =
+    \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
   \end{displaymath}
+  \begin{itemize}
+    \item here $\doubleunderline{\tilde{F}}^{\star}$ is the deformation gradient we just computed \textit{but} we consider $\underline{u}(X_1,X_2)$ as a free variable, for which we optimize, i.e. $\doubleunderline{\tilde{F}}^{\star} = \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0 \, ; \, \underline{u})$
+    \item the minimization is carried out subject to constraints: \newline
+      (mass) center and orientation of the cross section must be preserved 
+  \end{itemize}
+  
+  
 \end{frame}
 
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Displacements in the star-problem (part 1)}
+
+  \textbf{rotation / orientation of cross section}
+  \begin{displaymath}
+    \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \doubleunderline{R}^{\star \prime}(s) = \doubleunderline{K}^{\star} \: \text{ (const.)}
+    \: \Rightarrow \:
+    \doubleunderline{R}^{\star \prime}(s) = \doubleunderline{R}^{\star}(s) \cdot \doubleunderline{K}^{\star}
+  \end{displaymath}
+  \begin{displaymath}
+    \: \Rightarrow \:
+    \doubleunderline{R}^{\star}(s) = \doubleunderline{R}^{\star}_0 \cdot \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) = \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \textbf{translation / displacement of cross section}
+  \begin{displaymath}
+    \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \underline{r}^{\star \prime}(s) = \underline{v}^{\star} \: \text{ (const.)}
+    \: \Rightarrow \:
+    \underline{r}^{\star \prime}(s) = \doubleunderline{R}^{\star}(s) \cdot \underline{v}^{\star} =
+    \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \cdot \underline{v}^{\star}
+  \end{displaymath}
+  \begin{displaymath}
+    \underline{r}^{\star}(s) = \cancel{ \underline{r}^{\star}_0 } + \Biggl( \int_0^s \exp \bigl( \doubleunderline{K}^{\star} \cdot l \bigr) \dif l \Biggr) \cdot \underline{v}^{\star}
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Displacements in the star-problem (part 2)}
+  
+  \textbf{decomposition of $\underline{v}^{\star}$} \newline
+  we split $\underline{v}^{\star}$ in a part that is parallel to $\underline{k}^{\star}$ and a part that is perpendicular to $\underline{k}^{\star}$
+  \begin{displaymath}
+    \underline{v}^{\star} = \bigl( \cos(\phi) \cdot \underline{\hat{k}} + \sin(\phi) \cdot \underline{\hat{k}}^{\perp} \bigr) \cdot \, \norm[1]{\underline{v}^{\star}}
+  \end{displaymath}
+  \begin{itemize}
+    \item $\phi$ is the angle between $\underline{v}^{\star}$ and $\underline{k}^{\star}$, i.e. $\phi = \arcsin \Bigl( \frac{\underline{v}^{\star} \cdot \underline{k}^{\star}}{\norm[0]{\underline{v}^{\star}} \, \cdot \: \norm[0]{\underline{k}^{\star}}} \Bigr)$
+    \item $\underline{\hat{k}}$ is the unit vector along $\underline{k}^{\star}$, i.e. $\underline{\hat{k}} = \frac{\underline{k}^{\star}}{\norm[0]{\underline{k}^{\star}}}$
+    \item $\underline{\hat{k}}^{\perp}$ is a unit vector perpendicular to $\underline{\hat{k}}$ %TODO one DOF left!?
+  \end{itemize}
+  
+  \vspace{0.5em}
+  \textbf{translation / displacement of cross section (revisited)}
+  \begin{displaymath}
+    \underline{r}^{\star}(s) = \Biggl( \underbrace{\cos(\phi) \cdot \int_0^s \overbrace{\exp \bigl( \doubleunderline{K}^{\star} \cdot l \bigr) \cdot \underline{\hat{k}} }^{\underline{\hat{k}}} \, \dif l}_{\text{straight line along }\underline{\hat{k}}}  + \underbrace{ \sin(\phi) \cdot \int_0^s \exp \bigl( \doubleunderline{K}^{\star} \cdot l \bigr) \cdot \underline{\hat{k}}^{\perp} \dif l}_{\text{circle with normal along }\underline{\hat{k}}} \Biggr) \cdot \norm[1]{\underline{v}^{\star}}
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{The centerline turns into a helix}
+  \vspace{-1em}
+  \begin{displaymath}
+    \underline{r}^{\star}(s) = \Biggl( \cos(\phi) \cdot \underline{\hat{k}} \cdot s + \sin(\phi) \cdot \int_0^s \exp \bigl( \doubleunderline{K}^{\star} \cdot l \bigr) \cdot \underline{\hat{k}}^{\perp} \dif l \Biggr) \cdot \norm[1]{\underline{v}^{\star}}
+  \end{displaymath}
+  \vspace{-0.8em}
+  \begin{figure}
+    \centering
+    \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/HelixContinuum}
+  \end{figure}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Helix equation}
+
+  rewriting the equation we get ...  %TODO integration of matrix exponential: K is singular!?
+  \begin{displaymath}
+    \underline{r}^{\star}(s) = \norm[1]{\underline{v}^{\star}} \cdot \Biggl( \cos(\phi) \cdot \underline{\hat{k}} \cdot s + \sin(\phi) \cdot \frac{1}{\norm[1]{\underline{k}^{\star}}} \cdot \biggl( \doubleunderline{I} - \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \biggr) \cdot \underline{\hat{k}} \times \underline{\hat{k}}^{\perp} \Biggr)
+  \end{displaymath}
+  
+  \begin{itemize}
+    \item pitch of the helix: $\tau = \norm[1]{\underline{v}^{\star}} \cdot \cos(\phi)$
+    \item fixed point of the helix: $\underline{x}_f = \frac{\sin(\phi) \cdot \underline{\hat{k}} \times \underline{\hat{k}}^{\perp}}{\norm[0]{\underline{k}^{\star}}} = \frac{\underline{v}^{\star} \times \underline{k}^{\star}}{\norm[0]{\underline{k}^{\star}}^2}$ ; radius of the helix: $\norm[0]{\underline{x}_f}$
+  \end{itemize}
+  
+  \begin{displaymath}
+    \underline{r}^{\star}(s) = s \cdot \tau \cdot \underline{\hat{k}} + \biggl( \doubleunderline{I} - \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \biggr) \cdot \underline{x}_f =
+    s \cdot \tau \cdot \underline{\hat{k}} + \underbrace{ \underline{x}_f + \doubleunderline{R}^{\star}(s) \cdot \bigl( \underline{r}^{\star}_0 - \underline{x}_f \bigr) }_{\text{rotation of the origin about }\underline{x}_f}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \textbf{edge cases}
+  \begin{itemize}
+    \item $\underline{v}^{\star} \parallel \underline{k}^{\star}$ : 
+      centerline degenerates into a straight line (e.g. combined extension \& torsion)
+    \item $\underline{v}^{\star} \perp \underline{k}^{\star}$ : 
+      centerline degenerates into a circle (e.g. pure bending)
+  \end{itemize}
+  % TODO info on page 25 relevant?
+  % -> pitch 2pi ...
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Deformation map and deformation gradient of the star-problem}
+
+  we rewrite the \textbf{deformation map} of the $\star$-problem, using the helix equation ... 
+  \begin{displaymath}
+    \underline{f}^{\star}(X_1,X_2,s) =
+    \underline{r}^{\star}(s) + 
+    \doubleunderline{R}^{\star}(s) \cdot \bigl( {\color{faublue} X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2)} \bigr) = 
+    \underline{r}^{\star}(s) + 
+    \doubleunderline{R}^{\star}(s) \cdot {\color{faublue} \underline{x}^{\star}_0(X_1,X_2)} =
+  \end{displaymath}
+  \begin{displaymath}
+    = s \cdot \tau \cdot \underline{\hat{k}} + \underline{x}_f + \doubleunderline{R}^{\star}(s) \cdot \bigl( {\color{faublue} \underline{x}^{\star}_0(X_1,X_2)} - \underline{x}_f \bigr)
+  \end{displaymath}
+  $\rightarrow$ rotating $\underline{r}^{\star} = \underline{0}$ about $\underline{x}_f$ creates centerline ; rotating $\underline{x}^{\star}_0$ about $\underline{x}_f$ creates entire rod
+  
+  \vspace{1.5em}
+  and then we compute its \textbf{deformation gradient} ...
+  \begin{displaymath}
+    \doubleunderline{F}^{\star}(X_1,X_2,s) =
+    \underline{r}^{\star \prime}(s) \otimes \underline{e}_3 +
+    \doubleunderline{R}^{\star \prime}(s) \cdot \underline{x}_0^{\star}(X_1,X_2) \otimes \underline{e}_3 +
+    \doubleunderline{R}^{\star}(s) \cdot \pd{\underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} =
+  \end{displaymath}
+  \begin{displaymath}
+  = \doubleunderline{R}^{\star}(s) \cdot \Bigl(
+      \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \underline{r}^{\star \prime}(s) \otimes \underline{e}_3 +
+      \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \doubleunderline{R}^{\star \prime}(s) \cdot \underline{x}_0^{\star}(X_1,X_2) \otimes \underline{e}_3 +
+      \pd{\underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+    \Bigr) =
+  \end{displaymath}
+  \begin{displaymath}
+    = \doubleunderline{R}^{\star}(s) \cdot \Bigl(
+      \underline{v}^{\star} \otimes \underline{e}_3 +
+      \bigl( \underline{k}^{\star} \times \underline{x}_0^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 +
+      \pd{\underline{x}_0}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+    \Bigr)
+  \end{displaymath}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem}
+
+  
+\end{frame}
