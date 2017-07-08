@@ -1185,7 +1185,7 @@
     + \biggl( \doubleunderline{R} \cdot \pd{\psi}{\underline{k}}(s) \biggr) \cdot
     \delta \underline{\Theta}^{\prime}(s)
     \Biggr) \dif s
-    - P \, \underline{e}_1 \cdot \delta \underline{r}(L) = (\text{integrate by parts})
+    - P \, \underline{e}_1 \cdot \delta \underline{r}(L) \overset{\text{IBP}}{=}
   \end{displaymath}
   \begin{displaymath}
     = \biggl[ \doubleunderline{R}(s) \cdot \pd{\psi}{\underline{v}}(s) \cdot \delta \underline{r}(s) \biggr]_0^L -
@@ -1202,6 +1202,7 @@
       \Bigr) \cdot \delta \underline{\Theta}(s)
     \biggr) \dif s
   \end{displaymath}
+  IBP : integration by parts
 \end{frame}
 
 
@@ -2266,8 +2267,8 @@
 \begin{frame}
   \frametitle{Strain energy of a cross section}
 
-  the warping of the cross section in the $\star$-problem will be determined by a minimization of strain energy
-  \begin{displaymath} %TODO I put in u as a parameter ; add u to figure... ; add stars to v,k , u,F?
+  the warping of the cross section will be determined by a minimization of strain energy
+  \begin{displaymath} %TODO I put in u as a parameter ; add u to figure... ; add stars to v,k , u,F? %in the $\star$-problem
     \psi \bigl( \underline{v} , \, \underline{k} \, ; \, \underline{u} \bigr) =
     \lim_{s_2 \to s_1} \frac{1}{s_2 - s_1} \int_{s_1}^{s_2}  \Biggl( \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 \Biggr) \dif s =
     \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
@@ -2298,12 +2299,12 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Deformation gradient of the star-problem}
-
+  % TODO redundant slide?
   starting with the deformation map of the $\star$-problem
   \begin{displaymath}
     \underline{f}^{\star}(X_1,X_2,s) =
     \underline{r}^{\star}(s) + 
-    \doubleunderline{R}^{\star}(s) \cdot \bigl( X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr)
+    \doubleunderline{R}^{\star}(s) \cdot \bigl( \underbrace{ X_{\alpha} \, \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) }_{\underline{x}_0^{\star}(X_1,X_2)} \bigr)
   \end{displaymath}
   we compute its deformation gradient
   \vspace{0.3em}
@@ -2507,7 +2508,7 @@
     = \doubleunderline{R}^{\star}(s) \cdot \Bigl(
       \underline{v}^{\star} \otimes \underline{e}_3 +
       \bigl( \underline{k}^{\star} \times \underline{x}_0^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 +
-      \pd{\underline{x}_0}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+      \pd{\underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
     \Bigr)
   \end{displaymath}
 
@@ -2516,7 +2517,274 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{2D minimization problem}
+  \frametitle{2D minimization problem (part 1)}
 
+%  \begin{displaymath} %arg min version
+%    \underline{u}^{\star}(X_1,X_2) =
+%    \argmin_{\underline{u}} \psi \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \, ; \, \underline{u} \bigr) =
+%    \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
+%  \end{displaymath}
+  \begin{displaymath}
+    \min_{\underline{x}_0^{\star}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
+  \end{displaymath}
+  such that ... \newline
+  $\circ$ the center(line) remains at the origin or more precisely that the mass center of the cross section remains in the origin, i.e.
+  \begin{displaymath}
+    \iint_{\Omega_0} \rho_0 \cdot \underline{x}_0^{\star} \, \dif \Omega_0 = \underline{0}
+  \end{displaymath}
+  $\circ$ and such that orientation of the cross section remains in the $\underline{e}_1$-$\underline{e}_2$-plane or more precisely that the principal axis of the inertia tensor remains aligned with the $\underline{e}_3$-axis ; this is the same as saying that the mixed moments of inertia must vanish
+  \begin{displaymath}
+    \iint_{\Omega_0} \underbrace{ \rho_0 \cdot 
+    \begin{bmatrix}
+      x_2 \cdot x_3 \\
+      x_1 \cdot x_3 \\
+      x_1 \cdot x_2 
+    \end{bmatrix} }_{=: \underline{M}}
+    \dif \Omega_0 = \underline{0}
+  \end{displaymath}
+  with $x_i$ the components of $\underline{x}_0^{\star}$
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem (part 2)}
+
+  \textbf{minimization problem with augmented Langrangian}
+  \begin{displaymath}
+    \min_{\underline{x}_0^{\star}} \iint_{\Omega_0} \Bigl( W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr) + \underline{\lambda} \cdot \rho_0 \cdot \underline{x}_0^{\star} + \underline{\mu} \cdot \underline{M} \Bigr) \dif \Omega_0
+  \end{displaymath}
   
+  \vspace{0.5em}
+  \textbf{perturbed version of $\underline{x}_0^{\star}$}
+  \begin{displaymath}
+    \underline{x}_0^{\epsilon}(X_1,X_2) = \underline{x}_0^{\star}(X_1,X_2) + \epsilon \cdot \delta \underline{x}_0^{\star}(X_1,X_2)
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \textbf{perturbed version of the cross section energy}
+  \begin{displaymath}
+    \psi_{\epsilon} = 
+    \iint_{\Omega_0} \Bigl(
+      W \bigl( \doubleunderline{\tilde{F}}^{\epsilon}(X_1,X_2,s=0) \bigr) + 
+      \underline{\lambda} \cdot \rho_0 \cdot \underline{x}_0^{\epsilon}(X_1,X_2) +
+      \underline{\mu} \cdot \underline{M}^{\epsilon}(X_1,X_2)
+    \Bigr) \dif \Omega_0
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  \textbf{first variation of the cross section energy}
+  \begin{displaymath}
+    \delta \psi = \od{\psi_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \iint_{\Omega_0} \Bigl(
+      \underbrace{\pd{W}{\doubleunderline{F}}}_{\doubleunderline{P}} \colon \od{\doubleunderline{\tilde{F}}^{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} +
+      \underline{\lambda} \cdot \rho_0 \cdot \od{\underline{x}_0^{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} +
+      \underline{\mu} \cdot \od{\underline{M}^{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0}
+    \Bigr) \dif \Omega_0
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem (part 3)}
+
+  from
+  \begin{displaymath}
+    \doubleunderline{F}^{\epsilon}(X_1,X_2,s) =
+    \doubleunderline{R}^{\star}(s) \cdot \Bigl(
+      \underline{v}^{\star} \otimes \underline{e}_3 +
+      \bigl( \underline{k}^{\star} \times \underline{x}_0^{\epsilon}(X_1,X_2) \bigr) \otimes \underline{e}_3 +
+      \pd{\underline{x}_0^{\epsilon}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+    \Bigr)  
+  \end{displaymath}
+  it follows that
+  \begin{displaymath}
+    \od{\doubleunderline{\tilde{F}}^{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \bigl( \underline{k}^{\star} \times \delta \underline{x}_0^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 +
+    \pd{\delta \underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+  \end{displaymath}
+  
+  \vspace{1em}
+  and from
+  \begin{displaymath}
+    \underline{M}^{\epsilon} =
+    \rho_0 \cdot 
+    \begin{bmatrix}
+      x_2^{\epsilon} \cdot x_3^{\epsilon} \\
+      x_1^{\epsilon} \cdot x_3^{\epsilon} \\
+      x_1^{\epsilon} \cdot x_2^{\epsilon} 
+    \end{bmatrix} = 
+    \rho_0 \cdot
+    \begin{bmatrix}
+      (x_2 + \epsilon \cdot \delta x_2) \cdot (x_3 + \epsilon \cdot \delta x_3) \\
+      (x_1 + \epsilon \cdot \delta x_1) \cdot (x_3 + \epsilon \cdot \delta x_3) \\
+      (x_1 + \epsilon \cdot \delta x_1) \cdot (x_2 + \epsilon \cdot \delta x_2) 
+    \end{bmatrix}
+  \end{displaymath}
+  it follows that
+  \begin{displaymath}
+    \od{\underline{M}^{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \rho_0 \cdot 
+    \begin{bmatrix}
+      x_2 \cdot \delta x_3 + x_3 \cdot \delta x_2\\
+      x_1 \cdot \delta x_3 + x_3 \cdot \delta x_1\\
+      x_1 \cdot \delta x_2 + x_2 \cdot \delta x_1
+    \end{bmatrix} =
+    \underbrace{ \rho_0 \cdot
+    \begin{bmatrix}
+      0 & x_3 & x_2 \\
+      x_3 & 0 & x_1 \\
+      x_2 & x_1 & 0
+    \end{bmatrix} }_{=: \doubleunderline{M}(X_1,X_2)} \cdot \delta \underline{x}_0^{\star}(X_1,X_2)
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem (part 4)}
+
+  note that
+  \begin{displaymath}
+    \doubleunderline{P} \colon \bigl( \underline{a} \otimes \underline{b} \bigr) \: \hat{=} \: P_{ij} \, a_i \, b_j = P_{ij} \, b_j \, a_i \: \hat{=} \: \bigl( \doubleunderline{P} \cdot \underline{b} \bigr) \cdot \underline{a}
+  \end{displaymath}
+  and that
+  \begin{displaymath}
+    \underline{a} \cdot \bigl( \underline{b} \times \underline{c} \bigr) =
+    \underline{b} \cdot \bigl( \underline{c} \times \underline{a} \bigr) =
+    \underline{c} \cdot \bigl( \underline{a} \times \underline{b} \bigr)
+  \end{displaymath}
+
+  \vspace{1em}
+  \textbf{first variation of the cross section energy}
+  \begin{displaymath}
+    \delta \psi = 
+    \iint_{\Omega_0} \Biggl(
+      \doubleunderline{P} \colon \Bigl(
+        \bigl( \underline{k}^{\star} \times \delta \underline{x}_0^{\star} \bigr) \otimes \underline{e}_3 +
+        \pd{\delta \underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+      \Bigr) +
+      \underline{\lambda} \cdot \rho_0 \cdot \delta \underline{x}_0^{\star} +
+      \underline{\mu} \cdot \doubleunderline{M} \cdot \delta \underline{x}_0^{\star}
+    \Biggr) \dif \Omega_0 = 
+  \end{displaymath}
+  \begin{displaymath}
+    = \iint_{\Omega_0} \Biggl(
+      \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) \cdot \bigl( \underline{k}^{\star} \times \delta \underline{x}_0^{\star} \bigr) +
+      \overbrace{
+      \bigl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \bigr) \cdot \pd{\delta \underline{x}_0^{\star}}{X_{\alpha}} }^{\rightarrow \text{IBP}} +
+      \bigl(
+        \rho_0 \cdot \underline{\lambda} +
+        \doubleunderline{M} \cdot \underline{\mu}
+      \bigr) \cdot \delta \underline{x}_0^{\star}
+    \Biggr) \dif X_1 \, \dif X_2 =
+  \end{displaymath}
+  \begin{displaymath}
+    = \iint_{\Omega_0} \Biggl(
+      \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) \times \underline{k}^{\star} \biggr) \cdot \delta \underline{x}_0^{\star} +
+      \pd{}{X_{\alpha}} \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \bigr) \cdot \delta \underline{x}_0^{\star} \biggr) -
+      \pd{}{X_{\alpha}} \biggl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \biggr) \cdot \delta \underline{x}_0^{\star} \: +
+  \end{displaymath}
+  \begin{displaymath}
+      + \bigl(
+        \rho_0 \cdot \underline{\lambda} +
+        \doubleunderline{M} \cdot \underline{\mu}
+      \bigr) \cdot \delta \underline{x}_0^{\star}
+    \Biggr) \dif \Omega_0 = \dots
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem (part 5)}
+  \vspace{-1em}
+  \begin{displaymath}
+    \delta \psi = 
+    \iint_{\Omega_0} \Biggl(
+      \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) \times \underline{k}^{\star} \biggr) \cdot \delta \underline{x}_0^{\star} +
+      \pd{}{X_{\alpha}} \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \bigr) \cdot \delta \underline{x}_0^{\star} \biggr) -
+      \pd{}{X_{\alpha}} \biggl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \biggr) \cdot \delta \underline{x}_0^{\star} \: +
+  \end{displaymath}
+  \begin{displaymath}
+      + \bigl(
+        \rho_0 \cdot \underline{\lambda} +
+        \doubleunderline{M} \cdot \underline{\mu}
+      \bigr) \cdot \delta \underline{x}_0^{\star}
+    \Biggr) \dif \Omega_0 =
+  \end{displaymath}
+  \begin{displaymath}
+    = \iint_{\Omega_0} - \Biggl(
+      \pd{}{X_{\alpha}} \biggl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \biggr) +
+      \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) -
+      \bigl(
+        \rho_0 \cdot \underline{\lambda} +
+        \doubleunderline{M} \cdot \underline{\mu}
+      \bigr)
+    \Biggr) \cdot \delta \underline{x}_0^{\star} \, \dif \Omega_0 \: +
+  \end{displaymath}
+  \begin{displaymath}
+    + \iint_{\Omega_0}
+      \pd{}{X_{\alpha}} \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \bigr) \cdot \delta \underline{x}_0^{\star} \biggr)
+    \dif \Omega_0
+  \end{displaymath}
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{2D minimization problem (part 6)}
+
+  for the second integral we can use the divergence theorem ...
+  \begin{displaymath}
+    \iint_{\Omega_0}
+      \pd{}{X_{\alpha}} \biggl( \bigl( \doubleunderline{P} \cdot \underline{e}_{\alpha} \bigr) \cdot \delta \underline{x}_0^{\star} \biggr)
+    \dif \Omega_0 =
+    \iint_{\Omega_0}
+      \pd{}{X_{\alpha}} \biggl( \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr) \cdot \underline{e}_{\alpha} \biggr)
+    \dif \Omega_0 =
+  \end{displaymath}
+  \begin{displaymath}
+    = \iint_{\Omega_0}
+      \nabla_{\alpha} \cdot \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr)
+    \dif \Omega_0 =
+    \int_{\partial \Omega_0}
+      \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr) \cdot \underline{\hat{n}} \,
+    \dif l =
+    \int_{\partial \Omega_0}
+      \bigl( \doubleunderline{P} \cdot \underline{\hat{n}} \bigr) \cdot \delta \underline{x}_0^{\star} \,
+    \dif l
+  \end{displaymath}
+  with $\underline{\hat{n}}$ the unit normal of the cross section boundary
+  
+  \vspace{1em}
+  setting $\delta \psi = 0$ gives us the \textbf{Euler-Lagrange equations} of the $\star$-problem
+  \begin{displaymath}
+    \nabla_{\alpha} \cdot \doubleunderline{P} +
+    \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) =
+    \rho_0 \cdot \underline{\lambda} +
+    \doubleunderline{M} \cdot \underline{\mu}
+    \: \text{ in } \Omega_0    
+  \end{displaymath}
+  \begin{displaymath}
+    \doubleunderline{P} \cdot \underline{\hat{n}} = \underline{0}
+    \: \text{ on } \partial \Omega_0
+    \: \text{ (traction free boundary condition)}
+  \end{displaymath}
+  
+  \vspace{1em}
+  %TODO why constraints again? (augmented Langrangian)
+  together with the constraints
+  \begin{displaymath}
+    \iint_{\Omega_0} \rho_0 \cdot \underline{x}_0^{\star} \, \dif \Omega_0 = \underline{0}
+    \quad \text{ and } \quad
+    \iint_{\Omega_0} \underline{M} \dif \Omega_0 = \underline{0}
+  \end{displaymath}
+  the Euler-Lagrange equations are the (necessary) conditions for a minimum of the cross section energy ; $\underline{x}_0^{\star}(X_1,X_2)$, $\underline{\lambda}$ and $\underline{\mu}$ are the unknowns of the problem
 \end{frame}
