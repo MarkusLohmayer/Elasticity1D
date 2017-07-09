@@ -2780,6 +2780,7 @@
   
   \vspace{1em}
   %TODO why constraints again? (augmented Langrangian)
+  % say something about P = ConstitutiveLaw(strains(x-star))
   together with the constraints
   \begin{displaymath}
     \iint_{\Omega_0} \rho_0 \cdot \underline{x}_0^{\star} \, \dif \Omega_0 = \underline{0}
@@ -2787,4 +2788,325 @@
     \iint_{\Omega_0} \underline{M} \dif \Omega_0 = \underline{0}
   \end{displaymath}
   the Euler-Lagrange equations are the (necessary) conditions for a minimum of the cross section energy ; $\underline{x}_0^{\star}(X_1,X_2)$, $\underline{\lambda}$ and $\underline{\mu}$ are the unknowns of the problem
+\end{frame}
+
+
+
+%===============================================================================
+\subsection{Molecular approaches} %TODO title
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Recap}
+
+  \textbf{strain energy density function} (per unit of undeformed length)
+  \begin{displaymath}
+    \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
+    \iint_{\Omega_0} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
+  \end{displaymath}
+  
+  \textbf{deformation gradient} of the $\star$-problem
+  \begin{displaymath}
+    \doubleunderline{F}^{\star}(X_1,X_2,s) =
+    \doubleunderline{R}^{\star}(s) \cdot \Bigl(
+      \underline{v}^{\star} \otimes \underline{e}_3 +
+      \bigl( \underline{k}^{\star} \times \underbrace{ \underline{x}_0^{\star}(X_1,X_2) }_{\text{warping function}} \bigr) \otimes \underline{e}_3 +
+      \pd{\underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
+    \Bigr)
+  \end{displaymath}
+  
+  in order to find $\underline{x}_0^{\star}(X_1,X_2)$ we must find a solution to the
+  \textbf{Euler-Lagrange equations} of the $\star$-problem
+  \begin{displaymath}
+    \nabla_{\alpha} \cdot \doubleunderline{P} +
+    \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) =
+    \rho_0 \cdot \underline{\lambda} +
+    \doubleunderline{M} \cdot \underline{\mu}
+    \: \text{ in } \Omega_0    
+  \end{displaymath}
+  \begin{displaymath}
+    \doubleunderline{P} \cdot \underline{\hat{n}} = \underline{0}
+    \: \text{ on } \partial \Omega_0
+    \: \text{ (traction free boundary condition)}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  that also respects the \textbf{kinematic constraints}
+  \begin{displaymath}
+    \iint_{\Omega_0} \rho_0 \cdot \underline{x}_0^{\star} \, \dif \Omega_0 = \underline{0}
+    \quad \text{ and } \quad
+    \iint_{\Omega_0} \underline{M} \dif \Omega_0 = \underline{0}
+  \end{displaymath}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Modeling of continuum and nano rods using molecular approaches}
+
+  \begin{itemize}
+    \item what is the form of $W \bigl( \doubleunderline{F} \bigr)$ ?
+      \begin{itemize}
+        \item either obtain it from experiments ...
+        \item or use theory $\rightarrow$ molecular approach called \textit{Cauchy Born rule}
+      \end{itemize}
+    \item if the radius of the rod is at the nanoscale surface effects become also important, i.e.
+      \begin{displaymath}
+        \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
+        \underbrace{ \iint_{\Omega_0} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 }_{\text{bulk energy}} +
+        \underbrace{ \int_{\partial \Omega_0} \psi^S \bigl( \doubleunderline{E}^S \bigr) \dif l }_{\text{surface energy}}
+      \end{displaymath}
+      \null \quad $\rightarrow$ extension of the approach called \textit{Surface Cauchy Born rule}
+    \item hollow tube at nanoscale (SWCNT = single wall carbon nano tube)
+      \begin{itemize}
+        \item can not be thought of as a 3D continuum anymore!
+        \item $\psi \bigl( \underline{v} , \, \underline{k} \bigr) \rightarrow$ direct approach called \textit{Helical Cauchy Born rule}
+        %TODO image of SWCNT?
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Arrangement of atoms in crystalline materials (part 1)}
+  
+  crystals have a regular arrangement of atoms: translational periodicity
+  \begin{multicols}{2}
+    \noindent
+    consider for example a simple 2D crystal:
+    
+    \vspace{0.3em}
+    \begin{figure}
+      \centering
+      \includegraphics[width=8cm, keepaspectratio=true]{sections/cosserat_rods/images/CrystalLattice2D}
+    \end{figure}
+    
+    to generate any crystal we need
+    \begin{itemize}
+      \item lattice vectors: $\bigl( \underline{A}_1, \, \underline{A}_2 , \, \underline{A}_3 \bigr)$ %TODO plural: latice vectors, basis atoms
+      \item basis atoms: $\underline{X}_j$ with $j = 1, \dots , M$
+        (number of atoms per lattice point) % TODO M=? ...
+    \end{itemize}
+    
+    \vspace{0.8em}
+    in this 2D example we have
+    \begin{itemize}
+      \item $\bigl( \underline{A}_1, \, \underline{A}_2 \bigr) = \bigl( a \cdot \underline{e}_1, \, a \cdot \underline{e}_2 \bigr)$
+      \item $\underline{X}_1 = \bigl( 0 , \, 0 \bigr)$ \: ; $M=1$
+    \end{itemize}
+    
+  \end{multicols}
+  
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Arrangement of atoms in crystalline materials (part 2)}
+
+  \textbf{generating function of a crystal} % TODO better title
+  \begin{displaymath}
+    \underline{X}_{(n_1,n_2,n_3,j)} =  % TODO in lecture we had (i_1,i_2,i_3,j)
+    n_i \cdot \underline{A}_i + \bigl( \underline{X}_j \bigr)_{j=1,\dots,M} =
+    \underbrace{ n_1 \cdot \underline{A}_1 + n_2 \cdot \underline{A}_2 + n_3 \cdot \underline{A}_3 }_{\text{generates lattice}} + \underbrace{ \bigl( \underline{X}_j \bigr)_{j=1,\dots,M} }_{\text{puts atoms on lattice}}
+  \end{displaymath}
+    
+  \vspace{-0.3em}
+  $n_1, \, n_2, \, n_3 \in \mathbb{Z}$ gives the translation of the unit cell and \newline
+  $j=1,\dots,M$ represents the different atoms that are present within the unit cell
+  
+  
+  \vspace{1em}
+  \textbf{2D example from last slide}
+  \begin{multicols}{2}
+    \noindent
+    \begin{figure}
+      \centering
+      \includegraphics[width=8cm, keepaspectratio=true]{sections/cosserat_rods/images/CrystalLattice2DGeneratingFunction}
+    \end{figure}
+  
+    atom $B$ is generated by
+    \begin{displaymath}
+      \underline{X}_B =
+      \underline{X}_{(1,0,1)} =
+    \end{displaymath}
+    \begin{displaymath}
+      = \underbrace{1}_{n_1} \cdot \underbrace{(a \cdot \underline{e}_1)}_{\underline{A}_1} +
+      \underbrace{0}_{n_2} \cdot \underbrace{(a \cdot \underline{e}_2)}_{\underline{A}_2} +
+      0 \cdot \underline{e}_1 +
+      0 \cdot \underline{e}_2
+    \end{displaymath}
+  \end{multicols}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Arrangement of atoms in crystalline materials (part 3)}
+
+  \textbf{another example: BCC crystal} (body centered cubic)
+  \begin{multicols}{2}
+    \noindent
+    unit cell with two atoms
+    
+    \begin{figure}
+      \centering
+      \includegraphics[width=8cm, keepaspectratio=true]{sections/cosserat_rods/images/CrystalLatticeBBC}
+    \end{figure}
+    
+    the 7 blue atoms, that are not at the origin, actually belong to the neighboring unit cells!
+  
+    \vspace{2em}
+    \begin{itemize}
+      \item lattice vectors: $\bigl( \underline{A}_1, \, \underline{A}_2, \, \underline{A}_3 \bigr) = \bigl( a \cdot \underline{e}_1, \, a \cdot \underline{e}_2 , \, a \cdot \underline{e}_3 \bigr)$
+      \item basis atoms: \newline
+        $\underline{X}_1 = \bigl( 0 , \, 0 , \, 0 \bigr)$
+        $\underline{X}_2 = \frac{a}{2} \cdot \bigl( \underline{e}_1 + \underline{e}_2 + \underline{e}_3 \bigr)$ \: ; $M=2$
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Cauchy Born rule (part 1)}
+  
+  \begin{itemize}
+    \item at the continuum level : straining a rod
+    \item at the molecular level : the atoms are moving
+    \item the movement of atoms is determined by the bond energy between the atoms
+    \item assumption: periodicity is maintained by (sufficiently small) deformations
+  \end{itemize}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=18cm, keepaspectratio=true]{sections/cosserat_rods/images/DeformedCrystalLattice}
+  \end{figure}
+  with
+  \begin{displaymath}
+    \underline{a}_1 = \doubleunderline{F} \cdot \underline{A}_1
+    \quad \text{ and } \quad
+    \underline{a}_2 = \doubleunderline{F} \cdot \underline{A}_2
+  \end{displaymath}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Cauchy Born rule (part 2)}
+  
+  as an example consider the deformation map %TODO figure necessary?
+  \begin{displaymath}
+    \begin{alignedat}{1}
+      x_1 &= X_1 \\
+      x_2 &= X_2 \\
+      x_3 &= \lambda \cdot X_3 \quad \Rightarrow \quad \underline{a}_3 = \lambda \cdot \underline{A}_3
+    \end{alignedat}
+  \end{displaymath}
+  if the continuum deformation map is also valid at the atomic level, we have $\underline{a}_3 = \lambda \cdot \underline{A}_3$ \newline
+  or more generally the Cauchy Born rule
+  \begin{displaymath}
+    \underline{a}_i = \doubleunderline{F} \cdot \underline{A}_i
+  \end{displaymath}
+  \begin{itemize}
+    \item bridges the continuum and the atomistic viewpoint
+    \item the crystal lattice deforms like the continuum
+    \item position of atoms that sit on lattice points are known (if we know the deformation map)
+  \end{itemize}
+  
+  \vspace{0.7em}
+  the position of \textit{any} atom in the deformed configuration is given by % TODO crystal in deformed configuration
+  \begin{displaymath}
+    \underline{x}_{(n_1,n_2,n_3,j)} =
+    n_i \cdot \doubleunderline{F} \cdot \underline{A}_i + \bigl( \underline{x}_j \bigr)_{j=1,\dots,M}
+  \end{displaymath}
+  where $\underline{x}_j$ are the positions of the basis atoms within the unit cell \newline %TODO if F is non-homogeneous then every unit cell has different x_j
+  $\rightarrow$ unknowns : can be determined by minimizing the energy of the unit cell
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Minimizing the energy of the unit cell (part 1)}
+
+  \textbf{average strain energy density within the unit cell} % TODO average
+  \begin{displaymath}
+    W \bigl( \doubleunderline{F} \bigr) =
+    \min_{(\underline{x}_1,\dots,\underline{x}_M)} \frac{E \bigl( \underline{x}_1 , \, \underline{x}_2 , \, \dots , \, \underline{x}_M ; \, \doubleunderline{F} \bigr) - E \bigl( \underline{X}_1 , \, \underline{X}_2 , \, \dots , \, \underline{X}_M ; \, \doubleunderline{I} \bigr)}{\bigl( \underline{A}_1 \times \underline{A}_2 \bigr) \cdot \underline{A}_3}
+  \end{displaymath}
+  where $E$ is a measure of the energy within the unit cell %TODO more precise?
+  
+  \vspace{0.5em}
+  a \textbf{interatomic potential} determines the energy due to atomic bonds \newline
+  in the simplest case this is a pair potential, i.e. the energy that is present within an individual bond between two atoms or molecules
+  
+  \vspace{-0.3em}
+  \begin{multicols}{2}
+    \noindent
+    
+    \begin{figure}
+      \centering
+      \includegraphics[width=9cm, keepaspectratio=true]{sections/cosserat_rods/images/LJpotential}
+    \end{figure}
+    
+    the \textbf{Lennard-Jones potential} models the interaction between two atoms or molecules that are neutral and have no chemical bonds between them
+    
+    \vspace{0.3em}
+    $\leftarrow$ potential energy as a function of the distance between the two atoms or molecules
+    
+    \vspace{-1em}
+    \begin{displaymath}
+      V(r) = 4 \cdot \epsilon \cdot \Biggl( \biggl( \frac{\sigma}{r} \biggr)^{12} - \biggl( \frac{\sigma}{r} \biggr)^6 \Biggr)
+    \end{displaymath}
+    
+  \end{multicols}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Minimizing the energy of the unit cell (part 2)}
+
+  \textbf{unit cell energy}
+  \begin{displaymath}
+    E = \frac{1}{2} \sum_{\alpha} \sum_{\beta} V(r_{\alpha, \beta})
+  \end{displaymath}
+  \begin{itemize}
+    \item $\alpha$ iterates over the basis atoms of the unit cell
+    \item $\beta$ iterates over all neighbors of $\alpha$ (also within the neighboring unit cells)
+    \item a cutoff-radius defines the size of this neighborhood
+    \item the factor $1/2$ comes from the fact that every bond appears twice: $(\alpha, \beta) \leftrightarrow (\beta, \alpha)$
+    \item bonds that cross the boundary of the unit cell have a part inside and a part outside of the unit cell ; this symmetry implies that for every such bond only the part inside the unit cell is taken into account because the inside part of $(\alpha, \beta)$ equals exactly the outside part of $(\beta, \alpha)$ ; this works out regardless of the energy potential model $V$, i.e. also for models that are not pair-potentials 
+  \end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 1)}
+  
+  \begin{itemize} %TODO rod vs nanotube ; large deformations vs not a 3D continuum
+    \item for larger deformations of a rod / nanotube the translational periodicity of the crystalline material is not preserved \newline
+      $\rightarrow$ standard Cauchy Born rule cannot be used to compute the energy of a unit cell
+    \item the idea is to \textit{directly} obtain $\psi \bigl( \underline{v}, \, \underline{k} \bigr)$, i.e. without first computing $W \bigl( \doubleunderline{F} \bigr)$
+    \item the direct molecular approach takes care of surface effects
+    \item and it can still be used whenever the rod cannot be thought of as a 3D continuum, \newline because e.g. the rod consists only of a wall with a thickness of one atom (SWCNT)
+  \end{itemize}
+    
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 2)}
+
+
 \end{frame}
