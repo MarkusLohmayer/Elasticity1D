@@ -2667,8 +2667,8 @@
         \bigl( \underline{k}^{\star} \times \delta \underline{x}_0^{\star} \bigr) \otimes \underline{e}_3 +
         \pd{\delta \underline{x}_0^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha}
       \Bigr) +
-      \underline{\lambda} \cdot \rho_0 \cdot \delta \underline{x}_0^{\star} +
-      \underline{\mu} \cdot \doubleunderline{M} \cdot \delta \underline{x}_0^{\star}
+      \underline{\lambda} \cdot \biggl( \rho_0 \cdot \delta \underline{x}_0^{\star} \biggr) +
+      \underline{\mu} \cdot \biggl( \doubleunderline{M} \cdot \delta \underline{x}_0^{\star} \biggr)
     \Biggr) \dif \Omega_0 = 
   \end{displaymath}
   \begin{displaymath}
@@ -2843,7 +2843,7 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Modeling of continuum and nano rods using molecular approaches}
+  \frametitle{Modeling of continuum and nanorods using molecular approaches}
 
   \begin{itemize}
     \item what is the form of $W \bigl( \doubleunderline{F} \bigr)$ ?
@@ -2858,7 +2858,7 @@
         \underbrace{ \int_{\partial \Omega_0} \psi^S \bigl( \doubleunderline{E}^S \bigr) \dif l }_{\text{surface energy}}
       \end{displaymath}
       \null \quad $\rightarrow$ extension of the approach called \textit{Surface Cauchy Born rule}
-    \item hollow tube at nanoscale (SWCNT = single wall carbon nano tube)
+    \item hollow tube at nanoscale (SWCNT = single wall carbon nanotube)
       \begin{itemize}
         \item can not be thought of as a 3D continuum anymore!
         \item $\psi \bigl( \underline{v} , \, \underline{k} \bigr) \rightarrow$ direct approach called \textit{Helical Cauchy Born rule}
@@ -3107,6 +3107,180 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Direct molecular approach (part 2)}
+  \vspace{-0.4em}
+  \begin{multicols}{2}
+    \begin{figure}
+      \centering
+      \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/LocalEnergyNano}
+    \end{figure}
+    $\rightarrow$ for a nanorod we could count the individual atoms
+    
+    \vspace{1em}
+    $\rightarrow$ we will again subject the rod to constant $\bigl( \underline{v} , \, \underline{k} \bigr)\, \forall s$ to obtain $\psi \bigl( \underline{v} , \, \underline{k} \bigr)$
+    
+    \vspace{0.5em}  
+    \begin{figure}
+      \centering
+      \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/1D-Crystal}
+    \end{figure}
+    $\rightarrow$ the nanorod can be thought of as a 1D crystal, i.e. it has a unit cell that repeats only along $\underline{e}_3$-axis ; this repeating unit is sometimes also called fundamental domain
+    
+    \vspace{1em}
+    $\rightarrow$ all unit cells deform in the same way for constant $\bigl( \underline{v} , \, \underline{k} \bigr) \forall s$
+  \end{multicols}
+  
+\end{frame}
 
 
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 3)}
+
+  \textbf{deformation map} for the repeating unit cells
+  
+  \vspace{0.2em}
+  the reference state is given by $\underline{X}_{i,j}$
+  \begin{itemize} 
+    \item $i$ is an integer that indicates a particular unit cell (analog to the continuous scalar $s$)
+    \item $j$ is an integer that indicates a particular basis atom within the unit cell \newline (analog to the continuous scalars $X_1$, $X_2$)
+  \end{itemize}
+  
+  \vspace{0.5em}
+  we want to determine $\underline{x}_{i,j}$ for a nanorod subjected to constant $\bigl( \underline{v} , \, \underline{k} \bigr) \forall s$
+  
+  \vspace{0.2em}
+  the idea is to find a discrete analog of the 3D deformation map
+  \begin{displaymath}
+    \underline{x}(X_1, X_2, s) = 
+    \underbrace{ \underline{x}_f + \exp \bigl( s \cdot \doubleunderline{K} \bigr) \cdot \biggl( \underline{x}_0(X_1,X_2) - \underline{x}_f \biggr) }_{\text{rotate cross section } s=0 } + 
+    \underbrace{ s \cdot \tau \cdot \underline{\hat{k}} }_{\text{translate cross section}}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  with $s \rightarrow i \cdot l_0$ we get
+  \begin{displaymath}
+    \underline{x}_{i,j} = 
+    \underbrace{ \underline{x}_f + \exp \bigl( i \cdot l_0 \cdot \doubleunderline{K} \bigr) \cdot \biggl( \underline{x}_{0,j} - \underline{x}_f \biggr) }_{\text{rotate unit cell } i=0 } + 
+    \underbrace{ i \cdot l_0 \cdot \tau \cdot \underline{\hat{k}} }_{\text{translate unit cell}}
+  \end{displaymath}
+  
+  \vspace{0.2em}
+  $\rightarrow$ the atomic positions $\underline{x}_{0,j}$ in the unit cell $i=0$ are the unknowns we have to solve for  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 4)}
+
+  \textbf{short recap}
+  \begin{figure}
+    \centering
+    \includegraphics[width=17cm, keepaspectratio=true]{sections/cosserat_rods/images/1D-Crystal2}
+  \end{figure}
+  \begin{itemize}
+    \item unit cells are the analogs of cross sections: $s \rightarrow i \cdot l_0$ with $i = 0, \, \dots,$
+    \item the atomic positions in the unit cell $i=0$ are given by $\bigl( \underline{x}_{0,j} \bigr)_{j=0,\dots,M}$ \newline with the number of basis atoms $M=3$ in the example picture above
+    \item for constant $\bigl( \underline{v} , \, \underline{k} \bigr) \forall s$ we get the discrete deformation map
+        \begin{displaymath}
+          \underline{x}_{i,j} = 
+          \underline{x}_f + \exp \bigl( i \cdot l_0 \cdot \doubleunderline{K} \bigr) \cdot \biggl( \underline{x}_{0,j} - \underline{x}_f \biggr) + 
+          i \cdot l_0 \cdot \tau \cdot \underline{\hat{k}}
+        \end{displaymath}
+    \item $\bigl( \underline{x}_{0,j} \bigr)_{j=1,\dots,M}$ are the scalar unknowns (no dependence on $X_1,X_2$)
+  \end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 5)}
+
+  %TODO is the discrete crystal really following this map, that comes from continuum theory?
+  
+  \begin{itemize}
+    \item reference state of the unit cell at $i=0$ given by $\bigl( \underline{X}_{0,j} \bigr)_{j=1,\dots,M}$
+    \item reference state of entire crystal given by $\underline{X}_{0,j} = i \cdot l_0 \cdot \underline{e}_3 + \underline{X}_{0,j}$
+    \item we apply a deformation such that the strains $\underline{v},\,\underline{k}$ are constant for all $s$
+    \item we obtain $\underline{x}_{0,j}$ by minimizing the unit cell energy:
+      \begin{displaymath}
+        \underline{x}_{0,j} = \argmin_{(\underline{x}_{0,j})} E \bigl( \underline{x}_{0,1}, \, \dots , \, \underline{x}_{0,M} \, ; \, \underline{v}, \, \underline{k} \bigr) 
+      \end{displaymath}
+    \item the minimization is carried out subject to constraints: \newline
+      (mass) center and orientation of the unit cell must be preserved, i.e.
+      \begin{displaymath}
+        %\int \rho_0 \cdot \underline{x}_0 \dif X_1 \dif X_2 =
+        %\int \underline{x}_0 \dif m = \underline{0}
+        %\: \rightarrow \:
+        \sum_{j=1}^M m_j \cdot \underline{x}_{0,j} = \underline{0}
+      \end{displaymath}
+      and
+      \begin{displaymath}
+        %\int \underline{M} \dif X_1 \dif X_2 = \underline{0}
+        %\: \rightarrow \:
+        \sum_{j=1}^M 
+        \underbrace{ m_j \cdot 
+        \begin{bmatrix}
+          x_2 \cdot x_3 \\
+          x_1 \cdot x_3 \\
+          x_1 \cdot x_2 
+        \end{bmatrix} }_{=: \underline{M}_j} = \underline{0}
+      \end{displaymath}
+      
+      \vspace{-1.2em}
+      with $x_1,x_2,x_3$ the components of $\underline{x}_{0,j}$
+  \end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 6)}
+
+  \textbf{minimization of energy under constraints}
+  \begin{displaymath}
+    \min_{(\underline{x}_{0,j} \, ; \, \underline{\lambda} , \, \underline{\mu} )} E \bigl( \underline{x}_{0,1}, \, \dots , \, \underline{x}_{0,M} \, ; \, \underline{v}, \, \underline{k} \bigr) +
+    \underline{\lambda} \cdot \sum_{j=1}^M m_j \cdot \underline{x}_{0,j} +
+    \underline{\mu} \cdot \sum_{j=1}^M \underline{M}_j
+  \end{displaymath}
+  
+  \vspace{0.5em} % TODO why k instead of j?
+  setting the \textbf{first derivative} to zero we obtain
+  \begin{displaymath}
+    \pd{E}{\underline{x}_{0,j}} + 
+    m_j \cdot \underline{\lambda} + 
+    \underbrace{ m_j \cdot
+    \begin{bmatrix}
+      0 & x_3 & x_2 \\
+      x_3 & 0 & x_1 \\
+      x_2 & x_1 & 0
+    \end{bmatrix} }_{=: \doubleunderline{M}_j} \cdot \underline{\mu} =
+    \underline{0}
+  \end{displaymath}
+  
+  together with the 2 constraint equations this gives a system of $3 \, M + 6$ algebraic equations
+  
+  
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 7)}
+
+  %\textbf{minimization of energy under constraints}
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Direct molecular approach (part 8)}
+
+  %\textbf{minimization of energy under constraints}
+  
+  
 \end{frame}
