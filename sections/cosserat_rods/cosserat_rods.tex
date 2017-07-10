@@ -275,8 +275,8 @@
     \includegraphics[width=22cm, keepaspectratio=true]{sections/cosserat_rods/images/Forces}
   \end{figure}
 
-  to obtain the forces and moments we integrate the pullback of the tractions / tensions acting in the deformed configuration, hence using the reference configuration as the domain of integration ... 
-  % TODO good?
+  to obtain the forces and moments we integrate the pullback of the tractions / tensions acting in the deformed configuration, hence using the reference configuration as the domain of integration ...
+  
   \vspace{1em}
   \textbf{external forces}: body force $\underline{B}$ and external traction $\underline{t}^{ext}$
   \begin{displaymath}
@@ -2127,7 +2127,7 @@
   \end{displaymath}
   
   \vspace{0.5em}
-  equations are in terms of \textbf{nominal stresses} % TODO nominal
+  equations are in terms of the \textbf{internal contact force} and \textbf{internal moment}
   \begin{displaymath}
     \begin{alignedat}{1}
       \underline{n}(s) &= \iint_{\Omega_0(s)} \doubleunderline{P}(X_1, X_2, s) \cdot \underline{e}_3 \dif X_1 \dif X_2 \\
@@ -2231,8 +2231,7 @@
       \begin{itemize}
         \item $\rightarrow$ because of uniformity in $s$ this is a 2D elasticity problem
       \end{itemize}
-    \item in the context of a finite element discretization, one such 2D problem is solved for every element to approximate the average warping $\underline{u}^{\star}(X_1,X_2)$ of the cross sections within that element ; $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ are the average strains within the element
-    %TODO correct?
+    \item in the context of a finite element discretization, one such 2D problem is solved for every quadrature point within an element to approximate the average warping $\underline{u}^{\star}(X_1,X_2)$ of the cross sections within that element ; $\bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr)$ are the strains at the quadrature points
   \end{itemize}
 \end{frame}
 
@@ -2259,7 +2258,6 @@
     \item consider the same rod but in the configuration with $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr) = \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \bigr) \, \forall \, s$, \newline i.e. the particular $\star$-problem at $s=s^{\star}$
     \item if in the arbitrarily deformed configuration $\bigl( \underline{v}(s), \, \underline{k}(s) \bigr)$ change slowly with $s$ in some neighborhood of $s^{\star}$, then $\underline{u}^{\star}(X_1,X_2)$, obtained from the $\star$-problem, is a good \textit{local} approximation for $\underline{u}(X_1,X_2,s=s^{\star})$, obtained from 3D theory
   \end{itemize}
-  % TODO good? what can be done better?
 \end{frame}
 
 
@@ -2268,8 +2266,8 @@
   \frametitle{Strain energy of a cross section}
 
   the warping of the cross section will be determined by a minimization of strain energy
-  \begin{displaymath} %TODO I put in u as a parameter ; add u to figure... ; add stars to v,k , u,F? %in the $\star$-problem
-    \psi \bigl( \underline{v} , \, \underline{k} \, ; \, \underline{u} \bigr) =
+  \begin{displaymath}
+    \psi \bigl( \underline{v} , \, \underline{k} \, ; \, \underline{u}(\underline{v} , \, \underline{k}) \bigr) =
     \lim_{s_2 \to s_1} \frac{1}{s_2 - s_1} \int_{s_1}^{s_2}  \Biggl( \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0 \Biggr) \dif s =
     \iint_{\Omega_0(s)} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
   \end{displaymath}
@@ -2299,7 +2297,7 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Deformation gradient of the star-problem}
-  % TODO redundant slide?
+
   starting with the deformation map of the $\star$-problem
   \begin{displaymath}
     \underline{f}^{\star}(X_1,X_2,s) =
@@ -2350,15 +2348,15 @@
   without loss of generality ...
   \begin{itemize}
     \item we consider the cross section at $s=0$
-    \item we prescribe the boundary condition $\doubleunderline{R}^{\star}_0 = \doubleunderline{R}^{\star}(s=0) = \doubleunderline{I}$ \: (rigid body rotation)
-    \item we prescribe the boundary condition $\underline{r}^{\star}_0 = \underline{r}^{\star}(s=0) = \underline{0}$ \: (rigid body translation)
+    \item we prescribe $ \doubleunderline{R}^{\star}(s=0) = \doubleunderline{R}^{\star}_0 = \doubleunderline{I}$ \: (rigid body rotation)
+    \item we prescribe $ \underline{r}^{\star}(s=0) = \underline{r}^{\star}_0 = \underline{0}$ \: (rigid body translation)
   \end{itemize}
 
   \vspace{1em}
   \textbf{minimization of energy}
   \begin{displaymath}
     \underline{u}^{\star}(X_1,X_2) =
-    \argmin_{\underline{u}} \psi \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \, ; \, \underline{u} \bigr) =
+    \argmin_{\underline{u}(X_1,X_2)} \psi \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \, ; \, \underline{u} \bigr) =
     \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
   \end{displaymath}
   \begin{itemize}
@@ -2386,7 +2384,7 @@
     \doubleunderline{R}^{\star}(s) = \doubleunderline{R}^{\star}_0 \cdot \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) = \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr)
   \end{displaymath}
   
-  \vspace{0.5em}
+  \vspace{1.5em}
   \textbf{translation / displacement of cross section}
   \begin{displaymath}
     \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \underline{r}^{\star \prime}(s) = \underline{v}^{\star} \: \text{ (const.)}
@@ -2413,7 +2411,7 @@
   \begin{itemize}
     \item $\phi$ is the angle between $\underline{v}^{\star}$ and $\underline{k}^{\star}$, i.e. $\phi = \arcsin \Bigl( \frac{\underline{v}^{\star} \cdot \underline{k}^{\star}}{\norm[0]{\underline{v}^{\star}} \, \cdot \: \norm[0]{\underline{k}^{\star}}} \Bigr)$
     \item $\underline{\hat{k}}$ is the unit vector along $\underline{k}^{\star}$, i.e. $\underline{\hat{k}} = \frac{\underline{k}^{\star}}{\norm[0]{\underline{k}^{\star}}}$
-    \item $\underline{\hat{k}}^{\perp}$ is a unit vector perpendicular to $\underline{\hat{k}}$ %TODO one DOF left!?
+    \item $\underline{\hat{k}}^{\perp}$ is a unit vector perpendicular to $\underline{\hat{k}}$
   \end{itemize}
   
   \vspace{0.5em}
@@ -2449,27 +2447,77 @@
     \underline{r}^{\star}(s) = \norm[1]{\underline{v}^{\star}} \cdot \Biggl( \cos(\phi) \cdot \underline{\hat{k}} \cdot s + \sin(\phi) \cdot \frac{1}{\norm[1]{\underline{k}^{\star}}} \cdot \biggl( \doubleunderline{I} - \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \biggr) \cdot \underline{\hat{k}} \times \underline{\hat{k}}^{\perp} \Biggr)
   \end{displaymath}
   
+  \vspace{0.5em}
+  we introduce the abbreviations
   \begin{itemize}
-    \item pitch of the helix: $\tau = \norm[1]{\underline{v}^{\star}} \cdot \cos(\phi)$
-    \item fixed point of the helix: $\underline{x}_f = \frac{\sin(\phi) \cdot \underline{\hat{k}} \times \underline{\hat{k}}^{\perp}}{\norm[0]{\underline{k}^{\star}}} = \frac{\underline{v}^{\star} \times \underline{k}^{\star}}{\norm[0]{\underline{k}^{\star}}^2}$ ; radius of the helix: $\norm[0]{\underline{x}_f}$
+    \item $\tau = \norm[1]{\underline{v}^{\star}} \cdot \cos(\phi)$
+    \item $\underline{x}_f = \frac{\sin(\phi) \cdot \underline{\hat{k}} \times \underline{\hat{k}}^{\perp}}{\norm[0]{\underline{k}^{\star}}} = \frac{\underline{v}^{\star} \times \underline{k}^{\star}}{\norm[0]{\underline{k}^{\star}}^2}$ (fixed point of the helix)
   \end{itemize}
   
+  \vspace{0.7em}
+  and get ...
   \begin{displaymath}
     \underline{r}^{\star}(s) = s \cdot \tau \cdot \underline{\hat{k}} + \biggl( \doubleunderline{I} - \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \biggr) \cdot \underline{x}_f =
     s \cdot \tau \cdot \underline{\hat{k}} + \underbrace{ \underline{x}_f + \doubleunderline{R}^{\star}(s) \cdot \bigl( \underline{r}^{\star}_0 - \underline{x}_f \bigr) }_{\text{rotation of the origin about }\underline{x}_f}
   \end{displaymath}
   
-  \vspace{0.5em}
-  \textbf{edge cases}
+  \vspace{0.3em}
+  \textbf{examples}
   \begin{itemize}
     \item $\underline{v}^{\star} \parallel \underline{k}^{\star}$ : 
       centerline degenerates into a straight line (e.g. combined extension \& torsion)
     \item $\underline{v}^{\star} \perp \underline{k}^{\star}$ : 
       centerline degenerates into a circle (e.g. pure bending)
   \end{itemize}
-  % TODO info on page 25 relevant?
-  % -> pitch 2pi ...
 \end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Helix}
+
+  \vspace{-1em}
+  \begin{multicols}{2}
+    \noindent
+    
+    \begin{displaymath}
+      \begin{alignedat}{1}
+        &\underline{r}^{\star}(s) = \\
+        &s \cdot \tau \cdot \underline{\hat{k}} +
+        \underline{x}_f + \exp \bigl( \doubleunderline{K}^{\star} \cdot s \bigr) \cdot \bigl( \underline{r}^{\star}_0 - \underline{x}_f \bigr)  
+      \end{alignedat}
+    \end{displaymath}
+
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/HelixContinuum}
+    \end{figure}
+    
+    \textbf{pitch} \\
+    for one full turn of the helix we have
+    \begin{displaymath}
+      \norm[1]{\underline{k}^{\star}} \cdot \overset{\circ}{s} \overset{!}{=} 2 \cdot \pi
+    \end{displaymath}
+    
+    plugging $\overset{\circ}{s}$ into the part of the helix equation that generates the axial motion we obtain the pitch of the helix as
+    \begin{displaymath}
+      \overset{\circ}{s} \cdot \tau = \frac{2 \, \pi}{\norm[1]{\underline{k}^{\star}}} \cdot \norm[1]{\underline{v}^{\star}} \cdot \cos(\phi)
+    \end{displaymath}
+    
+    \vspace{1em}
+    \textbf{radius}
+    \begin{displaymath}
+      \norm[1]{\underline{r}^{\star}_0 - \underline{x}_f} =
+      \norm[1]{\underline{x}_f}
+    \end{displaymath}
+    
+  \end{multicols}
+
+\end{frame}
+
+
+
+
 
 
 %-------------------------------------------------------------------------------
@@ -2552,7 +2600,7 @@
 
   \textbf{minimization problem with augmented Langrangian}
   \begin{displaymath}
-    \min_{\underline{x}_0^{\star}} \iint_{\Omega_0} \Bigl( W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr) + \underline{\lambda} \cdot \rho_0 \cdot \underline{x}_0^{\star} + \underline{\mu} \cdot \underline{M} \Bigr) \dif \Omega_0
+    \min_{\underline{x}_0^{\star},\underline{\lambda},\underline{\mu}} \iint_{\Omega_0} \Bigl( W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr) + \underline{\lambda} \cdot \rho_0 \cdot \underline{x}_0^{\star} + \underline{\mu} \cdot \underline{M} \Bigr) \dif \Omega_0
   \end{displaymath}
   
   \vspace{0.5em}
@@ -2752,7 +2800,7 @@
   \end{displaymath}
   \begin{displaymath}
     = \iint_{\Omega_0}
-      \nabla_{\alpha} \cdot \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr)
+      \underline{\nabla} \cdot \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr)
     \dif \Omega_0 =
     \int_{\partial \Omega_0}
       \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr) \cdot \underline{\hat{n}} \,
@@ -2766,7 +2814,7 @@
   \vspace{1em}
   setting $\delta \psi = 0$ gives us the \textbf{Euler-Lagrange equations} of the $\star$-problem
   \begin{displaymath}
-    \nabla_{\alpha} \cdot \doubleunderline{P} +
+    \underline{\nabla}_{\alpha} \cdot \doubleunderline{P} +
     \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) =
     \rho_0 \cdot \underline{\lambda} +
     \doubleunderline{M} \cdot \underline{\mu}
@@ -2780,7 +2828,12 @@
   
   \vspace{1em}
   %TODO why constraints again? (augmented Langrangian)
-  % say something about P = ConstitutiveLaw(strains(x-star))
+  % perturbations del_lambda, del_mu
+  % variations for del_lambda, del_mu
+  % set these also to zero
+  % ... equals saying ... plus the constraints
+
+  % P = ConstitutiveLaw(strains(x-star), x-star)
   together with the constraints
   \begin{displaymath}
     \iint_{\Omega_0} \rho_0 \cdot \underline{x}_0^{\star} \, \dif \Omega_0 = \underline{0}
@@ -2793,7 +2846,7 @@
 
 
 %===============================================================================
-\subsection{Molecular approaches} %TODO title
+\subsection{Modeling of 1D nanostructures}
 
 %-------------------------------------------------------------------------------
 \begin{frame}
@@ -2818,7 +2871,7 @@
   in order to find $\underline{x}_0^{\star}(X_1,X_2)$ we must find a solution to the
   \textbf{Euler-Lagrange equations} of the $\star$-problem
   \begin{displaymath}
-    \nabla_{\alpha} \cdot \doubleunderline{P} +
+    \underline{\nabla} \cdot \doubleunderline{P} +
     \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) =
     \rho_0 \cdot \underline{\lambda} +
     \doubleunderline{M} \cdot \underline{\mu}
@@ -2862,7 +2915,6 @@
       \begin{itemize}
         \item can not be thought of as a 3D continuum anymore!
         \item $\psi \bigl( \underline{v} , \, \underline{k} \bigr) \rightarrow$ direct approach called \textit{Helical Cauchy Born rule}
-        %TODO image of SWCNT?
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -2885,16 +2937,19 @@
     
     to generate any crystal we need
     \begin{itemize}
-      \item lattice vectors: $\bigl( \underline{A}_1, \, \underline{A}_2 , \, \underline{A}_3 \bigr)$ %TODO plural: latice vectors, basis atoms
-      \item basis atoms: $\underline{X}_j$ with $j = 1, \dots , M$
-        (number of atoms per lattice point) % TODO M=? ...
+      \item lattice vectors: $\bigl( \underline{A}_1, \, \underline{A}_2 , \, \underline{A}_3 \bigr)$
+      \item basis atoms: $\underline{X}_{0,j}$ with $j = 1, \dots , M$
+        \begin{itemize}
+          \item $M$ the number of atoms per unit cell ;
+          \item the zero index indicates the unit cell
+        \end{itemize}
     \end{itemize}
     
     \vspace{0.8em}
     in this 2D example we have
     \begin{itemize}
       \item $\bigl( \underline{A}_1, \, \underline{A}_2 \bigr) = \bigl( a \cdot \underline{e}_1, \, a \cdot \underline{e}_2 \bigr)$
-      \item $\underline{X}_1 = \bigl( 0 , \, 0 \bigr)$ \: ; $M=1$
+      \item $\underline{X}_{\underline{0},1} = \bigl( 0 , \, 0 \bigr)$ \: ; $M=1$
     \end{itemize}
     
   \end{multicols}
@@ -2907,9 +2962,8 @@
 \begin{frame}
   \frametitle{Arrangement of atoms in crystalline materials (part 2)}
 
-  \textbf{generating function of a crystal} % TODO better title
-  \begin{displaymath}
-    \underline{X}_{(n_1,n_2,n_3,j)} =  % TODO in lecture we had (i_1,i_2,i_3,j)
+  \textbf{generators of a crystal}  \begin{displaymath}
+    \underline{X}_{(n_1,n_2,n_3,j)} =
     n_i \cdot \underline{A}_i + \bigl( \underline{X}_j \bigr)_{j=1,\dots,M} =
     \underbrace{ n_1 \cdot \underline{A}_1 + n_2 \cdot \underline{A}_2 + n_3 \cdot \underline{A}_3 }_{\text{generates lattice}} + \underbrace{ \bigl( \underline{X}_j \bigr)_{j=1,\dots,M} }_{\text{puts atoms on lattice}}
   \end{displaymath}
@@ -2963,8 +3017,8 @@
     \begin{itemize}
       \item lattice vectors: $\bigl( \underline{A}_1, \, \underline{A}_2, \, \underline{A}_3 \bigr) = \bigl( a \cdot \underline{e}_1, \, a \cdot \underline{e}_2 , \, a \cdot \underline{e}_3 \bigr)$
       \item basis atoms: \newline
-        $\underline{X}_1 = \bigl( 0 , \, 0 , \, 0 \bigr)$
-        $\underline{X}_2 = \frac{a}{2} \cdot \bigl( \underline{e}_1 + \underline{e}_2 + \underline{e}_3 \bigr)$ \: ; $M=2$
+        $\underline{X}_{\underline{0},1} = \bigl( 0 , \, 0 , \, 0 \bigr)$
+        $\underline{X}_{\underline{0},2} = \frac{a}{2} \cdot \bigl( \underline{e}_1 + \underline{e}_2 + \underline{e}_3 \bigr)$ \: ; $M=2$
     \end{itemize}
   \end{multicols}
 \end{frame}
@@ -2978,19 +3032,20 @@
     \item at the continuum level : straining a rod
     \item at the molecular level : the atoms are moving
     \item the movement of atoms is determined by the bond energy between the atoms
-    \item assumption: periodicity is maintained by (sufficiently small) deformations
+    \item assumption: periodicity is maintained by slowly varying deformations
   \end{itemize}
   
   \begin{figure}
     \centering
-    \includegraphics[width=18cm, keepaspectratio=true]{sections/cosserat_rods/images/DeformedCrystalLattice}
+    \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/DeformedCrystalLatticePrakhar}
+    %\includegraphics[width=18cm, keepaspectratio=true]{sections/cosserat_rods/images/DeformedCrystalLattice}
   \end{figure}
-  with
-  \begin{displaymath}
-    \underline{a}_1 = \doubleunderline{F} \cdot \underline{A}_1
-    \quad \text{ and } \quad
-    \underline{a}_2 = \doubleunderline{F} \cdot \underline{A}_2
-  \end{displaymath}
+%  with
+%  \begin{displaymath}
+%    \underline{a}_1 = \doubleunderline{F} \cdot \underline{A}_1
+%    \quad \text{ and } \quad
+%    \underline{a}_2 = \doubleunderline{F} \cdot \underline{A}_2
+%  \end{displaymath}
 
 \end{frame}
 
@@ -2999,7 +3054,7 @@
 \begin{frame}
   \frametitle{Cauchy Born rule (part 2)}
   
-  as an example consider the deformation map %TODO figure necessary?
+  as an example consider the homogeneous deformation map
   \begin{displaymath}
     \begin{alignedat}{1}
       x_1 &= X_1 \\
@@ -3015,16 +3070,17 @@
   \begin{itemize}
     \item bridges the continuum and the atomistic viewpoint
     \item the crystal lattice deforms like the continuum
-    \item position of atoms that sit on lattice points are known (if we know the deformation map)
+    \item the positions of the atoms are still unknown \newline
+      (they are not dictated by the macroscopic deformation gradient)
   \end{itemize}
   
   \vspace{0.7em}
-  the position of \textit{any} atom in the deformed configuration is given by % TODO crystal in deformed configuration
+  the position of \textit{any} atom in the deformed configuration is given by
   \begin{displaymath}
     \underline{x}_{(n_1,n_2,n_3,j)} =
-    n_i \cdot \doubleunderline{F} \cdot \underline{A}_i + \bigl( \underline{x}_j \bigr)_{j=1,\dots,M}
+    n_i \cdot \doubleunderline{F} \cdot \underline{A}_i + \underline{x}_{\underline{0},j}
   \end{displaymath}
-  where $\underline{x}_j$ are the positions of the basis atoms within the unit cell \newline %TODO if F is non-homogeneous then every unit cell has different x_j
+  where $\underline{x}_{\underline{0},j}$ are the positions of the basis atoms within the unit cell \newline %F is non-homogeneous then every unit cell has different x_j ; that's why deformation must be slowly varying
   $\rightarrow$ unknowns : can be determined by minimizing the energy of the unit cell
   
 \end{frame}
@@ -3034,12 +3090,12 @@
 \begin{frame}
   \frametitle{Minimizing the energy of the unit cell (part 1)}
 
-  \textbf{average strain energy density within the unit cell} % TODO average
+  \textbf{average strain energy density of the unit cell}
   \begin{displaymath}
     W \bigl( \doubleunderline{F} \bigr) =
-    \min_{(\underline{x}_1,\dots,\underline{x}_M)} \frac{E \bigl( \underline{x}_1 , \, \underline{x}_2 , \, \dots , \, \underline{x}_M ; \, \doubleunderline{F} \bigr) - E \bigl( \underline{X}_1 , \, \underline{X}_2 , \, \dots , \, \underline{X}_M ; \, \doubleunderline{I} \bigr)}{\bigl( \underline{A}_1 \times \underline{A}_2 \bigr) \cdot \underline{A}_3}
+    \min_{(\underline{x}_{\underline{0},1},\dots,\underline{x}_{\underline{0},M})} \frac{E \bigl( \underline{x}_{\underline{0},1} , \, \underline{x}_{\underline{0},2} , \, \dots , \, \underline{x}_{\underline{0},M} ; \, \doubleunderline{F} \bigr) - E \bigl( \underline{X}_{\underline{0},1} , \, \underline{X}_{\underline{0},2} , \, \dots , \, \underline{X}_{\underline{0},M} ; \, \doubleunderline{I} \bigr)}{\bigl( \underline{A}_1 \times \underline{A}_2 \bigr) \cdot \underline{A}_3}
   \end{displaymath}
-  where $E$ is a measure of the energy within the unit cell %TODO more precise?
+  where $E$ is a measure of the interatomic energy of the unit cell
   
   \vspace{0.5em}
   a \textbf{interatomic potential} determines the energy due to atomic bonds \newline
@@ -3083,6 +3139,7 @@
     \item the factor $1/2$ comes from the fact that every bond appears twice: $(\alpha, \beta) \leftrightarrow (\beta, \alpha)$
     \item bonds that cross the boundary of the unit cell have a part inside and a part outside of the unit cell ; this symmetry implies that for every such bond only the part inside the unit cell is taken into account because the inside part of $(\alpha, \beta)$ equals exactly the outside part of $(\beta, \alpha)$ ; this works out regardless of the energy potential model $V$, i.e. also for models that are not pair-potentials 
   \end{itemize}
+  % TODO redo later on
 
 \end{frame}
 
@@ -3091,14 +3148,22 @@
 \begin{frame}
   \frametitle{Direct molecular approach (part 1)}
   
-  \begin{itemize} %TODO rod vs nanotube ; large deformations vs not a 3D continuum
+  \begin{itemize}
     \item for larger deformations of a rod / nanotube the translational periodicity of the crystalline material is not preserved \newline
       $\rightarrow$ standard Cauchy Born rule cannot be used to compute the energy of a unit cell
     \item the idea is to \textit{directly} obtain $\psi \bigl( \underline{v}, \, \underline{k} \bigr)$, i.e. without first computing $W \bigl( \doubleunderline{F} \bigr)$
     \item the direct molecular approach takes care of surface effects
     \item and it can still be used whenever the rod cannot be thought of as a 3D continuum, \newline because e.g. the rod consists only of a wall with a thickness of one atom (SWCNT)
   \end{itemize}
-    
+  
+  \vspace{0.5em}
+  schematic of a SWCNT:
+  
+  \vspace{-2em}
+  \begin{figure}
+      \centering
+      \includegraphics[width=6cm, keepaspectratio=true]{sections/cosserat_rods/images/SWCNT}
+  \end{figure}
   
   
 \end{frame}
@@ -3113,7 +3178,7 @@
       \centering
       \includegraphics[width=10cm, keepaspectratio=true]{sections/cosserat_rods/images/LocalEnergyNano}
     \end{figure}
-    $\rightarrow$ for a nanorod we could count the individual atoms
+    %$\rightarrow$ for a nanorod we could count the individual atoms
     
     \vspace{1em}
     $\rightarrow$ we will again subject the rod to constant $\bigl( \underline{v} , \, \underline{k} \bigr)\, \forall s$ to obtain $\psi \bigl( \underline{v} , \, \underline{k} \bigr)$
@@ -3121,7 +3186,7 @@
     \vspace{0.5em}  
     \begin{figure}
       \centering
-      \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/1D-Crystal}
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/1D-Crystal2}
     \end{figure}
     $\rightarrow$ the nanorod can be thought of as a 1D crystal, i.e. it has a unit cell that repeats only along $\underline{e}_3$-axis ; this repeating unit is sometimes also called fundamental domain
     
@@ -3187,7 +3252,7 @@
           \underline{x}_f + \exp \bigl( i \cdot l_0 \cdot \doubleunderline{K} \bigr) \cdot \biggl( \underline{x}_{0,j} - \underline{x}_f \biggr) + 
           i \cdot l_0 \cdot \tau \cdot \underline{\hat{k}}
         \end{displaymath}
-    \item $\bigl( \underline{x}_{0,j} \bigr)_{j=1,\dots,M}$ are the scalar unknowns (no dependence on $X_1,X_2$)
+    \item $\bigl( \underline{x}_{0,j} \bigr)_{j=1,\dots,M}$ are not functions as in the continuous case (no dependence on $X_1,X_2$)
   \end{itemize}
 \end{frame}
 
@@ -3202,7 +3267,7 @@
     \item reference state of the unit cell at $i=0$ given by $\bigl( \underline{X}_{0,j} \bigr)_{j=1,\dots,M}$
     \item reference state of entire crystal given by $\underline{X}_{0,j} = i \cdot l_0 \cdot \underline{e}_3 + \underline{X}_{0,j}$
     \item we apply a deformation such that the strains $\underline{v},\,\underline{k}$ are constant for all $s$
-    \item we obtain $\underline{x}_{0,j}$ by minimizing the unit cell energy:
+    \item we obtain the unknown $\underline{x}_{0,j}$ by minimizing the unit cell energy:
       \begin{displaymath}
         \underline{x}_{0,j} = \argmin_{(\underline{x}_{0,j})} E \bigl( \underline{x}_{0,1}, \, \dots , \, \underline{x}_{0,M} \, ; \, \underline{v}, \, \underline{k} \bigr) 
       \end{displaymath}
@@ -3244,7 +3309,7 @@
     \underline{\mu} \cdot \sum_{j=1}^M \underline{M}_j
   \end{displaymath}
   
-  \vspace{0.5em} % TODO why k instead of j?
+  \vspace{0.5em}
   setting the \textbf{first derivative} to zero we obtain
   \begin{displaymath}
     \pd{E}{\underline{x}_{0,j}} + 
@@ -3256,11 +3321,10 @@
       x_2 & x_1 & 0
     \end{bmatrix} }_{=: \doubleunderline{M}_j} \cdot \underline{\mu} =
     \underline{0}
+    \quad \forall j=1,\dots,M
   \end{displaymath}
   
   together with the 2 constraint equations this gives a system of $3 \, M + 6$ algebraic equations
-  
-  
   
   
 \end{frame}
@@ -3269,10 +3333,23 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Direct molecular approach (part 7)}
+  \begin{displaymath}
+    -\pd{E}{\underline{x}_{0,j}} = 
+    m_j \cdot \underline{\lambda} + 
+    \doubleunderline{M}_j \cdot \underline{\mu}
+    \quad \forall j=1,\dots,M
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  physical meaning:
+  \begin{itemize}
+    \item $-\pd{E}{\underline{x}_{0,j}}$ is the force on basis atom $j$ (due to its bond interactions with all other atoms)
+    \item $\bigl( m_j \cdot \underline{\lambda} + \doubleunderline{M}_j \cdot \underline{\mu} \bigr)$ is the external force on basis atom $j$ that is required to keep the nanorod in the uniform configuration $\bigl( \underline{v},\underline{k} \bigr)$
+  \end{itemize}
+  
+  \vspace{0.6em}
+  in the case of pure bending or combined extension \& torsion the extra constraint forces $\bigl( m_j \cdot \underline{\lambda} + \doubleunderline{M}_j \cdot \underline{\mu} \bigr)$ are zero, i.e. no such forces are required to hold the beam in that configuration
 
-  %\textbf{minimization of energy under constraints}
-  
-  
 \end{frame}
 
 
@@ -3280,7 +3357,18 @@
 \begin{frame}
   \frametitle{Direct molecular approach (part 8)}
 
-  %\textbf{minimization of energy under constraints}
+  the \textbf{strain energy density of the nanorod} is then given by
+  \begin{displaymath}
+    \psi \bigl( \underline{v}, \, \underline{k} \bigr) =
+    \frac{1}{l_0} \cdot E \bigl( \underline{\hat{x}}_{0,1}(\underline{v},\underline{k}), \, \dots, \, \underline{\hat{x}}_{0,M}(\underline{v},\underline{k}) \, ; \, \underline{v}, \, \underline{k} \bigr)
+  \end{displaymath}
+  with
+  \begin{displaymath}
+    \bigl( \underline{\hat{x}}_{0,j}(\underline{v},\underline{k}) \bigr)_{j=1,\dots,M}= \argmin_{(\underline{x}_{0,j})_{j=1,\dots,M}} E \bigl( \underline{x}_{0,1}, \, \dots , \, \underline{x}_{0,M} \, ; \, \underline{v}, \, \underline{k} \bigr)
+  \end{displaymath}
+  such that the kinematic constraints are satisfied
   
+  \vspace{1em}
+  for further information on this topic please consider reading the paper ``A Helical Cauchy-Born Rule for Special Cosserat Rod Modeling of Nano and Continuum Rods'' by Kumar et al. in Journal of Elasticity 124, June 2016
   
 \end{frame}
