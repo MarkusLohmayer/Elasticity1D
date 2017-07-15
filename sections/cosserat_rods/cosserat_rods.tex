@@ -346,7 +346,7 @@
   
   \textbf{local balance of linear momentum} (dynamics)
   \begin{displaymath}
-    \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) = \rho_0 \, A \, \underline{\ddot{r}}(s)
+    \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) = \rho_0 \cdot A \cdot \underline{\ddot{r}}(s)
   \end{displaymath}
 \end{frame}
 
@@ -2052,6 +2052,8 @@
  
 \end{frame}
 
+% TODO without HOT > linear constitutive law > Hessian does not depend on v,k > information obtained from relaxation of CS is useless
+
 
 %===============================================================================
 \subsection{Relaxation of cross section}
@@ -2115,7 +2117,7 @@
   \textbf{balance of linear momentum}
   \begin{displaymath}
     \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) =
-    \rho_0 \, A \, \underline{\ddot{r}}(s)
+    \rho_0 \cdot A \cdot \underline{\ddot{r}}(s)
   \end{displaymath}
   
   \vspace{0.5em}
@@ -2280,7 +2282,7 @@
   
   \vspace{0.5em}
   in order to compute the strain energy $\psi$, considering relaxation of the cross section,
-  we require a material model $W(.)$ from 3D elasticity, such as the Neo-Hooke or Mooney-Rivlin solid
+  we require a material model $W(.)$ from 3D elasticity, such as the Neo-Hookean solid or the Mooney-Rivlin solid  
   
 %  \vspace{0.5em}
 %  \textbf{strain energy of the uniformly strained rod}
@@ -2810,6 +2812,7 @@
     \dif l
   \end{displaymath}
   with $\underline{\hat{n}}$ the unit normal of the cross section boundary
+  %TODO potentially confusing with \hat{n} the stress resultant
   
   \vspace{1em}
   setting $\delta \psi = 0$ gives us the \textbf{Euler-Lagrange equations} of the $\star$-problem
@@ -2831,7 +2834,7 @@
   % perturbations del_lambda, del_mu
   % variations for del_lambda, del_mu
   % set these also to zero
-  % ... equals saying ... plus the constraints
+  % this ist equal to saying: plus the constraints
 
   % P = ConstitutiveLaw(strains(x-star), x-star)
   together with the constraints
@@ -2857,6 +2860,7 @@
     \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
     \iint_{\Omega_0} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
   \end{displaymath}
+  %TODO (v, k, u(v,k))
   
   \textbf{deformation gradient} of the $\star$-problem
   \begin{displaymath}
@@ -3164,7 +3168,7 @@
       \centering
       \includegraphics[width=6cm, keepaspectratio=true]{sections/cosserat_rods/images/SWCNT}
   \end{figure}
-  
+  % TODO star-problem
   
 \end{frame}
 
@@ -3371,4 +3375,40 @@
   \vspace{1em}
   for further information on this topic please consider reading the paper ``A Helical Cauchy-Born Rule for Special Cosserat Rod Modeling of Nano and Continuum Rods'' by Kumar et al. in Journal of Elasticity 124, June 2016
   
+\end{frame}
+
+%TODO twist example, further information?
+% same environment up to a finite rotation
+
+
+%===============================================================================
+\subsection{FEM discretization}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Weak form of the equations}
+
+  by multiplying the \textbf{strong form} of the equations
+  \begin{displaymath}
+    \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) =
+    \rho_0 \cdot A \cdot \underline{\ddot{r}}(s)
+  \end{displaymath}
+  \begin{displaymath}
+    \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) =
+    \rho_0 \cdot
+    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+  \end{displaymath}
+  with test functions $\delta \underline{r}(s)$ and $\delta \underline{\Theta}(s)$ and integrating over the length of the rod we get
+  \begin{displaymath}
+    \int_0^L \biggl( \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) \biggr) \cdot \delta \underline{r}(s) \: \dif s  =
+    \int_0^L \rho_0 \cdot A \cdot \underline{\ddot{r}}(s) \cdot \delta \underline{r}(s) \: \dif s
+  \end{displaymath}
+  \begin{displaymath}
+    \int_0^L \biggl( \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) \biggr) \cdot \delta \underline{\Theta}(s) \: \dif s =
+    \int_0^L \rho_0 \cdot
+    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr) \cdot \delta \underline{\Theta}(s) \: \dif s
+  \end{displaymath}
+
+  
+
 \end{frame}
