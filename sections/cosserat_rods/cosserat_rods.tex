@@ -2324,18 +2324,18 @@
     %    \doubleunderline{R}^{\star \mathrm{T}}(s) \cdot \doubleunderline{R}^{\star \prime}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 \biggr) = \\
   \begin{displaymath}
     = \doubleunderline{R}^{\star}(s) \cdot \biggl( {\color{faublue}
-        \underline{v}^{\star}(s) \otimes \underline{e}_3 +
+        \underline{v}^{\star}\cancel{(s)} \otimes \underline{e}_3 +
         \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + 
         \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} +
-        \doubleunderline{K}^{\star}(s) \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
+        \doubleunderline{K}^{\star}\cancel{(s)} \cdot \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
       \biggr) =
   \end{displaymath}
   \begin{displaymath}
     = \doubleunderline{R}^{\star}(s) \cdot \biggl( {\color{faublue}
-        \underline{v}^{\star}(s) \otimes \underline{e}_3 + 
+        \underline{v}^{\star} \otimes \underline{e}_3 + 
         \underline{e}_{\alpha} \otimes \underline{e}_{\alpha} + 
         \pd{\underline{u}^{\star}}{X_{\alpha}} \otimes \underline{e}_{\alpha} +
-        \underline{k}^{\star}(s) \times \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
+        \underline{k}^{\star} \times \bigl( X_{\alpha} \underline{e}_{\alpha} + \underline{u}^{\star}(X_1,X_2) \bigr) \otimes \underline{e}_3 }
       \biggr) =
   \end{displaymath}
   \begin{displaymath}
@@ -2359,7 +2359,7 @@
   \begin{displaymath}
     \underline{u}^{\star}(X_1,X_2) =
     \argmin_{\underline{u}(X_1,X_2)} \psi \bigl( \underline{v}^{\star}, \, \underline{k}^{\star} \, ; \, \underline{u} \bigr) =
-    \argmin_{\underline{u}} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
+    \argmin_{\underline{u}(X_1,X_2)} \iint_{\Omega_0} W \bigl( \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0) \bigr)  \dif \Omega_0
   \end{displaymath}
   \begin{itemize}
     \item here $\doubleunderline{\tilde{F}}^{\star}$ is the deformation gradient we just computed \textit{but} we consider $\underline{u}(X_1,X_2)$ as a free variable, for which we optimize, i.e. $\doubleunderline{\tilde{F}}^{\star} = \doubleunderline{\tilde{F}}^{\star}(X_1,X_2,s=0 \, ; \, \underline{u})$
@@ -2805,14 +2805,13 @@
       \underline{\nabla} \cdot \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr)
     \dif \Omega_0 =
     \int_{\partial \Omega_0}
-      \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr) \cdot \underline{\hat{n}} \,
+      \bigl( \doubleunderline{P}^{\mathrm{T}} \cdot \delta \underline{x}_0^{\star} \bigr) \cdot \underline{n}_0 \,
     \dif l =
     \int_{\partial \Omega_0}
-      \bigl( \doubleunderline{P} \cdot \underline{\hat{n}} \bigr) \cdot \delta \underline{x}_0^{\star} \,
+      \bigl( \doubleunderline{P} \cdot \underline{n}_0 \bigr) \cdot \delta \underline{x}_0^{\star} \,
     \dif l
   \end{displaymath}
-  with $\underline{\hat{n}}$ the unit normal of the cross section boundary
-  %TODO potentially confusing with \hat{n} the stress resultant
+  with $\underline{n}_0$ the unit normal of the cross section boundary
   
   \vspace{1em}
   setting $\delta \psi = 0$ gives us the \textbf{Euler-Lagrange equations} of the $\star$-problem
@@ -2824,7 +2823,7 @@
     \: \text{ in } \Omega_0    
   \end{displaymath}
   \begin{displaymath}
-    \doubleunderline{P} \cdot \underline{\hat{n}} = \underline{0}
+    \doubleunderline{P} \cdot \underline{n}_0 = \underline{0}
     \: \text{ on } \partial \Omega_0
     \: \text{ (traction free boundary condition)}
   \end{displaymath}
@@ -2857,10 +2856,9 @@
 
   \textbf{strain energy density function} (per unit of undeformed length)
   \begin{displaymath}
-    \psi \bigl( \underline{v} , \, \underline{k} \bigr) =
+    \psi \bigl( \underline{v} , \, \underline{k} \, ; \, \underline{u}(\underline{v} , \, \underline{k}) \bigr) =
     \iint_{\Omega_0} W \bigl( \doubleunderline{F} \bigr) \dif \Omega_0
   \end{displaymath}
-  %TODO (v, k, u(v,k))
   
   \textbf{deformation gradient} of the $\star$-problem
   \begin{displaymath}
@@ -2875,14 +2873,14 @@
   in order to find $\underline{x}_0^{\star}(X_1,X_2)$ we must find a solution to the
   \textbf{Euler-Lagrange equations} of the $\star$-problem
   \begin{displaymath}
-    \underline{\nabla} \cdot \doubleunderline{P} +
+    \underline{\nabla}_{\alpha} \cdot \doubleunderline{P} +
     \underline{k}^{\star} \times \bigl( \doubleunderline{P} \cdot \underline{e}_3 \bigr) =
     \rho_0 \cdot \underline{\lambda} +
     \doubleunderline{M} \cdot \underline{\mu}
     \: \text{ in } \Omega_0    
   \end{displaymath}
   \begin{displaymath}
-    \doubleunderline{P} \cdot \underline{\hat{n}} = \underline{0}
+    \doubleunderline{P} \cdot \underline{n}_0 = \underline{0}
     \: \text{ on } \partial \Omega_0
     \: \text{ (traction free boundary condition)}
   \end{displaymath}
@@ -3143,7 +3141,7 @@
     \item the factor $1/2$ comes from the fact that every bond appears twice: $(\alpha, \beta) \leftrightarrow (\beta, \alpha)$
     \item bonds that cross the boundary of the unit cell have a part inside and a part outside of the unit cell ; this symmetry implies that for every such bond only the part inside the unit cell is taken into account because the inside part of $(\alpha, \beta)$ equals exactly the outside part of $(\beta, \alpha)$ ; this works out regardless of the energy potential model $V$, i.e. also for models that are not pair-potentials 
   \end{itemize}
-  % TODO redo later on
+  % TODO work on more precise formulation
 
 \end{frame}
 
@@ -3265,7 +3263,7 @@
 \begin{frame}
   \frametitle{Direct molecular approach (part 5)}
 
-  %TODO is the discrete crystal really following this map, that comes from continuum theory?
+  %TODO question: is the discrete crystal really following this map, that comes from continuum theory?
   
   \begin{itemize}
     \item reference state of the unit cell at $i=0$ given by $\bigl( \underline{X}_{0,j} \bigr)_{j=1,\dots,M}$
@@ -3377,7 +3375,7 @@
   
 \end{frame}
 
-%TODO twist example, further information?
+%TODO twist example from lecture, further information?
 % same environment up to a finite rotation
 
 
