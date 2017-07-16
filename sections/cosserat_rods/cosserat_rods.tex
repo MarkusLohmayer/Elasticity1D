@@ -429,13 +429,13 @@
   \end{displaymath}
 
   \vspace{0.7em}
-  \textbf{local balance of angular momentum} (dynamics)
+  \textbf{local balance of angular momentum} (dynamics) (with $\doubleunderline{I}_0$ the moment of area tensor)
   \begin{displaymath}
     \underline{m}^{\prime}(s) +
     \underline{r}^{\prime}(s) \times \underline{n}(s) +
     \underline{\hat{m}}(s) =
     \rho_0 \cdot
-    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+    \od{}{t} \bigl( \doubleunderline{I}_0 \cdot \underline{\omega} \bigr)
   \end{displaymath}
 \end{frame}
 
@@ -1046,6 +1046,7 @@
   \vspace{0.5em}
   \textbf{first variation of $\underline{v}$}
   \begin{displaymath}
+    \label{eq:fist_variation_of_v}
     \delta \underline{v}(s) = 
     \od{\underline{v}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
     \doubleunderline{R}^{\mathrm{T}}(s) \cdot
@@ -1087,6 +1088,7 @@
   \vspace{0.5em}
   \textbf{first variation of $\underline{k}$}
   \begin{displaymath}
+    \label{eq:fist_variation_of_k}
     \delta \underline{k}(s) =
     \od{\underline{k}_{\epsilon}}{\epsilon}(s) \sVert[3]_{\epsilon=0} =
     \od{}{\epsilon} \biggl( \axial \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}}(s) \cdot \doubleunderline{R}_{\epsilon}^{\prime}(s) \bigr) \biggr) \sVert[3]_{\epsilon=0} =
@@ -2125,7 +2127,7 @@
   \begin{displaymath}
     \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) =
     \rho_0 \cdot
-    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+    \od{}{t} \bigl( \doubleunderline{I}_0 \cdot \underline{\omega} \bigr)
   \end{displaymath}
   
   \vspace{0.5em}
@@ -3384,7 +3386,7 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Weak form of the equations}
+  \frametitle{Weak form of the equations (part 1)}
 
   by multiplying the \textbf{strong form} of the equations
   \begin{displaymath}
@@ -3394,9 +3396,9 @@
   \begin{displaymath}
     \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) =
     \rho_0 \cdot
-    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr)
+    \od{}{t} \bigl( \doubleunderline{I}_0 \cdot \underline{\omega} \bigr)
   \end{displaymath}
-  with test functions $\delta \underline{r}(s)$ and $\delta \underline{\Theta}(s)$ and integrating over the length of the rod we get
+  with test functions $\delta \underline{r}(s)$ and $\delta \underline{\Theta}(s)$ respectivly and integrating over the length of the rod we get a weak form of the equations ...
   \begin{displaymath}
     \int_0^L \biggl( \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) \biggr) \cdot \delta \underline{r}(s) \: \dif s  =
     \int_0^L \rho_0 \cdot A \cdot \underline{\ddot{r}}(s) \cdot \delta \underline{r}(s) \: \dif s
@@ -3404,9 +3406,731 @@
   \begin{displaymath}
     \int_0^L \biggl( \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) \biggr) \cdot \delta \underline{\Theta}(s) \: \dif s =
     \int_0^L \rho_0 \cdot
-    \pd{}{t} \bigl( \doubleunderline{I} \cdot \underline{\omega} \bigr) \cdot \delta \underline{\Theta}(s) \: \dif s
+    \od{}{t} \bigl( \doubleunderline{I}_0 \cdot \underline{\omega} \bigr) \cdot \delta \underline{\Theta}(s) \: \dif s
+  \end{displaymath}
+  
+  where $\doubleunderline{I}_0$ is the moment of area tensor
+ 
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Weak form of the equations (part 2)}
+   
+  by adding both equations together we obtain the \textbf{weak form}
+  \begin{displaymath}
+    G = 
+    \underbrace{
+    \int_0^L \biggl(
+    \rho_0 \cdot A \cdot \underline{\ddot{r}}(s) \cdot \delta \underline{r}(s) +
+    \rho_0 \cdot \od{}{t} \bigl( \doubleunderline{I}_0 \cdot \underline{\omega} \bigr) \cdot \delta \underline{\Theta}(s)
+    \biggr) \: \dif s
+    }_{=: G_{\text{dyn}}}
+  \end{displaymath}
+  \begin{displaymath}
+    \underbrace{
+    - \int_0^L \biggl( \underline{n}^{\prime}(s) + \underline{\hat{n}}(s) \biggr) \cdot \delta \underline{r}(s) \: \dif s
+    - \int_0^L \biggl( \underline{m}^{\prime}(s) + \underline{r}^{\prime}(s) \times \underline{n}(s) + \underline{\hat{m}}(s) \biggr) \cdot \delta \underline{\Theta}(s) \: \dif s
+    }_{=: G_{\text{stat}}}
+  \end{displaymath}
+  
+  \vspace{1em}
+  since the internal contact force $\underline{n}(s)$ and the internal moment $\underline{m}(s)$ depend on the strains $\underline{v}(s)$ and $\underline{k}(s)$ they are of first order in the kinematic variables $\underline{r}(s)$ and $\underline{\Theta}(s)$ \newline
+  with $\doubleunderline{R}(s) = \exp \bigl( \doubleunderline{\Theta}(s) \bigr) = \exp \bigl( [\underline{\Theta}]_{\times} \bigr)$
+  
+  \vspace{0.5em}
+  $\rightarrow$ $\underline{n}^{\prime}(s)$ and $\underline{m}^{\prime}(s)$ are therefore of second order in the kinematic variables
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Weak form of the equations (part 3)}
+  
+  we can relax the regularity requirements for a solution by transferring one order of the derivatives onto the test functions via integration by parts ...
+  \begin{displaymath}
+    G_{\text{stat}} =
+    - \int_0^L \biggl( 
+        \bigl( \underline{n}(s) \cdot \delta \underline{r}(s) \bigr)^{\prime}
+      - \underline{n}(s) \cdot \delta \underline{r}^{\prime}(s)
+      + \bigl( \underline{m}(s) \cdot \delta \underline{\Theta}(s) \bigr)^{\prime}
+      - \underline{m}(s) \cdot \delta \underline{\Theta}^{\prime}(s) \: +
+  \end{displaymath}
+  \begin{displaymath}
+      + \: \underline{\hat{n}}(s) \cdot \delta \underline{r}(s)
+      + \underline{\hat{m}}(s) \cdot \delta \underline{\Theta}(s)
+      + \bigl( \underline{r}^{\prime}(s) \times \underline{n}(s) \bigr) \cdot \delta \underline{\Theta}(s)    
+    \biggr) \: \dif s =
+  \end{displaymath}
+  \begin{displaymath}
+    = 
+    \overbrace{
+      \int_0^L \biggl( 
+        \underline{n}(s) \cdot \delta \underline{r}^{\prime}(s)
+      + \underline{m}(s) \cdot \delta \underline{\Theta}^{\prime}(s)
+      + \bigl( \underline{n}(s) \times \underline{r}^{\prime}(s) \bigr) \cdot \delta \underline{\Theta}(s)
+      \biggr) \: \dif s \: 
+    }^{\text{internal response}} + 
+  \end{displaymath}
+  \begin{displaymath}
+    \overbrace{
+    - \int_0^L \biggl( 
+        \underline{\hat{n}}(s) \cdot \delta \underline{r}(s)
+      + \underline{\hat{m}}(s) \cdot \delta \underline{\Theta}(s)
+     \biggr) \: \dif s \:
+    }^{\text{external distributed loads}}
+    \overbrace{
+    - \biggl(
+      \underline{n}_p(s) \cdot \delta \underline{r}(s) +
+      \underline{m}_p(s) \cdot \delta \underline{\Theta}(s)
+    \biggr) \sVert[2]_0^L
+    }^{\text{external loads at boundaries}}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  with $\underline{n}_p$ and $\underline{m}_p$ as prescribed quantities at the boundary \newline
+  whereas $\underline{n}(s)$ and $\underline{m}(s)$ are obtained from constitutive law
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Weak form of the equations (part 4)}
+  
+  changing the order of the scalar triple product gives ...
+  \begin{displaymath}
+    G_{\text{stat}} = 
+    \overbrace{
+      \int_0^L \biggl( 
+        \underline{n}(s) \cdot \delta \underline{r}^{\prime}(s)
+      + \underline{m}(s) \cdot \delta \underline{\Theta}^{\prime}(s)
+      + \underline{n}(s) \cdot \bigl( \underline{r}^{\prime}(s) \times \delta \underline{\Theta}(s) \bigr)
+      \biggr) \: \dif s \: 
+    }^{\text{internal response}} + 
+  \end{displaymath}
+  \begin{displaymath}
+    \overbrace{
+    - \int_0^L \biggl( 
+        \underline{\hat{n}}(s) \cdot \delta \underline{r}(s)
+      + \underline{\hat{m}}(s) \cdot \delta \underline{\Theta}(s)
+     \biggr) \: \dif s
+    }^{\text{external distributed loads}} \:
+    \overbrace{
+    - \biggl(
+      \underline{n}_p(s) \cdot \delta \underline{r}(s) +
+      \underline{m}_p(s) \cdot \delta \underline{\Theta}(s)
+    \biggr) \sVert[2]_0^L
+    }^{\text{external loads at boundaries}}
+  \end{displaymath}
+  
+  \vspace{1em}
+  we can write the internal part in a more compact form by introducing the operator
+  \begin{displaymath}
+    \doubleunderline{E}^{\mathrm{T}}(s) =
+    \begin{bmatrix}
+      \doubleunderline{I} \, \od{}{s} & [ \underline{r}^{\prime}(s) ]_{\times} \\
+      \doubleunderline{0}             & \doubleunderline{I} \, \od{}{s}
+    \end{bmatrix}
+  \end{displaymath}
+  \begin{displaymath}
+    G_{\text{stat}} = 
+    \overbrace{
+      \int_0^L
+        \begin{bmatrix}
+          \underline{n} \\ \underline{m}
+        \end{bmatrix}
+        \cdot \doubleunderline{E}^{\mathrm{T}}(s) \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s 
+    }^{\text{internal response}} \:
+    \overbrace{
+      - \int_0^L
+        \begin{bmatrix}
+          \underline{\hat{n}} \\ \underline{\hat{m}}
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s
+    }^{\text{external distributed loads}} \:
+    \overbrace{
+      - \begin{bmatrix}
+          \underline{n}_p \\ \underline{m}_p
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+      \sVert[3]_0^L
+    }^{\text{external loads at boundaries}}
+  \end{displaymath}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Weak form of the equations (part 5)}
+  
+  the weak form of the problem is
+  \begin{displaymath}
+    G = G_{\text{dyn}} + G_{\text{stat}} = 0
+    \quad \forall \bigl( \delta \underline{r} , \, \delta \underline{\Theta} \bigr) \: \text{admissible}
+  \end{displaymath}
+  admissible means that the test functions must satisfy the kinematic boundary conditions
+  
+  \vspace{1em}
+  in the sequel we will work with the \textbf{static problem}, i.e. we assume $G_{\text{dyn}} \equiv 0$
+  
+  \vspace{0.5em}
+  the weak form $G_{\text{stat}} \bigl( \underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr)$ is 
+  \begin{itemize}
+    \item nonlinear in the unknowns $\bigl( \underline{r} , \, \underline{\Theta} \bigr)$
+    \item and linear in the test functions $\bigl( \delta \underline{r} , \, \delta \underline{\Theta} \bigr)$
+  \end{itemize}
+  
+  \vspace{0.5em}
+  in order to find a solution we must linearize the weak form and solve iteratively ...
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 1)}
+  
+  we introduce \textbf{perturbed versions of the unknowns}
+  \begin{displaymath}
+    \underline{r}_{\epsilon}(s) = \underline{r}(s) + \epsilon \cdot \Delta \underline{r}(s)
+    \quad \text{and} \quad
+    \doubleunderline{R}_{\epsilon}(s) = \exp \bigl( \epsilon \cdot \Delta \doubleunderline{\Theta}(s) \bigr) \cdot \exp \bigl( \doubleunderline{\Theta}(s) \bigr)
+  \end{displaymath}
+  with $\Delta \underline{r}$ the increment in $\underline{r}$ and $\Delta \underline{\Theta} = \axial \bigl( \Delta \doubleunderline{\Theta} \bigr)$ the increment in $\underline{\Theta}$
+  
+  \vspace{1em}
+  we then obtain the \textbf{linearized weak form} by truncating the Taylor expansion of $G_{\text{stat}} \bigl( \underline{r}_{\epsilon} , \, \underline{\Theta}_{\epsilon} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr)$ in $\epsilon$ after the linear term
+  \begin{displaymath}
+    \underbrace{
+    G_{\text{stat}} \bigl( \underline{r}_{\epsilon} , \, \underline{\Theta}_{\epsilon} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr)
+    }_{\text{should equal 0}} \approx
+    \underbrace{
+    G_{\text{stat}} \bigl( \underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) +
+    \od{}{\epsilon} \, G_{\text{stat}} \bigl( \underline{r}_{\epsilon} , \, \underline{\Theta}_{\epsilon} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) \sVert[2]_{\epsilon=0} \cdot \epsilon 
+    }_{\text{linearized weak form}}
+    + \xcancel{\text{HOT}}
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 2)}
+  
+  for simplicity we now assume $\underline{\hat{n}}(s) \equiv 0$, $\underline{\hat{m}}(s) \equiv 0$ and we also ignore the boundary terms \newline
+  so we only have   
+  \begin{displaymath}
+    G_{\text{stat}} = 
+    \int_0^L
+      \begin{bmatrix}
+        \underline{n}(s) \\ \underline{m}(s)
+      \end{bmatrix}
+      \cdot \doubleunderline{E}^{\mathrm{T}}(s) \cdot
+      \begin{bmatrix}
+        \delta \underline{r}(s) \\ \delta \underline{\Theta}(s)
+      \end{bmatrix}
+    \: \dif s \:
+%    - \begin{bmatrix}
+%        \underline{n}_p(s) \\ \underline{m}_p(s)
+%    \end{bmatrix} \cdot
+%    \begin{bmatrix}
+%        \delta \underline{r}(s) \\ \delta \underline{\Theta}(s)
+%    \end{bmatrix}
+%    \sVert[4]_0^L
+  \end{displaymath}
+
+  \vspace{0.5em}
+  we introduce the perturbed version of $G_{\text{stat}}$
+  \begin{displaymath}
+    G_{\text{stat}}^{\epsilon} = 
+    \int_0^L
+      \begin{bmatrix}
+        \underline{n}_{\epsilon}(s) \\ \underline{m}_{\epsilon}(s)
+      \end{bmatrix}
+      \cdot \doubleunderline{E}_{\epsilon}^{\mathrm{T}}(s) \cdot
+      \begin{bmatrix}
+        \delta \underline{r}(s) \\ \delta \underline{\Theta}(s)
+      \end{bmatrix}
+    \: \dif s %\:
+    %- \begin{bmatrix}
+    %    \underline{n}_p(s) \\ \underline{m}_p(s)
+    %\end{bmatrix} \cdot
+    %\begin{bmatrix}
+    %    \delta \underline{r}(s) \\ \delta \underline{\Theta}(s)
+    %\end{bmatrix}
+    %\sVert[4]_0^L
+    % TODO + \dots
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  and compute the first derivative at $\epsilon = 0$
+  \begin{displaymath}
+    \od{}{\epsilon} \, G_{\text{stat}}^{\epsilon} \sVert[3]_{\epsilon=0} =
+    \int_0^L \od{}{\epsilon}
+      \begin{bmatrix}
+        \underline{n}_{\epsilon} \\ \underline{m}_{\epsilon}
+      \end{bmatrix} \sVert[4]_{\epsilon=0} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \: +
+    \int_0^L 
+      \begin{bmatrix}
+        \underline{n} \\ \underline{m}
+      \end{bmatrix} \cdot
+      \od{}{\epsilon} \, \doubleunderline{E}_{\epsilon}^{\mathrm{T}} \sVert[3]_{\epsilon=0} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s
+  \end{displaymath}
+  
+  \vspace{1em}
+  in the sequel we will compute the individual terms of the first derivative step by step and then recompile the results
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 3)}
+
+  \begin{displaymath}
+    \od{}{\epsilon} \, \underline{n}_{\epsilon} \sVert[3]_{\epsilon=0} = 
+    \od{}{\epsilon} \biggl(
+      \doubleunderline{R}_{\epsilon} \cdot \pd{\psi}{\underline{v}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr)
+    \biggr) \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \, \doubleunderline{R}_{\epsilon} \sVert[3]_{\epsilon=0} \cdot \pd{\psi}{\underline{v}} \bigl( \underline{v}, \, \underline{k} \bigr) +
+    \doubleunderline{R} \cdot \od{}{\epsilon} \biggl( \pd{\psi}{\underline{v}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0}
+  \end{displaymath}
+  
+  \vspace{1em}
+  \begin{displaymath}
+    \od{}{\epsilon} \, \doubleunderline{R}_{\epsilon} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \Delta \doubleunderline{\Theta} \bigr) \cdot \doubleunderline{R} \biggr) \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \exp \bigl( \epsilon \cdot \Delta \doubleunderline{\Theta} \bigr) \sVert[3]_{\epsilon=0} \cdot \doubleunderline{R} =
+    \Delta \doubleunderline{\Theta} \cdot \doubleunderline{R}
+  \end{displaymath}
+  
+  \vspace{1em}
+  \begin{displaymath}
+    \od{}{\epsilon} \biggl( \pd{\psi}{\underline{v}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0} =
+    \pd[2]{\psi}{\underline{v}} \cdot \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0}
+     + \md{\psi}{2}{\underline{v}}{}{\underline{k}}{} \cdot \od{\underline{k}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  linearization of strains (cf. pages \autoref{eq:fist_variation_of_v} and \autoref{eq:fist_variation_of_k})
+  \begin{displaymath}
+    \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \, \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}} \cdot \underline{r}_{\epsilon}^{\prime} \bigr) \sVert[3]_{\epsilon=0} =
+    \doubleunderline{R}^{\mathrm{T}} \cdot \bigl( \Delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \Delta \underline{\Theta} \bigr)
+    \quad \text{and} \quad
+    \od{\underline{k}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
+    \doubleunderline{R}^{\mathrm{T}} \cdot \Delta \underline{\Theta}^{\prime}
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 4)}
+  
+  \begin{displaymath}
+    \od{}{\epsilon} \, \underline{n}_{\epsilon} \sVert[3]_{\epsilon=0} = 
+    \Delta \doubleunderline{\Theta} \cdot \doubleunderline{R} \cdot \pd{\psi}{\underline{v}} +
+    \doubleunderline{R} \cdot
+    \begin{bmatrix}
+      \pd[2]{\psi}{\underline{v}} & \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      \doubleunderline{R}^{\mathrm{T}} \cdot \bigl( \Delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \Delta \underline{\Theta} \bigr) \\
+      \doubleunderline{R}^{\mathrm{T}} \cdot \Delta \underline{\Theta}^{\prime} =
+    \end{bmatrix}
+  \end{displaymath}
+  \begin{displaymath}
+    = - \underline{n} \times \Delta \underline{\Theta} + 
+    \doubleunderline{R} \cdot
+    \begin{bmatrix}
+      \pd[2]{\psi}{\underline{v}} & \md{\psi}{2}{\underline{v}}{}{\underline{k}}{}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      \doubleunderline{R}^{\mathrm{T}} \cdot \bigl( \Delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \Delta \underline{\Theta} \bigr) \\
+      \doubleunderline{R}^{\mathrm{T}} \cdot \Delta \underline{\Theta}^{\prime} =
+    \end{bmatrix}
+  \end{displaymath}
+  
+  
+  \vspace{1em}
+  \begin{displaymath}
+    \od{}{\epsilon} \, \underline{m}_{\epsilon} \sVert[3]_{\epsilon=0} = 
+    \od{}{\epsilon} \biggl(
+      \doubleunderline{R}_{\epsilon} \cdot \pd{\psi}{\underline{k}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr)
+    \biggr) \sVert[3]_{\epsilon=0} =
+    \od{}{\epsilon} \, \doubleunderline{R}_{\epsilon} \sVert[3]_{\epsilon=0} \cdot \pd{\psi}{\underline{k}} \bigl( \underline{v}, \, \underline{k} \bigr) +
+    \doubleunderline{R} \cdot \od{}{\epsilon} \biggl( \pd{\psi}{\underline{k}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0}
+  \end{displaymath}
+  
+  \vspace{1em}
+  \begin{displaymath}
+    \od{}{\epsilon} \biggl( \pd{\psi}{\underline{k}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0} =
+     \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} \cdot \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} +
+     \pd[2]{\psi}{\underline{k}} \cdot \od{\underline{k}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0}
   \end{displaymath}
 
   
+\end{frame}
 
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 5)}
+  
+  \begin{displaymath}
+    \od{}{\epsilon} \, \underline{m}_{\epsilon} \sVert[3]_{\epsilon=0} = 
+    \Delta \doubleunderline{\Theta} \cdot \doubleunderline{R} \cdot \pd{\psi}{\underline{k}} +
+    \doubleunderline{R} \cdot
+    \begin{bmatrix}
+      \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} & \pd[2]{\psi}{\underline{k}}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      \doubleunderline{R}^{\mathrm{T}} \cdot \bigl( \Delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \Delta \underline{\Theta} \bigr) \\
+      \doubleunderline{R}^{\mathrm{T}} \cdot \Delta \underline{\Theta}^{\prime} =
+    \end{bmatrix} =
+  \end{displaymath}
+  \begin{displaymath}
+    = - \underline{m} \times \Delta \underline{\Theta} +
+    \doubleunderline{R} \cdot
+    \begin{bmatrix}
+      \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} & \pd[2]{\psi}{\underline{k}}
+    \end{bmatrix} \cdot
+    \begin{bmatrix}
+      \doubleunderline{R}^{\mathrm{T}} \cdot \bigl( \Delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \Delta \underline{\Theta} \bigr) \\
+      \doubleunderline{R}^{\mathrm{T}} \cdot \Delta \underline{\Theta}^{\prime} =
+    \end{bmatrix} 
+  \end{displaymath}
+  
+  \vspace{1em}
+  \begin{displaymath}
+    \doubleunderline{E}_{\epsilon}^{\mathrm{T}}(s) =
+    \begin{bmatrix}
+      \doubleunderline{I} \, \od{}{s} & [ \underline{r}_{\epsilon}^{\prime}(s) ]_{\times} \\
+      \doubleunderline{0}             & \doubleunderline{I} \, \od{}{s}
+    \end{bmatrix}
+  \quad \Rightarrow \quad
+    \od{}{\epsilon} \, \doubleunderline{E}_{\epsilon}^{\mathrm{T}} \sVert[3]_{\epsilon=0} =
+    \begin{bmatrix}
+      \doubleunderline{0} & [ \Delta \underline{r}^{\prime}(s) ]_{\times} \\
+      \doubleunderline{0} & \doubleunderline{0}
+    \end{bmatrix}
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (part 6)}
+
+  \begin{displaymath}
+    \od{}{\epsilon} \, G_{\text{stat}}^{\epsilon} \sVert[3]_{\epsilon=0} =
+    \int_0^L \Biggl(
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} +
+    \end{displaymath}
+    \begin{displaymath}
+     + \underbrace{
+      \begin{bmatrix}
+        \doubleunderline{R} & \doubleunderline{0} \\
+        \doubleunderline{0} & \doubleunderline{R}
+      \end{bmatrix}}_{=: \doubleunderline{\pi}} \cdot
+      \underbrace{
+      \begin{bmatrix}
+        \pd[2]{\psi}{\underline{v}} & \md{\psi}{2}{\underline{v}}{}{\underline{k}}{} \\
+        \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} & \pd[2]{\psi}{\underline{k}}
+      \end{bmatrix}}_{=: \doubleunderline{H}} \cdot
+      \begin{bmatrix}
+        \doubleunderline{R}^{\mathrm{T}} & \doubleunderline{0} \\
+        \doubleunderline{0} & \doubleunderline{R}^{\mathrm{T}}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \Biggr) \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \: +
+  \end{displaymath}
+  \begin{displaymath}
+   +\int_0^L
+      \underbrace{
+      \begin{bmatrix}
+        \underline{n} \\ \underline{m}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \doubleunderline{0} & [ \Delta \underline{r}^{\prime} ]_{\times} \\
+        \doubleunderline{0} & \doubleunderline{0}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+      }_{
+        \underline{n} \cdot \bigl( \Delta \underline{r}^{\prime} \times \delta \underline{\Theta} \bigr)
+      }
+    \: \dif s =
+  \end{displaymath}
+  \begin{displaymath}
+    = \int_0^L
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \:
+    + \int_0^L
+      \doubleunderline{\pi} \cdot
+      \doubleunderline{H} \cdot
+      \doubleunderline{\pi}^{\mathrm{T}} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \: +
+  \end{displaymath}
+  \begin{displaymath}
+   + \int_0^L
+      [ \underline{n} ]_{\times} \cdot \Delta \underline{r}^{\prime} \cdot \delta \underline{\Theta}
+    \: \dif s
+  \end{displaymath}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Linearization of the weak form (recap)}
+
+  \vspace{-0.5em}
+  \begin{displaymath}
+    \overbrace{
+    G_{\text{stat}} \bigl( \underline{r}_{\epsilon} , \, \underline{\Theta}_{\epsilon} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) }^{\text{nonlinear weak form}} \equiv
+    G_{\text{stat}} \bigl( \Delta \underline{r} , \, \Delta \underline{\Theta} \, ; \,\underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) \approx
+  \end{displaymath}
+  \begin{displaymath}
+    \approx
+    \underbrace{
+    G_{\text{stat}} \bigl( \underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) +
+    DG_{\text{stat}} \bigl( \Delta \underline{r} , \, \Delta \underline{\Theta} \, ; \,\underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr)
+    }_{\text{linearized weak form}}
+  \end{displaymath}
+  
+  \vspace{0.5em}
+  with the nonlinear weak form
+  \begin{displaymath}
+    G_{\text{stat}} = 
+      \int_0^L
+        \begin{bmatrix}
+          \underline{n} \\ \underline{m}
+        \end{bmatrix}
+        \cdot \doubleunderline{E}^{\mathrm{T}}(s) \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s \:
+      - \int_0^L
+        \begin{bmatrix}
+          \underline{\hat{n}} \\ \underline{\hat{m}}
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s \:
+      - \begin{bmatrix}
+          \underline{n}_p \\ \underline{m}_p
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+      \sVert[3]_0^L
+  \end{displaymath}
+  
+  \vspace{0.7em}
+  and the first order term from its Taylor expansion
+  \begin{displaymath}
+    DG_{\text{stat}} =
+    \int_0^L
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \:
+    + \int_0^L
+      \doubleunderline{\pi} \cdot
+      \doubleunderline{H} \cdot
+      \doubleunderline{\pi}^{\mathrm{T}} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \: +
+  \end{displaymath}
+  \begin{displaymath}
+   + \int_0^L
+      [ \underline{n} ]_{\times} \cdot \Delta \underline{r}^{\prime} \cdot \delta \underline{\Theta}
+    \: \dif s
+   + \dots (\text{first order terms of distributed load and boundary terms})
+  \end{displaymath}
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Iteratively solving the nonlinear problem}
+  
+  note that $DG_{\text{stat}} \bigl( \Delta \underline{r} , \, \Delta \underline{\Theta} \, ; \,\underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr)$ is
+  \begin{itemize}
+    \item linear in $\bigl( \Delta \underline{r} , \, \Delta \underline{\Theta} \bigr)$
+    \item nonlinear in $\bigl( \underline{r} , \, \underline{\Theta} \bigr)$
+    \item and linear in $\bigl( \delta \underline{r} , \, \delta \underline{\Theta} \bigr)$
+  \end{itemize}
+
+  \vspace{1em}
+  \textbf{Newton-Rhapson method} for solving the nonlinear problem
+  \begin{displaymath}
+    G_{\text{stat}} \bigl( \underline{r}_{\epsilon} , \, \underline{\Theta}_{\epsilon} \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \bigr) = 0
+  \end{displaymath}
+  
+  \begin{itemize}
+    \item in first iteration guess initial $\underline{r}(s)$ and $\underline{\Theta}(s)$
+    \item linearize the weak form about $\underline{r}(s)$ and $\underline{\Theta}(s)$
+    \item obtain $\Delta \underline{r}(s)$ and $\Delta \underline{\Theta}(s)$ by solving the linearized problem 
+    \item update: $\underline{r}(s) \leftarrow \underline{r}(s) + \Delta \underline{r}(s)$ and $\underline{\Theta}(s) \leftarrow \dots$ (a bit tricky) %TODO correct?
+    \item check if updated $\underline{r}(s)$ and $\underline{\Theta}(s)$ solve the nonlinear problem \newline with a small enough error \: (an error bound needs to be defined)
+    \item if the error is too large then reiterate by linearizing about the updated $\underline{r}(s)$ and $\underline{\Theta}(s)$ ...
+  \end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the weak form}
+  
+  \begin{multicols}{2}
+    \noindent
+    
+    we discretize a rod of length $L$
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/DiscretizationWeakFormNodes}
+    \end{figure}
+    with $N$ elements and $N+1$ nodes
+    
+    \vspace{0.7em}
+    we discretize the displacements by
+    \begin{displaymath}
+      \Delta \underline{r}(s) \approx \Delta \underline{r}_i \cdot N_i(s)
+    \end{displaymath}
+    \begin{displaymath}
+      \Delta \underline{\Theta}(s) \approx \Delta \underline{\Theta}_i \cdot N_i(s)
+    \end{displaymath}
+    
+    \vspace{0.5em}
+    and the test functions by
+    \begin{displaymath}
+      \delta \underline{r}(s) \approx \delta \underline{r}_i \cdot N_i(s)
+    \end{displaymath}
+    \begin{displaymath}
+      \delta \underline{\Theta}(s) \approx \delta \underline{\Theta}_i \cdot N_i(s)
+    \end{displaymath}
+    
+    \vspace{1em}
+    with shape functions $N_i(s)$ such that
+    \begin{displaymath}
+      N_i(s) =
+      \begin{cases}
+        1 & \text{at node } i \\
+        0 & \text{at every other node}
+      \end{cases}
+    \end{displaymath}
+    
+    \vspace{1em}
+    example with linear shape functions:
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/DiscretizationWeakFormShapeFunction}
+    \end{figure}
+    
+    \vspace{0.5em}
+    meaning of $\Delta \underline{r}_i$, $\Delta \underline{\Theta}_i$:
+    \begin{displaymath}
+      \Delta \underline{r}(s_j) \approx \Delta \underline{r}_i \cdot N_i(s_j) =
+      \Delta \underline{r}_i \cdot \delta_{ij} = \underline{r}_j
+    \end{displaymath}
+    $\rightarrow$ approximated displacements at the nodes
+    
+    \vspace{0.3em}
+    $\rightarrow$ interpolation of displacements via \newline
+    \null \quad \:shape functions between the nodes
+    
+  \end{multicols}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{}
+
+  
 \end{frame}
