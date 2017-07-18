@@ -3710,6 +3710,7 @@
 \begin{frame}
   \frametitle{Linearization of the weak form (part 3)}
 
+  the linearization of the internal contact force is
   \begin{displaymath}
     \od{}{\epsilon} \, \underline{n}_{\epsilon} \sVert[3]_{\epsilon=0} = 
     \od{}{\epsilon} \biggl(
@@ -3720,6 +3721,7 @@
   \end{displaymath}
   
   \vspace{1em}
+  with
   \begin{displaymath}
     \od{}{\epsilon} \, \doubleunderline{R}_{\epsilon} \sVert[3]_{\epsilon=0} =
     \od{}{\epsilon} \biggl( \exp \bigl( \epsilon \cdot \Delta \doubleunderline{\Theta} \bigr) \cdot \doubleunderline{R} \biggr) \sVert[3]_{\epsilon=0} =
@@ -3728,6 +3730,7 @@
   \end{displaymath}
   
   \vspace{1em}
+  and
   \begin{displaymath}
     \od{}{\epsilon} \biggl( \pd{\psi}{\underline{v}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0} =
     \pd[2]{\psi}{\underline{v}} \cdot \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0}
@@ -3735,7 +3738,7 @@
   \end{displaymath}
   
   \vspace{0.5em}
-  linearization of strains (cf. pages \autoref{eq:fist_variation_of_v} and \autoref{eq:fist_variation_of_k})
+  and the linearized strains (cf. pages \autoref{eq:fist_variation_of_v} and \autoref{eq:fist_variation_of_k})
   \begin{displaymath}
     \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} =
     \od{}{\epsilon} \, \bigl( \doubleunderline{R}_{\epsilon}^{\mathrm{T}} \cdot \underline{r}_{\epsilon}^{\prime} \bigr) \sVert[3]_{\epsilon=0} =
@@ -3752,6 +3755,7 @@
 \begin{frame}
   \frametitle{Linearization of the weak form (part 4)}
   
+  plugging back in gives ...
   \begin{displaymath}
     \od{}{\epsilon} \, \underline{n}_{\epsilon} \sVert[3]_{\epsilon=0} = 
     \Delta \doubleunderline{\Theta} \cdot \doubleunderline{R} \cdot \pd{\psi}{\underline{v}} +
@@ -3778,6 +3782,7 @@
   
   
   \vspace{1em}
+  likewise the linearization of the internal moment is
   \begin{displaymath}
     \od{}{\epsilon} \, \underline{m}_{\epsilon} \sVert[3]_{\epsilon=0} = 
     \od{}{\epsilon} \biggl(
@@ -3788,6 +3793,7 @@
   \end{displaymath}
   
   \vspace{1em}
+  with the first term already computed above and with
   \begin{displaymath}
     \od{}{\epsilon} \biggl( \pd{\psi}{\underline{k}} \bigl( \underline{v}_{\epsilon}, \, \underline{k}_{\epsilon} \bigr) \biggr) \sVert[3]_{\epsilon=0} =
      \md{\psi}{2}{\underline{k}}{}{\underline{v}}{} \cdot \od{\underline{v}_{\epsilon}}{\epsilon} \sVert[3]_{\epsilon=0} +
@@ -3802,6 +3808,7 @@
 \begin{frame}
   \frametitle{Linearization of the weak form (part 5)}
   
+  plugging back in gives ...
   \begin{displaymath}
     \od{}{\epsilon} \, \underline{m}_{\epsilon} \sVert[3]_{\epsilon=0} = 
     \Delta \doubleunderline{\Theta} \cdot \doubleunderline{R} \cdot \pd{\psi}{\underline{k}} +
@@ -3827,6 +3834,7 @@
   \end{displaymath}
   
   \vspace{1em}
+  we also linearize the introduced operator matrix ...
   \begin{displaymath}
     \doubleunderline{E}_{\epsilon}^{\mathrm{T}}(s) =
     \begin{bmatrix}
@@ -3848,6 +3856,7 @@
 \begin{frame}
   \frametitle{Linearization of the weak form (part 6)}
 
+  finally we obtain the linearized weak form ...
   \begin{displaymath}
     \od{}{\epsilon} \, G_{\text{stat}}^{\epsilon} \sVert[3]_{\epsilon=0} =
     \int_0^L \Biggl(
@@ -4065,7 +4074,7 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Discretization of the weak form}
+  \frametitle{Discretization of the weak form (part 1)}
   
   \begin{multicols}{2}
     \noindent
@@ -4075,7 +4084,7 @@
       \centering
       \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/DiscretizationWeakFormNodes}
     \end{figure}
-    with $N$ elements and $N+1$ nodes
+    with $Z$ elements and $Z+1$ nodes
     
     \vspace{0.7em}
     we discretize the displacements by
@@ -4130,7 +4139,253 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{}
+  \frametitle{Discretization of the weak form (part 2)}
 
+  recall the nonlinear weak form
+  \begin{displaymath}
+    G_{\text{stat}} = 
+      \int_0^L
+        \begin{bmatrix}
+          \underline{n} \\ \underline{m}
+        \end{bmatrix}
+        \cdot \doubleunderline{E}^{\mathrm{T}}(s) \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s \:
+      - \int_0^L
+        \begin{bmatrix}
+          \underline{\hat{n}} \\ \underline{\hat{m}}
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix}
+      \: \dif s \:
+      - \begin{bmatrix}
+          \underline{n}_p \\ \underline{m}_p
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+      \sVert[3]_0^L
+  \end{displaymath}
   
+  \vspace{1em}
+  we plug in the discrete approximations of the test functions
+  \begin{displaymath}
+    \delta \underline{r}(s) \approx \delta \underline{r}_i \cdot N_i(s)
+    \quad \text{ and } \quad
+    \delta \underline{\Theta}(s) \approx \delta \underline{\Theta}_i \cdot N_i(s)
+  \end{displaymath}
+  
+  \begin{itemize}
+    \item $\underline{n}(s)$, $\underline{m}(s)$ depend on the current state $\bigl( \underline{r}, \, \underline{\Theta} \bigr)$
+    \item then we work out the next part ...
+      \begin{displaymath}
+        \doubleunderline{E}^{\mathrm{T}}(s) \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix} =
+        \begin{bmatrix}
+          \doubleunderline{I} \, \od{}{s} & [ \underline{r}^{\prime}(s) ]_{\times} \\
+          \doubleunderline{0}             & \doubleunderline{I} \, \od{}{s}
+        \end{bmatrix} \cdot
+        \begin{bmatrix}
+          \delta \underline{r} \\ \delta \underline{\Theta}
+        \end{bmatrix} =
+        \begin{bmatrix}
+          \delta \underline{r}^{\prime} + \underline{r}^{\prime} \times \delta \underline{\Theta} \\
+          \delta \underline{\Theta}^{\prime}
+        \end{bmatrix} \approx
+      \end{displaymath}
+      \begin{displaymath}
+        \approx
+        \begin{bmatrix}
+          \delta \underline{r}_i \cdot N_i^{\prime}(s) + \underline{r}^{\prime} \times \left( N_i(s) \cdot \delta \underline{\Theta}_i \right) \\
+          \delta \underline{\Theta}_i \cdot N_i^{\prime}(s)
+        \end{bmatrix} =
+        \underbrace{
+        \begin{bmatrix}
+          N_i^{\prime}(s) \, \doubleunderline{I}  & N_i(s) \, [\underline{r}^{\prime}(s)]_{\times} \\
+          \doubleunderline{0}                     & N_i^{\prime} \, \doubleunderline{I}
+        \end{bmatrix} }_{=: \doubleunderline{E}_i^{\mathrm{T}}(s)} \cdot
+        \begin{bmatrix}
+          \delta \underline{r}_i \\
+          \delta \underline{\Theta}_i
+        \end{bmatrix}
+      \end{displaymath}
+    note that $\doubleunderline{E}_i^{\mathrm{T}}$ is a regular matrix instead of being an operator written in matrix form
+  \end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the weak form (part 3)}
+  
+  \begin{itemize}
+    \item the term for the distributed forces is straightforward: \newline
+       we just dot the forces with the approximated test functions
+    \item the boundary term can be simplified: e.g. at $s=L$ we have
+      \begin{displaymath}
+        \delta \underline{r}(L) \approx N_i(L) \cdot \delta \underline{r}_i = N_Z(L) \cdot \delta \underline{r}_Z = \delta \underline{r}_Z
+      \end{displaymath}
+  \end{itemize}
+
+  we obtain $G_{\text{stat}}^h \bigl( \underline{r}, \, \underline{\Theta} \, ; \, \delta \underline{r}, \, \delta \underline{\Theta} \bigr) =$
+  \begin{displaymath}
+    \int_0^L
+        \begin{bmatrix}
+          \underline{n} \\ \underline{m}
+        \end{bmatrix}
+        \cdot \doubleunderline{E}_i^{\mathrm{T}} \cdot
+        \begin{bmatrix}
+          \delta \underline{r}_i \\ \delta \underline{\Theta}_i
+        \end{bmatrix}
+      \: \dif s \:
+      - \int_0^L
+        \begin{bmatrix}
+          \underline{\hat{n}} \\ \underline{\hat{m}}
+        \end{bmatrix} \cdot N_i \cdot
+        \begin{bmatrix}
+          \delta \underline{r}_i \\ \delta \underline{\Theta}_i
+        \end{bmatrix}
+      \: \dif s \:
+      - \begin{bmatrix}
+          \underline{n}_p(L) \\ \underline{m}_p(L)
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+          \delta \underline{r}_Z \\ \delta \underline{\Theta}_Z
+      \end{bmatrix}
+      + \begin{bmatrix}
+          \underline{n}_p(0) \\ \underline{m}_p(0)
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+          \delta \underline{r}_0 \\ \delta \underline{\Theta}_0
+      \end{bmatrix}
+  \end{displaymath}
+  
+  \begin{multicols}{2}
+    \noindent
+    for a cantilever problem
+    \begin{figure}
+      \centering
+      \includegraphics[width=11cm, keepaspectratio=true]{sections/cosserat_rods/images/SimpleCanitleverExample}
+    \end{figure}
+    
+    we have
+    \begin{itemize}
+      \item $\underline{n}_p(L) = P \cdot \underline{e}_1$ and $\underline{m}_p(L) = 0$
+      \item and on the clamped end the boundary term vanishes since $\delta \underline{r}_0 = \delta \underline{\Theta}_0 = 0$ (admissibility)
+    \end{itemize} 
+  \end{multicols}
+  
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the weak form (part 4)}
+
+  we can rewrite the discretized weak form using a global residual vector $\underline{R}$
+  \begin{displaymath}
+    G_{\text{stat}}^h \bigl( \underline{r}, \, \underline{\Theta} \, ; \, \delta \underline{r}, \, \delta \underline{\Theta} \bigr) =
+    \underbrace{
+    \begin{bmatrix}
+      \begin{bmatrix}
+        \underline{R}_0 \\
+        \null 
+      \end{bmatrix}
+      \\ \\
+      \begin{bmatrix}
+        \underline{R}_1 \\
+        \null
+      \end{bmatrix}
+      \\
+      \vdots
+      \\
+      \begin{bmatrix}
+        \underline{R}_Z \\
+        \null
+      \end{bmatrix}
+    \end{bmatrix}
+    }_{=: \underline{R}}
+    \cdot
+    \underbrace{
+    \begin{bmatrix}
+      \begin{bmatrix}
+        \delta \underline{r}_0 \\
+        \delta \underline{\Theta}_0
+      \end{bmatrix}
+      \\ \\
+      \begin{bmatrix}
+        \delta \underline{r}_1 \\
+        \delta \underline{\Theta}_1
+      \end{bmatrix}
+      \\
+      \vdots
+      \\
+      \begin{bmatrix}
+        \delta \underline{r}_Z \\
+        \delta \underline{\Theta}_Z
+      \end{bmatrix}
+    \end{bmatrix}
+    }_{=: \underline{\delta}}
+  \end{displaymath}
+  
+  with $Z+1$ blocks / $6$ dimensional subvectors of $\underline{R}$ defined as
+  \begin{displaymath}
+    \underline{R}_i =
+    \int_0^L
+      \doubleunderline{E}_i(s) \cdot
+      \begin{bmatrix}
+        \underline{n}(s) \\ \underline{m}(s)
+      \end{bmatrix}
+    \: \dif s \:
+    - \int_0^L
+      N_i(s)
+      \begin{bmatrix}
+        \underline{\hat{n}}(s) \\ \underline{\hat{m}}(s)
+      \end{bmatrix}
+    \: \dif s \:
+  \end{displaymath}
+  
+  the boundary terms are added to $\underline{R}_0$ and $\underline{R}_Z$
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the weak form (part 5)}
+
+  \textbf{assembly of the residual vector}
+
+  for each of the $Z+1$ subvectors we integrate from $s=0$ to $s=L$ \newline
+  the integration domain can be divided into the $Z$ elements
+  \begin{displaymath}
+    \underline{R}_i =
+    \sum_{e=0}^{Z}
+    \Biggl(
+    \int_{s_{e-1}}^{s_e}
+      \doubleunderline{E}_i(s) \cdot
+      \begin{bmatrix}
+        \underline{n}(s) \\ \underline{m}(s)
+      \end{bmatrix}
+    \: \dif s \:
+    - \int_{s_{e-1}}^{s_e}
+      N_i(s)
+      \begin{bmatrix}
+        \underline{\hat{n}}(s) \\ \underline{\hat{m}}(s)
+      \end{bmatrix}
+    \: \dif s \:
+    \Biggr)
+  \end{displaymath}
+
+  now we can exploit the compactness of the shape functions
+  
+  \vspace{1em}
+  $\Delta \underline{r}(s) \approx \Delta \underline{r}_i \cdot N_i(s)$, 
+  $\Delta \underline{\Theta}(s) \approx \Delta \underline{\Theta}_i \cdot N_i(s)$
 \end{frame}
