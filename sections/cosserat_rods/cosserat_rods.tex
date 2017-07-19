@@ -4064,7 +4064,7 @@
     \item in first iteration guess initial $\underline{r}(s)$ and $\underline{\Theta}(s)$
     \item linearize the weak form about $\underline{r}(s)$ and $\underline{\Theta}(s)$
     \item obtain $\Delta \underline{r}(s)$ and $\Delta \underline{\Theta}(s)$ by solving the linearized problem 
-    \item update: $\underline{r}(s) \leftarrow \underline{r}(s) + \Delta \underline{r}(s)$ and $\underline{\Theta}(s) \leftarrow \dots$ (a bit tricky) %TODO correct?
+    \item update: $\underline{r}(s) \leftarrow \underline{r}(s) + \Delta \underline{r}(s)$ and $\underline{\Theta}(s) \leftarrow \dots$ (a bit more tricky) %TODO better?/correct?
     \item check if updated $\underline{r}(s)$ and $\underline{\Theta}(s)$ solve the nonlinear problem \newline with a small enough error \: (an error bound needs to be defined)
     \item if the error is too large then reiterate by linearizing about the updated $\underline{r}(s)$ and $\underline{\Theta}(s)$ ...
   \end{itemize}
@@ -4114,7 +4114,7 @@
       \end{cases}
     \end{displaymath}
     
-    \vspace{1em}
+    \vspace{0.6em}
     example with linear shape functions:
     \begin{figure}
       \centering
@@ -4179,7 +4179,7 @@
   \end{displaymath}
   
   \begin{itemize}
-    \item $\underline{n}(s)$, $\underline{m}(s)$ depend on the current state $\bigl( \underline{r}, \, \underline{\Theta} \bigr)$
+    \item we take notice that $\underline{n}(s)$, $\underline{m}(s)$ depend on the current state $\bigl( \underline{r}, \, \underline{\Theta} \bigr)$
     \item then we work out the next part ...
       \begin{displaymath}
         \doubleunderline{E}^{\mathrm{T}}(s) \cdot
@@ -4206,8 +4206,8 @@
         \end{bmatrix} =
         \underbrace{
         \begin{bmatrix}
-          N_i^{\prime}(s) \, \doubleunderline{I}  & N_i(s) \, [\underline{r}^{\prime}(s)]_{\times} \\
-          \doubleunderline{0}                     & N_i^{\prime} \, \doubleunderline{I}
+          N_i^{\prime}(s) \cdot \doubleunderline{I}  & N_i(s) \cdot [\underline{r}^{\prime}(s)]_{\times} \\
+          \doubleunderline{0}                     & N_i^{\prime} \cdot \doubleunderline{I}
         \end{bmatrix} }_{=: \doubleunderline{E}_i^{\mathrm{T}}(s)} \cdot
         \begin{bmatrix}
           \delta \underline{r}_i \\
@@ -4226,12 +4226,11 @@
   \begin{itemize}
     \item the term for the distributed forces is straightforward: \newline
        we just dot the forces with the approximated test functions
-    \item the boundary term can be simplified: e.g. at $s=L$ we have
-      \begin{displaymath}
-        \delta \underline{r}(L) \approx N_i(L) \cdot \delta \underline{r}_i = N_Z(L) \cdot \delta \underline{r}_Z = \delta \underline{r}_Z
-      \end{displaymath}
+    \item the boundary term can be simplified: e.g. at $s=L$ we have \newline
+      $\delta \underline{r}(L) \approx N_i(L) \cdot \delta \underline{r}_i = N_Z(L) \cdot \delta \underline{r}_Z = \delta \underline{r}_Z$
   \end{itemize}
-
+  
+  \vspace{0.5em}
   we obtain $G_{\text{stat}}^h \bigl( \underline{r}, \, \underline{\Theta} \, ; \, \delta \underline{r}, \, \delta \underline{\Theta} \bigr) =$
   \begin{displaymath}
     \int_0^L
@@ -4265,6 +4264,7 @@
       \end{bmatrix}
   \end{displaymath}
   
+  \vspace{0.5em}
   \begin{multicols}{2}
     \noindent
     for a cantilever problem
@@ -4288,7 +4288,7 @@
 \begin{frame}
   \frametitle{Discretization of the weak form (part 4)}
 
-  we can rewrite the discretized weak form using a global residual vector $\underline{R}$
+  we can rewrite the discretized weak form using a global \textbf{residual vector} $\underline{R}$
   \begin{displaymath}
     G_{\text{stat}}^h \bigl( \underline{r}, \, \underline{\Theta} \, ; \, \delta \underline{r}, \, \delta \underline{\Theta} \bigr) =
     \underbrace{
@@ -4332,6 +4332,7 @@
       \end{bmatrix}
     \end{bmatrix}
     }_{=: \underline{\delta}}
+    \label{eq:deltaVector}
   \end{displaymath}
   
   with $Z+1$ blocks / $6$ dimensional subvectors of $\underline{R}$ defined as
@@ -4358,15 +4359,13 @@
 
 %-------------------------------------------------------------------------------
 \begin{frame}
-  \frametitle{Discretization of the weak form (part 5)}
-
-  \textbf{assembly of the residual vector}
+  \frametitle{Assembly of the residual vector (part 1)}
 
   for each of the $Z+1$ subvectors we integrate from $s=0$ to $s=L$ \newline
   the integration domain can be divided into the $Z$ elements
   \begin{displaymath}
     \underline{R}_i =
-    \sum_{e=0}^{Z}
+    \sum_{e=1}^{Z}
     \Biggl(
     \int_{s_{e-1}}^{s_e}
       \doubleunderline{E}_i(s) \cdot
@@ -4383,9 +4382,369 @@
     \Biggr)
   \end{displaymath}
 
-  now we can exploit the compactness of the shape functions
+  \vspace{0.5em}
+  now we benefit from the compact support of the shape functions, \newline
+  i.e. a shape function can only be non-zero within a bounded region
+  \begin{figure}
+    \centering
+    \includegraphics[width=14cm, keepaspectratio=true]{sections/cosserat_rods/images/DiscretizationWeakFormShapeFunction}
+  \end{figure}
+  in the 1D case every element has two adjacent nodes \newline
+  $\rightarrow$ there are two shape functions that can contribute to each integral
+
+  \vspace{0.5em}
+  example: for element $e=3$ only $N_{e-1}=N_2$ and $N_e=N_3$ need to be considered
+\end{frame}
+
   
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Assembly of the residual vector (part 2)}
+  
+  we can assemble $\underline{R}$ with a for-loop over the elements
+  \begin{flalign*}
+    \text{for }& e = 1 \colon Z & \\
+       &\underline{R}_{e-1} \mathrel{+}=
+         \int_{s_{e-2}}^{s_{e-1}}
+           \doubleunderline{E}_{e-1}(s) \cdot
+           \begin{bmatrix}
+             \underline{n}(s) \\ \underline{m}(s)
+           \end{bmatrix}
+         \: \dif s \:
+         - \int_{s_{e-2}}^{s_{e-1}}
+           N_{e-1}(s)
+           \begin{bmatrix}
+             \underline{\hat{n}}(s) \\ \underline{\hat{m}}(s)
+           \end{bmatrix}
+         \: \dif s \\
+       &\underline{R}_{e}\quad \mathrel{+}=
+         \int_{s_{e-1}}^{s_{e}} \:\:
+            \doubleunderline{E}_{e}(s) \cdot \quad
+            \begin{bmatrix}
+              \underline{n}(s) \\ \underline{m}(s)
+            \end{bmatrix}
+          \: \dif s \:
+          - \int_{s_{e-1}}^{s_{e}} \:\:
+            N_{e}(s) \quad\,
+            \begin{bmatrix}
+              \underline{\hat{n}}(s) \\ \underline{\hat{m}}(s)
+            \end{bmatrix}
+          \: \dif s \\
+    \text{end}&
+  \end{flalign*}
+
+  \vspace{0.5em}
+  remarks:
+  \begin{itemize}
+    \item after the loop, contributions of the boundary terms at the first and last node are added
+    \item the integration within the elements is done with a numerical integration scheme 
+  \end{itemize}
+
+\end{frame}
+  
+%TODO questions:
+% when do I integrate shape function N_{e-1} from s_{e-1} to s_e, 
+%   i.e. the falling slopes of the hat functions
+
+% does the first element e=1 need special treatment,
+%   i.e. s_{e-2}=s_{-1} does not exist
+
+% anyhow this slide should follow more clearly from the last one!
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the linearized weak form (part 1)}
+
+  recall the increment $DG_{\text{stat}}$ of $G_{\text{stat}}$ that is linear in $\Delta \underline{r}$, $\Delta \underline{\Theta}$
+  \begin{displaymath}
+    DG_{\text{stat}} =
+    \int_0^L
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \:
+    + \int_0^L
+      \doubleunderline{\pi} \cdot
+      \doubleunderline{H} \cdot
+      \doubleunderline{\pi}^{\mathrm{T}} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r} \\
+        \Delta \underline{\Theta}
+      \end{bmatrix} \cdot
+      \doubleunderline{E}^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r} \\ \delta \underline{\Theta}
+      \end{bmatrix}
+    \: \dif s \: +
+  \end{displaymath}
+  \begin{displaymath}
+   + \int_0^L
+      [ \underline{n} ]_{\times} \cdot \Delta \underline{r}^{\prime} \cdot \delta \underline{\Theta}
+    \: \dif s
+   + \dots (\text{first order terms of distributed load and boundary terms})
+  \end{displaymath}
+
   \vspace{1em}
-  $\Delta \underline{r}(s) \approx \Delta \underline{r}_i \cdot N_i(s)$, 
-  $\Delta \underline{\Theta}(s) \approx \Delta \underline{\Theta}_i \cdot N_i(s)$
+  remarks regarding the missing terms:
+  \begin{itemize}
+    \item in the case that distributed loads act independently of the configuration we have $\underline{\hat{n}}_{\epsilon} = \underline{\hat{n}}$ and therefore $\od{\underline{\hat{n}}_{\epsilon}}{\epsilon} = 0$, $\rightarrow$ no contribution to $DG_{\text{stat}}$
+    \item likewise for the cantilever with $\underline{n}_p(L) = P \cdot \underline{e}_1$ there is no contribution to $DG_{\text{stat}}$
+    \item on the other hand, for a follower load with $\underline{n}_p(L) = P \cdot \underline{d}_1 = P \cdot \doubleunderline{R} \cdot \underline{e}_1$ there will be a contribution to $DG_{\text{stat}}$
+    \item for now we will forget about these extra contributions
+  \end{itemize}
+  
+  
+  
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the linearized weak form (part 2)}
+
+  we plug the discrete approximations of the test functions into $DG_{\text{stat}}$
+  \begin{displaymath}
+    \delta \underline{r}(s) \approx \delta \underline{r}_i \cdot N_i(s)
+    \quad \text{ and } \quad
+    \delta \underline{\Theta}(s) \approx \delta \underline{\Theta}_i \cdot N_i(s)
+  \end{displaymath}
+  and also the discrete approximations of the increments
+  \begin{displaymath}
+    \Delta \underline{r}(s) \approx \Delta \underline{r}_j \cdot N_j(s)
+    \quad \text{ and } \quad
+    \Delta \underline{\Theta}(s) \approx \Delta \underline{\Theta}_j \cdot N_j(s)
+  \end{displaymath}
+  
+  we obtain $DG_{\text{stat}}^h \bigl( \Delta \underline{r}_j , \, \Delta \underline{\Theta}_j \, ; \,\underline{r} , \, \underline{\Theta} \, ; \, \delta \underline{r}_i , \, \delta \underline{\Theta}_i \bigr) =$
+  \begin{displaymath}
+    \int_0^L
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} \cdot N_j \cdot
+      \begin{bmatrix}
+        \Delta \underline{r}_j \\
+        \Delta \underline{\Theta}_j
+      \end{bmatrix} \cdot
+      \doubleunderline{E}_i^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r}_i \\ \delta \underline{\Theta}_i
+      \end{bmatrix}
+    \: \dif s \:
+    + \int_0^L
+      \doubleunderline{\pi} \cdot
+      \doubleunderline{H} \cdot
+      \doubleunderline{\pi}^{\mathrm{T}} \cdot
+      \doubleunderline{E}_j^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \Delta \underline{r}_j \\
+        \Delta \underline{\Theta}_j
+      \end{bmatrix} \cdot
+      \doubleunderline{E}_i^{\mathrm{T}} \cdot
+      \begin{bmatrix}
+        \delta \underline{r}_i \\ \delta \underline{\Theta}_i
+      \end{bmatrix}
+    \: \dif s \: +
+  \end{displaymath}
+  \begin{displaymath}
+   + \int_0^L
+      N_i \cdot N_j^{\prime} \cdot \bigl( \underline{n} \times \Delta \underline{r}_j \bigr) \cdot \delta \underline{\Theta}_i
+    \: \dif s
+   + \dots (\text{first order terms of distributed load and boundary terms})
+  \end{displaymath}
+  
+  %TODO add braces (here and elsewhere) so matrix product is computed before dot product?
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Discretization of the linearized weak form (part 3)}
+
+  we want to rewrite $DG_{\text{stat}}^h$ in the form
+  \begin{displaymath}
+    DG_{\text{stat}}^h \bigl( \underline{\Delta} \, ; \, \underline{r} , \, \underline{\Theta} \, ; \, \underline{\delta} \bigr) =
+    \bigl( \doubleunderline{K} \cdot \underline{\Delta} \bigr) \cdot \underline{\delta} =
+    \bigl( \doubleunderline{K}_{ij} \cdot \underline{\Delta}_j \bigr) \cdot \underline{\delta}_i =
+    \Biggl( \doubleunderline{K}_{ij} \cdot
+    \begin{bmatrix}
+      \Delta \underline{r}_j \\
+      \Delta \underline{\Theta}_j
+    \end{bmatrix}
+    \Biggr) \cdot 
+    \begin{bmatrix}
+      \delta \underline{r}_i \\
+      \delta \underline{\Theta}_i
+    \end{bmatrix}    
+  \end{displaymath}
+  \begin{itemize}
+    \item where $\doubleunderline{K}$ is the stiffness matrix and $\doubleunderline{K}_{ij}$ refers to the $6 \times 6$ submatrices of $\doubleunderline{K}$
+    \item $\underline{\Delta}$ and $\underline{\delta}$ are the vectors that contain the discrete approximations of the increments and test functions, respectively
+    \item note that $\underline{\delta}$ was already defined (cf. page \autoref{eq:deltaVector}) ; $\underline{\Delta}$ is of the same structure
+  \end{itemize}
+  
+  \vspace{0.3em}
+  we get 
+  \begin{displaymath}
+    \doubleunderline{K}_{ij} =
+    \int_0^L
+    \underbrace{
+      \doubleunderline{E}_i \cdot
+      \doubleunderline{\pi} \cdot
+      \doubleunderline{H} \cdot
+      \doubleunderline{\pi}^{\mathrm{T}} \cdot
+      \doubleunderline{E}_j^{\mathrm{T}}
+    }_{\text{material stiffness matrix}}
+    \: \dif s \: +
+    \int_0^L
+    \underbrace{
+      N_j \cdot \doubleunderline{E}_i \cdot
+      \begin{bmatrix}
+        \doubleunderline{0} & - [ \underline{n} ]_{\times} \\
+        \doubleunderline{0} & - [ \underline{m} ]_{\times}
+      \end{bmatrix} +
+      N_i \cdot N_j^{\prime} \cdot 
+      \begin{bmatrix}
+        \doubleunderline{0} & \doubleunderline{0} \\
+        [\underline{n} ]_{\times} & \doubleunderline{0}
+      \end{bmatrix}
+    }_{\text{geometric stiffness matrix}}
+    \: \dif s 
+  \end{displaymath}
+  
+  \begin{itemize}
+    \item the material stiffness matrix is symmetric
+    \item the geometric stiffness matrix is not symmetric ; but it becomes symmetric for the configuration that corresponds to static equilibrium (cf. Simo \& Vu-Quoc 1986)
+  \end{itemize}
+\end{frame}
+% TODO should the \underbrace also span around the integral?
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Iteratively solving the nonlinear problem (revisited, part 1)}
+
+  recall the truncated Taylor expansion of the weak form about the configuration $\bigl( \underline{r}, \, \underline{\Theta} \bigr)$
+  \begin{displaymath}
+    \underbrace{
+    G_{\text{stat}} \biggl( \underline{r} + \Delta \underline{r} , \, \exp \bigl( \Delta \doubleunderline{\Theta} \bigr) \cdot \exp \bigl( \doubleunderline{\Theta} \bigr) \, ; \, \delta \underline{r}, \, \delta \underline{\Theta} \biggr)
+    }_{\text{nonlinear weak form } \overset{!}{=}0 \text{ but intractable problem}}
+    \approx
+  \end{displaymath}
+  \begin{displaymath}
+    \approx
+    \underbrace{
+    G_{\text{stat}} \biggl( \underline{r} , \, \exp \bigl( \doubleunderline{\Theta} \bigr) \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \biggr) +
+    DG_{\text{stat}} \biggl( \Delta \underline{r} , \, \Delta \underline{\Theta} \, ; \,  \underline{r} , \, \exp \bigl( \doubleunderline{\Theta} \bigr) \, ; \, \delta \underline{r} , \, \delta \underline{\Theta} \biggr)
+    }_{\text{linearized weak form}}
+    \approx
+  \end{displaymath}
+  \begin{displaymath}
+    \approx
+    \underbrace{
+    \underline{R} \cdot \underline{\delta} + \bigl( \doubleunderline{K} \cdot \underline{\Delta} \bigr) \cdot \underline{\delta} =
+    \bigl( \underline{R} + \doubleunderline{K} \cdot \underline{\Delta} \bigr) \cdot \underline{\delta}
+    }_{\text{discretized linearized weak form}}
+    \overset{!}{=} 0 \: \, \forall \underline{\delta} \, \text{ (admissible)}
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  \begin{displaymath}
+    \Rightarrow \underline{R} + \doubleunderline{K} \cdot \underline{\Delta} = \underline{0}
+    \quad
+    \Rightarrow \underline{\Delta} = - \doubleunderline{K}^{-1} \cdot \underline{R}
+  \end{displaymath}
+
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Iteratively solving the nonlinear problem (revisited, part 2)}
+
+  \begin{itemize}
+    \item by solving the linearized (about some configuration) and discrete version of the underlying nonlinear problem we obtain an updated configuration (via $\underline{\Delta}$), that is a better solution of the nonlinear problem than the configuration we started with
+    \item the updated configuration is given by
+      \begin{displaymath}
+        \underline{r} \leftarrow \underline{r} + \Delta{r}
+      \end{displaymath}
+      \begin{displaymath}
+        \underline{\Theta} \leftarrow \Theta \Bigl( \exp \bigl( \Delta \doubleunderline{\Theta} \bigr) \cdot \exp \bigl( \doubleunderline{\Theta} \bigr) \Bigr)
+      \end{displaymath}
+      where $\Theta \Bigl( . \Bigr)$ means extraction of $\underline{\Theta}$ from $\doubleunderline{R}$
+      % TODO how is the extraction done? if there is a short description please add it.
+    \item a solution/configuration needs to be guessed to start the Newton-Rhapson iteration
+    \item this guess converges to the true solution with each iteration
+    \item we stop to iterate if the solution is close enough to $0$ \newline
+      (theoretical limit: machine precision)
+  \end{itemize}
+  
+  
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Iteratively solving the nonlinear problem (revisited, part 3)}
+
+  \begin{itemize}
+    \item to obtain $\doubleunderline{K}_{ij}$ in each iteration we use numerical integration
+    \item therefore we need the strains at the quadrature points \newline
+      but displacements are given at the nodes
+    \item within element $e$ we have
+      \begin{displaymath}
+        \underline{r}(s) = \underline{r}_i \cdot N_i(s) = \underline{r}_{e-1} \cdot N_{e-1}(s) + \underline{r}_e \cdot N_e(s)
+      \end{displaymath}
+      \begin{displaymath}
+        \underline{\Theta}(s) = \underline{\Theta}_i \cdot N_i(s) = \underline{\Theta}_{e-1} \cdot N_{e-1}(s) + \underline{\Theta}_e \cdot N_e(s)
+      \end{displaymath}
+    % TODO explain relationship to isoparametric concept?
+    \item from this we compute the updated strains
+      \begin{displaymath}
+        \underline{v}_{\text{new}} = \doubleunderline{R}_{\text{new}}^{\mathrm{T}} \cdot \underline{r}_{\text{new}}^{\prime}
+        \quad \text{ and } \quad
+        \underline{k}_{\text{new}} = \axial \bigl( \doubleunderline{R}_{\text{new}}^{\mathrm{T}} \cdot \doubleunderline{R}_{\text{new}}^{\prime} \bigr)
+      \end{displaymath}
+      but it is not trivial to obtain $\doubleunderline{R}_{\text{new}}^{\prime}$ at the quadrature points \newline
+      because an interpolation like $\xcancel{\doubleunderline{R} = \doubleunderline{R}_i \cdot N_i}$ is nonsense ;
+      luckily, Simo has worked out an update formula:
+      \begin{displaymath}
+        \underline{k}_{\text{new}} = \underline{k}_{\text{old}} + \doubleunderline{R}_{\text{new}}^{\prime} \cdot \underline{\beta}
+      \end{displaymath}
+      with $\underline{\beta} = \dots$ (next slide)
+  \end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Iteratively solving the nonlinear problem (revisited, part 4)}
+  
+  \begin{displaymath}
+    \underline{\beta} =
+    \frac{\sin \norm{\Delta \underline{\Theta}}}{\norm{\Delta \underline{\Theta}}} \cdot \Delta \underline{\Theta}^{\prime} +
+    \biggl( 1 - \frac{\sin \norm{\Delta \underline{\Theta}}}{\norm{\Delta \underline{\Theta}}} \biggr) \cdot \biggl( \frac{\Delta \underline{\Theta} \cdot \Delta \underline{\Theta}^{\prime}}{\norm{\Delta \underline{\Theta}}} \biggr) \cdot \frac{\Delta \underline{\Theta}}{\norm{\Delta \underline{\Theta}}} +
+  \end{displaymath}
+  \begin{displaymath}
+    + \frac{1}{2} \cdot \biggl( \frac{\sin \bigl( \frac{1}{2} \cdot \norm{\Delta \underline{\Theta}} \bigr)}{\frac{1}{2} \cdot \norm{\Delta \underline{\Theta}}} \biggr)^2 \cdot \Delta \underline{\Theta} \times \Delta \underline{\Theta}^{\prime}
+  \end{displaymath}
+  
+  \vspace{0.3em}
+  where we evaluate $\Delta \underline{\Theta}$ at the quadrature points
+  
+  \vspace{0.5em}
+  for $\Delta \underline{\Theta} \approx \underline{0}$ we have $\underline{\beta} \approx \Delta \underline{\Theta}^{\prime}$
+
 \end{frame}
